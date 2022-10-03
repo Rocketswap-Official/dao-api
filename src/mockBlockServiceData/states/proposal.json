@@ -1,0 +1,39 @@
+{
+    "con_lite_dao": {
+        "Proposals": {
+            "1": {
+                "title": "hello world!", 
+                "description":"describe the world, before it's too late :(",
+                "choices": [
+                    "choice one is the choicest", 
+                    "choice two is the choosiest", 
+                    "choice three is for the thriceiest"
+                ],
+                "date_decisions": "2022-09-9T11:53:00.000Z",
+                "state": "open"
+            },
+            "2": {
+                "title": "hello world!", 
+                "description":"describe the world, before it's too late :(",
+                "choices": [
+                    "choice one is the choicest", 
+                    "choice two is the choosiest", 
+                    "choice three is for the thriceiest"
+                ],
+                "date_decisions": "2022-09-9T11:53:00.000Z",
+                "state": "closed"
+            },
+            "3": {
+                "title": "hello world!", 
+                "description":"describe the world, before it's too late :(",
+                "choices": [
+                    "choice one is the choicest", 
+                    "choice two is the choosiest", 
+                    "choice three is for the thriceiest"
+                ],
+                "date_decisions": "2022-09-9T11:53:00.000Z",
+                "state": "closed"
+            }
+        }
+    }
+}
