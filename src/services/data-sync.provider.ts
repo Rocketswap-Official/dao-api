@@ -2,8 +2,6 @@ import { Injectable, OnModuleInit } from "@nestjs/common";
 import { DataSource } from "typeorm";
 import { ProposalEntity } from "src/entities/proposal.entity";
 import { UserEntity } from "src/entities/user.entity";
-//import { UserVoteEntity } from "src/entities/userVote.entity";
-//import { VerifiedEntity } from "src/entities/verified.entity";
 import { config } from "../config";
 import { getLastProcessedBlock, startTrimLastBlocksTask } from "../entities/last-block.entity";
 import { getLatestSyncedBlock, fillBlocksSinceSync, getAllVariableStates, getContractMeta } from "../utils/blockservice-utils";
@@ -40,7 +38,6 @@ export class DataSyncProvider implements OnModuleInit{
 		const last_block_saved_db = await getLastProcessedBlock(); //from app storage
 		const latest_synced_block_bs = await getLatestSyncedBlock(); //from blockservice
 		const start_sync_block = last_block_saved_db || latest_synced_block_bs;
-		//const start_sync_block = last_block_saved_db;
 
 		await fillBlocksSinceSync(start_sync_block, this.parseBlock);
 
@@ -84,7 +81,7 @@ export class DataSyncProvider implements OnModuleInit{
 				}
 			}
 			//console.log(proposals)
-			if(proposals !== undefined && Object.keys(proposals).length > 0){
+			if(proposals && Object.keys(proposals).length > 0){
 
 				const keyArray = proposals[0].split(":")
 				const proposalObj = proposals[1]
@@ -103,34 +100,35 @@ export class DataSyncProvider implements OnModuleInit{
 					proposal_entity.state = proposalObj.state;
 					proposal_entity.results = results?results:{};
 					await proposal_entity.save();
-					console.log("new block proposal saved")
+
+					log.log("new block: proposal saved")
 					return
 				}
 				if(proposalObj.state !== proposal_entity.state){
 					proposal_entity.state = proposalObj.state;
-					await proposal_entity.save();
 				}
 
 				if(proposalObj.results !== proposal_entity.results){
 					proposal_entity.results = proposalObj.results;
-					await proposal_entity.save();
 				}
+
+				await proposal_entity.save();
 			
 			}
 
-			if(ballotCount !== undefined &&Object.keys(ballotCount).length > 0){
+			if(ballotCount &&Object.keys(ballotCount).length > 0){
 				const keyArray = ballotCount[0].split(":")
 				const ballotCountValue = ballotCount[1]
 				const proposal_id = parseInt(keyArray[1])
 				const ballot_counts = parseInt(ballotCountValue)
 
 				const proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});	
-				// what if proposal entity is not found?
 				proposal_entity.ballot_count = ballot_counts;
 				await proposal_entity.save();
+				log.log("new block: proposal ballot count updated")
 			}
 
-			if(ballots !== undefined && Object.keys(ballots).length > 0){
+			if(ballots && Object.keys(ballots).length > 0){
 				let proposal_id;
 				let vk;
 				let ballot_id;
@@ -144,7 +142,6 @@ export class DataSyncProvider implements OnModuleInit{
 
 					if(keyArray[keyArray.length - 2] === "backwards_index"){
 						vk = keyArray[keyArray.length-1];
-						//console.log(`new-block: ${vk}`)
 						ballot_id = parseInt(ballotsObjValue);
 					}
 					if(keyArray[keyArray.length - 1] === "choice"){
@@ -168,6 +165,7 @@ export class DataSyncProvider implements OnModuleInit{
 						user_entity.vk = vk;
 						user_entity.ballot_idx = [ballot_id]
 						user_entity.choice_idx = [choice_idx];
+						user_entity.proposals = [proposal_id];
 					}
 
 					if(user_entity.ballot_idx !== null && user_entity.ballot_idx.length >= 0){
@@ -176,6 +174,9 @@ export class DataSyncProvider implements OnModuleInit{
 					if(user_entity.choice_idx !== null && user_entity.choice_idx.length >= 0){
 						user_entity.choice_idx.push(choice_idx);
 					}
+					if(user_entity.proposals !== null && user_entity.proposals.length >= 0){
+						user_entity.proposals.push(proposal_id);
+					}
 					
 
 					if(counted || counted === false){
@@ -183,19 +184,21 @@ export class DataSyncProvider implements OnModuleInit{
 							proposal_entity.counted = counted;	
 						}
 					}
-					if(verified  || verified === false){
+					if(verified || verified === false){
 						if(verified !== proposal_entity.verified){
 							proposal_entity.verified = verified;	
 						}
 						
 					}
 					await proposal_entity.save()
+					log.log("new block: proposal processed and verified state updated")
 					await user_entity.save()
+					log.log("new block: user data updated")
 				}
 				
 			}
 
-			if(processedBallots !== undefined && Object.keys(processedBallots).length > 0){
+			if(processedBallots && Object.keys(processedBallots).length > 0){
 				let vk;
 				let weight;
 				
@@ -224,13 +227,14 @@ export class DataSyncProvider implements OnModuleInit{
 						user_entity.vk = vk
 					}
 					if(weight){
-						if(weight !== user_entity.weight ){
+						if(weight !== null && user_entity.weight.length >= 0){
 							user_entity.weight.push(weight);
 						}
 						
 					}
 
 					await user_entity.save()
+					log.log("new block: user weight updated")
 				}
 
 			}		
@@ -296,15 +300,15 @@ export class DataSyncProvider implements OnModuleInit{
 							if(Object.keys(ballots).length > 0){
 								const ballots_proposal_id = ballots[proposal_id]
 			
-								if(ballots_proposal_id !== undefined){
+								if(ballots_proposal_id){
 								
 									const counted = ballots_proposal_id.counted; 
 									const verified = ballots_proposal_id.verified;
-									if(counted!== undefined){
+									if(counted){
 										proposalObj.counted = counted?counted:false;
 										
 									}
-									if(verified !== undefined){
+									if(verified){
 										proposalObj.verified = verified?verified:false;	
 									}
 								}
@@ -312,9 +316,8 @@ export class DataSyncProvider implements OnModuleInit{
 						}
 
 
-						if(proposalObj !== undefined && Object.keys(proposalObj).length > 0){
+						if(proposalObj && Object.keys(proposalObj).length > 0){
 							proposalArray.push(proposalObj);
-							console.log("pushed")
 						}
 						
 					}
@@ -348,10 +351,9 @@ export class DataSyncProvider implements OnModuleInit{
 							if(processedBallots){
 								if(Object.keys(processedBallots).length > 0){
 									
-									if(processedBallots[p] !== undefined){
+									if(processedBallots[p]){
 										
 										const ballot_id = parseInt(Object.keys(processedBallots[p])[0]);
-										//const ballot_id = parseInt(ballot_id_s)
 										counted_weight = processedBallots[p][ballot_id].weight;
 										
 										if(Object.keys(counted_weight).length > 0){
@@ -384,6 +386,7 @@ export class DataSyncProvider implements OnModuleInit{
 								}
 								if(found){
 									await UserEntity.insert(userArray);
+									log.log("saved all current user data")
 									return
 								}	
 								
@@ -404,7 +407,7 @@ export class DataSyncProvider implements OnModuleInit{
 						}
 						
 						
-						if(userObj !== undefined && Object.keys(userObj).length > 0){
+						if(userObj && Object.keys(userObj).length > 0){
 
 							userArray.push(userObj);
 						}
