@@ -5,39 +5,46 @@ import { ProposalService, UserService } from './app.service';
 export class ProposalController {
   constructor(private readonly proposalService: ProposalService){}
 
-  // @Get()
-  // getHello(): string {
-  //   return this.appService.getHello();
-  // }
-
-  //retrieve all proposals
+  //return all proposals
   @Get()
-  getProposals(): object {
+  getProposals(): any {
     return this.proposalService.getProposals();
-    //return 'getProposals'
   }
 
-  // retrieve only proposals of open state
+  // return only proposals with open state
   @Get('open')
   getOpenedProposals(): object {
     return this.proposalService.getOpenProposals();
-    //return 'getOpenedProposals'
   }
 
-  // retrieve only proposals of close state
+  // return only proposals with concluded state
   @Get('concluded')
-  getClosedProposals(): object {
-    return this.proposalService.getCloseProposals();
-    //return 'getClosedProposals'
+  getClosedProposals(): any {
+    return this.proposalService.getConcludedProposals();
   }
 
-  // retrieve a specific proposal in descending order
-  @Get()
-  getLatestProposals(@Query('id') id: number, ): object {
-    return this.proposalService.getProposal(id);
-    //return {limit};
+  @Get('verified')
+  getVerifiedProposals(): any {
+    return this.proposalService.getVerifiedProposals();
+  }
+
+  // return latest proposal
+  @Get('latest')
+  getLatestProposal(): any {
+    return this.proposalService.getLatestProposal();
     
   }
+
+   // return a specific proposal by id
+  @Get(':id')
+  getProposal(@Param() param): any {
+    if(isNaN(param.id) === false){
+      const id = parseInt(param.id)
+      return this.proposalService.getProposal(id);
+    }
+    
+     
+   }
   
 }
 
@@ -47,15 +54,18 @@ export class UserController {
   constructor(private readonly userService: UserService){}
   
   @Get()
-  getUser(@Query('vk') vk: string): object {
-    return this.userService.getUser(vk);
-  }
-
-  @Get()
   getUsers(): object {
     return this.userService.getUsers();
   }
 
+  @Get(':vk')
+  getUser(@Param() param): object {
+    //console.log(vk)
+    return this.userService.getUser(param.vk);
+  }
+
 }
+
+
 
   
