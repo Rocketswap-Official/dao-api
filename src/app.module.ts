@@ -5,10 +5,8 @@ import { DataSyncProvider } from './services/data-sync.provider';
 import { BlockService } from './services/block.service';
 import { ProposalEntity } from './entities/proposal.entity'
 import { UserEntity } from './entities/user.entity';
-import { UserVoteEntity } from './entities/userVote.entity'
 import { LastBlockEntity } from './entities/last-block.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-//import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
