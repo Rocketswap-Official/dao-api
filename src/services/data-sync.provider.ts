@@ -76,11 +76,11 @@ export class DataSyncProvider implements OnModuleInit{
 				if(key.includes(`${this.contract}.Ballots`)){
 					ballots.push([key, value])
 				}
-				if(key.includes(`${this.contract}.processedBallots`)){
+				if(key.includes(`${this.contract}.ProcessedBallots`)){
 					processedBallots.push([key, value])
 				}
 			}
-			//console.log(proposals)
+
 			if(proposals && Object.keys(proposals).length > 0){
 
 				const keyArray = proposals[0].split(":")
@@ -135,6 +135,8 @@ export class DataSyncProvider implements OnModuleInit{
 				let choice_idx;
 				let counted;
 				let verified;
+				let weight;
+
 				for(let b of ballots){
 					const keyArray = b[0].split(":")
 					const ballotsObjValue = b[1]
@@ -156,39 +158,72 @@ export class DataSyncProvider implements OnModuleInit{
 					}	 
 				}
 
+				//console.log(processedBallots)
+				if(processedBallots && Object.keys(processedBallots).length > 0){
+					
+					for(let p of processedBallots){
+						const keyArray = p[0].split(":")
+						const processedBallotsObjValue = p[1]
+	
+						if(keyArray[keyArray.length - 1] === "user_vk"){
+							vk = processedBallotsObjValue;
+							log.log(vk)
+						}
+						if(keyArray[keyArray.length - 1] === "weight"){
+							if(Object.keys(processedBallotsObjValue).length > 0){
+								weight = parseFloat(processedBallotsObjValue.__fixed__);
+							} else{
+								weight = parseInt(processedBallotsObjValue);
+							}
+							
+						}
+								
+					}
+
+				}
+
+
+
 				if(vk){
-					// what if proposal entity is not found?
 					const proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
 					let user_entity = await UserEntity.findOne({where: { vk: vk }});
-					 if(!user_entity){ 
+					if(!user_entity){ 
 					 	user_entity = new UserEntity();
 						user_entity.vk = vk;
 						user_entity.ballot_idx = [ballot_id]
 						user_entity.choice_idx = [choice_idx];
 						user_entity.proposals = [proposal_id];
+						user_entity.weight = [weight];
+
+						if(counted !== undefined && counted === true){	
+							proposal_entity.counted = "true";		
+						}
+						if(verified !== undefined && verified === true){
+							proposal_entity.verified = "true";	
+						}
+
+						await user_entity.save()
+						await proposal_entity.save()
+						return
 					}
 
-					if(user_entity.ballot_idx !== null && user_entity.ballot_idx.length >= 0){
+					if(ballot_id && user_entity.ballot_idx.length >= 0){
 						user_entity.ballot_idx.push(ballot_id);
 					}
-					if(user_entity.choice_idx !== null && user_entity.choice_idx.length >= 0){
+					if(choice_idx && user_entity.choice_idx.length >= 0){
 						user_entity.choice_idx.push(choice_idx);
 					}
-					if(user_entity.proposals !== null && user_entity.proposals.length >= 0){
+					if(proposal_id && user_entity.proposals.length >= 0){
 						user_entity.proposals.push(proposal_id);
 					}
-					
-
-					if(counted || counted === false){
-						if(counted !== proposal_entity.counted){
-							proposal_entity.counted = counted;	
-						}
+					if(counted !== undefined && counted === true){
+						proposal_entity.counted = "true";	
 					}
-					if(verified || verified === false){
-						if(verified !== proposal_entity.verified){
-							proposal_entity.verified = verified;	
-						}
-						
+					if(verified !== undefined && verified === true){
+						proposal_entity.verified = "true";	
+					}
+					if(weight && user_entity.weight.length !== null){
+						user_entity.weight.push(weight);
 					}
 					await proposal_entity.save()
 					log.log("new block: proposal processed and verified state updated")
@@ -198,46 +233,50 @@ export class DataSyncProvider implements OnModuleInit{
 				
 			}
 
-			if(processedBallots && Object.keys(processedBallots).length > 0){
-				let vk;
-				let weight;
+
+
+
+
+			// if(processedBallots && Object.keys(processedBallots).length > 0){
+			// 	let vk;
+			// 	let weight;
 				
-				for(let p of ballots){
-					const keyArray = p[0].split(":")
-					const processedBallotsObjValue = p[1]
+			// 	for(let p of ballots){
+			// 		const keyArray = p[0].split(":")
+			// 		const processedBallotsObjValue = p[1]
 
-					if(keyArray[keyArray.length - 1] === "user_vk"){
-						vk = processedBallotsObjValue;
-					}
-					if(keyArray[keyArray.length - 1] === "weight"){
-						if(Object.keys(processedBallotsObjValue).length > 0){
-							weight = parseFloat(processedBallotsObjValue.__fixed__);
-						} else{
-							weight = parseInt(processedBallotsObjValue);
-						}
+			// 		if(keyArray[keyArray.length - 1] === "user_vk"){
+			// 			vk = processedBallotsObjValue;
+			// 		}
+			// 		if(keyArray[keyArray.length - 1] === "weight"){
+			// 			if(Object.keys(processedBallotsObjValue).length > 0){
+			// 				weight = parseFloat(processedBallotsObjValue.__fixed__);
+			// 			} else{
+			// 				weight = parseInt(processedBallotsObjValue);
+			// 			}
 						
-					}
+			// 		}
 						 
-				}
+			// 	}
 
-				if(vk){
-					let user_entity = await UserEntity.findOne({where: { vk: vk }});
-					if(!user_entity){
-						user_entity = new UserEntity();
-						user_entity.vk = vk
-					}
-					if(weight){
-						if(weight !== null && user_entity.weight.length >= 0){
-							user_entity.weight.push(weight);
-						}
+			// 	if(vk){
+			// 		let user_entity = await UserEntity.findOne({where: { vk: vk }});
+			// 		if(!user_entity){
+			// 			user_entity = new UserEntity();
+			// 			user_entity.vk = vk
+			// 		}
+			// 		if(weight){
+			// 			if(weight !== null && user_entity.weight.length >= 0){
+			// 				user_entity.weight.push(weight);
+			// 			}
 						
-					}
+			// 		}
 
-					await user_entity.save()
-					log.log("new block: user weight updated")
-				}
+			// 		await user_entity.save()
+			// 		log.log("new block: user weight updated")
+			// 	}
 
-			}		
+			// }		
 
 		}	
 	}
@@ -245,10 +284,7 @@ export class DataSyncProvider implements OnModuleInit{
 
 	public startFillUpDatabase = async()=> {
 
-		//var _ = require('lodash');
-
 		//fetch data from blockservice
-
 		const contractMeta = await getContractMeta(this.contract)
 
 		if(Object.keys(contractMeta).length > 0){
@@ -304,12 +340,11 @@ export class DataSyncProvider implements OnModuleInit{
 								
 									const counted = ballots_proposal_id.counted; 
 									const verified = ballots_proposal_id.verified;
-									if(counted){
-										proposalObj.counted = counted?counted:false;
-										
+									if(counted !== undefined && counted === true){
+										proposalObj.counted = "true";
 									}
-									if(verified){
-										proposalObj.verified = verified?verified:false;	
+									if(verified !== undefined && verified === true){
+										proposalObj.verified = "true";
 									}
 								}
 							}
@@ -368,7 +403,6 @@ export class DataSyncProvider implements OnModuleInit{
 				
 							}
 							
-						
 							let found = false;
 
 							if(userArray.length > 0){
