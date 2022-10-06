@@ -1,4 +1,3 @@
-//import * as io from "socket.io-client";
 import { io } from "socket.io-client";
 import { updateLastBlock } from "../entities/last-block.entity";
 import { IKvp } from "../types";
@@ -51,17 +50,14 @@ export async function handleNewBlock(block: IBsBlock, parseBlockFn: T_ParseBlock
 		for (let t of transactions) {
 			const { state, hash, transaction } = t;
 			const fn = transaction.payload.function;
-			// const { contract } = transaction.payload.contract;
-			// const { timestamp } = transaction.metadata.timestamp;
 			const contract  = transaction.payload.contract;
 			const timestamp  = transaction.metadata.timestamp;
 			const block_obj: BlockDTO = { state, hash, fn, contract, timestamp };
-			// log.log(`Processed ${hash} for ${contract}`);
+
 			if (Object.keys(state)?.length) {
 				await parseBlockFn(block_obj);
 			}
 		}
-		// log.log(`processed ${transactions.length} transactions`)
 	}
 	
 	await updateLastBlock({ block_num });
@@ -81,21 +77,16 @@ export class BlockDTO {
 }
 
 export interface IBsBlock {
-	// REMOVE OPTIONAL CONDITION
-	hash?: string;
+	hash: string;
 	number: number;
-	// REMOVE OPTIONAL CONDITION
-	previous?: string;
+	previous: string;
 	subblocks: IBsSubBlock[];
 }
 
 export interface IBsSubBlock {
-	// REMOVE OPTIONAL CONDITION
-	input_hash?: string;
-	// REMOVE OPTIONAL CONDITION
-	merkle_leaves?: string[];
-	// REMOVE OPTIONAL CONDITION
-	signatures?: ISignature[];
+	input_hash: string;
+	merkle_leaves: string[];
+	signatures: ISignature[];
 	subblock: number;
 	transactions: ITransaction[];
 }
@@ -108,8 +99,7 @@ export interface ISignature {
 export interface ITransaction {
 	hash: string;
 	result: string;
-	// REMOVE OPTIONAL CONDITION
-	stamps_user?: number;
+	stamps_user: number;
 	state: IKvp[];
 	status: number;
 	transaction: ITransactionInner;
