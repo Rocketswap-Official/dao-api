@@ -1,9 +1,6 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
-//import { I_OhlcData, T_Resolution } from "../types";
-
 
 @Entity()
-//export class CandleEntity extends BaseEntity implements I_OhlcData {
 export class ProposalEntity extends BaseEntity{    
     @PrimaryGeneratedColumn()
     id: number;
@@ -29,11 +26,11 @@ export class ProposalEntity extends BaseEntity{
     @Column({ default: 0 })
     ballot_count: number
 
-    @Column({ nullable: true })
-    counted: boolean
+    @Column({ default: "false"})
+    counted: string
 
-    @Column({ nullable: true })
-    verified: boolean
+    @Column({ default: "false" })
+    verified: string
 
     @Column("simple-json")
     results: {}
