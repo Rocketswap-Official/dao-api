@@ -140,13 +140,14 @@ export class DataSyncProvider implements OnModuleInit{
 				for(let b of ballots){
 					const keyArray = b[0].split(":")
 					const ballotsObjValue = b[1]
-					proposal_id = parseInt(keyArray[1])
+					//proposal_id = parseInt(keyArray[1])
 
 					if(keyArray[keyArray.length - 2] === "backwards_index"){
 						vk = keyArray[keyArray.length-1];
 						ballot_id = parseInt(ballotsObjValue);
 					}
 					if(keyArray[keyArray.length - 1] === "choice"){
+						proposal_id = parseInt(keyArray[1])
 						choice_idx = parseInt(ballotsObjValue);
 					}
 					if(keyArray[keyArray.length - 1] === "counted"){
@@ -182,10 +183,18 @@ export class DataSyncProvider implements OnModuleInit{
 
 				}
 
+				const proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
+				if(counted !== undefined && counted === true){	
+					proposal_entity.counted = "true";		
+				}
+				if(verified !== undefined && verified === true){
+					proposal_entity.verified = "true";	
+				}
 
+				await proposal_entity.save()
+				log.log("new block: proposal processed and verified state updated")
 
 				if(vk){
-					const proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
 					let user_entity = await UserEntity.findOne({where: { vk: vk }});
 					if(!user_entity){ 
 					 	user_entity = new UserEntity();
@@ -193,40 +202,32 @@ export class DataSyncProvider implements OnModuleInit{
 						user_entity.ballot_idx = [ballot_id]
 						user_entity.choice_idx = [choice_idx];
 						user_entity.proposals = [proposal_id];
-						user_entity.weight = [weight];
-
-						if(counted !== undefined && counted === true){	
-							proposal_entity.counted = "true";		
-						}
-						if(verified !== undefined && verified === true){
-							proposal_entity.verified = "true";	
-						}
+						user_entity.weight = weight?[weight]:[];
 
 						await user_entity.save()
-						await proposal_entity.save()
 						return
 					}
 
 					if(ballot_id && user_entity.ballot_idx.length >= 0){
 						user_entity.ballot_idx.push(ballot_id);
 					}
+					log.log(choice_idx)
 					if(choice_idx && user_entity.choice_idx.length >= 0){
 						user_entity.choice_idx.push(choice_idx);
 					}
 					if(proposal_id && user_entity.proposals.length >= 0){
 						user_entity.proposals.push(proposal_id);
 					}
-					if(counted !== undefined && counted === true){
-						proposal_entity.counted = "true";	
-					}
-					if(verified !== undefined && verified === true){
-						proposal_entity.verified = "true";	
-					}
-					if(weight && user_entity.weight.length !== null){
+					// if(counted !== undefined && counted === true){
+					// 	proposal_entity.counted = "true";	
+					// }
+					// if(verified !== undefined && verified === true){
+					// 	proposal_entity.verified = "true";	
+					// }
+					if(weight && user_entity.weight?.length >= 0){
 						user_entity.weight.push(weight);
 					}
-					await proposal_entity.save()
-					log.log("new block: proposal processed and verified state updated")
+					
 					await user_entity.save()
 					log.log("new block: user data updated")
 				}
