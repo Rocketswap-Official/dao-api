@@ -113,6 +113,7 @@ export class DataSyncProvider implements OnModuleInit{
 				}
 
 				await proposal_entity.save();
+				log.log("new block: proposal state/results updated")
 			
 			}
 
@@ -195,7 +196,7 @@ export class DataSyncProvider implements OnModuleInit{
 				}
 
 				await proposal_entity.save()
-				log.log("new block: proposal processed and verified state updated")
+				log.log("new block: proposal counted/verified state updated")
 
 				if(vk){
 					let user_entity = await UserEntity.findOne({where: { vk: vk }});
@@ -208,6 +209,7 @@ export class DataSyncProvider implements OnModuleInit{
 						user_entity.weight = weight?[weight]:[];
 
 						await user_entity.save()
+						log.log("new block: user data saved")
 						return
 					}
 
