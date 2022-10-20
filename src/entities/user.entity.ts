@@ -26,6 +26,18 @@ export class UserEntity extends BaseEntity{
     @Column({type: "simple-array", nullable: true })
     proposals: number[]
 
-    //@Column("simple-array")
-    //proposalsVoted: number[];
+    @Column({ default: 0 })
+    rswp_balance: number;
+
+    @Column({ default: 0 })
+    rocket_fuel: number;
+
+    @Column({ default: 0 })
+    staked_rswp: number;
+
+    @Column({type: "simple-array", nullable: true })
+    staked_lp_value: number[];
+
+    @Column({type: "simple-array", nullable: true })
+    lp_value: number[];
 }
