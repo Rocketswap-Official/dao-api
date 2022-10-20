@@ -1,5 +1,5 @@
 export const config_prod = {
-    app_name: "Lite dao",
+    app_name: "Lite Dao",
     dex_contract: "con_rocketswap_official_v1_1",
     staking_contract: "con_staking_rswp_rswp_interop_v2",
 	lp_staking_contract: "con_liq_mining_rswp_rswp",
