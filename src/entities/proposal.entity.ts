@@ -18,20 +18,23 @@ export class ProposalEntity extends BaseEntity{
     date_decision: {__time__: string};
 
     @Column("simple-array")
-    choices: []
+    choices: [];
 
     @Column()
     state: string;
 
     @Column({ default: 0 })
-    ballot_count: number
+    ballot_count: number;
 
     @Column({ default: "false"})
-    counted: string
+    counted: string;
 
     @Column({ default: "false" })
-    verified: string
+    verified: string;
+
+    @Column({ default: 0 })
+    lp_weight: number;
 
     @Column("simple-json")
-    results: {}
+    results: {};
 }
