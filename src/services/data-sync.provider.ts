@@ -5,6 +5,7 @@ import { UserEntity } from "src/entities/user.entity";
 import { config } from "../config";
 import { getLastProcessedBlock, startTrimLastBlocksTask } from "../entities/last-block.entity";
 import { getLatestSyncedBlock, fillBlocksSinceSync, getContractMeta, getCurrentKeyValue } from "../utils/blockservice-utils";
+import { getNumberFromFixed } from "../utils/misc-utils";
 import { log } from "../utils/logger";
 import { initSocket, BlockDTO } from "./socket-client.provider";
 
@@ -110,9 +111,14 @@ export class DataSyncProvider implements OnModuleInit{
 					proposal_entity.choices =  proposalObj.choices;	
 					proposal_entity.state = proposalObj.state;
 					proposal_entity.results = results?results:{};
+
 					if (Object.keys(lpWeight).length > 0){
 						let lp_weight;
-						parseFloat(lpWeight[0].split(":")[1]) === proposal_id?lp_weight=parseFloat(lpWeight[1].__fixed__):lp_weight=0;
+						if (parseInt(lpWeight[0].split(":")[1]) === proposal_id){
+
+							lp_weight = getNumberFromFixed(lpWeight[1])
+						}
+
 						proposal_entity.lp_weight = lp_weight;
 					}
 					
@@ -138,7 +144,7 @@ export class DataSyncProvider implements OnModuleInit{
 				const keyArray = ballotCount[0].split(":")
 				const ballotCountValue = ballotCount[1]
 				const proposal_id = parseInt(keyArray[1])
-				const ballot_counts = parseInt(ballotCountValue)
+				const ballot_counts = ballotCountValue
 
 				const proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});	
 				proposal_entity.ballot_count = ballot_counts;
@@ -158,7 +164,6 @@ export class DataSyncProvider implements OnModuleInit{
 				for(let b of ballots){
 					const keyArray = b[0].split(":")
 					const ballotsObjValue = b[1]
-					//proposal_id = parseInt(keyArray[1])
 
 					if(keyArray[keyArray.length - 2] === "backwards_index"){
 						vk = keyArray[keyArray.length-1];
@@ -166,7 +171,7 @@ export class DataSyncProvider implements OnModuleInit{
 					}
 					if(keyArray[keyArray.length - 1] === "choice"){
 						proposal_id = parseInt(keyArray[1])
-						choice_idx = parseInt(ballotsObjValue);
+						choice_idx = ballotsObjValue;
 					}
 					if(keyArray[keyArray.length - 1] === "counted"){
 						proposal_id = parseInt(keyArray[1])
@@ -179,7 +184,7 @@ export class DataSyncProvider implements OnModuleInit{
 					}	 
 				}
 
-				//console.log(processedBallots)
+
 				if(processedBallots && Object.keys(processedBallots).length > 0){
 					
 					for(let p of processedBallots){
@@ -191,11 +196,10 @@ export class DataSyncProvider implements OnModuleInit{
 						}
 						if(keyArray[keyArray.length - 1] === "weight"){
 							if(Object.keys(processedBallotsObjValue).length > 0){
-								weight = parseFloat(processedBallotsObjValue.__fixed__);
-							} else{
-								weight = parseInt(processedBallotsObjValue);
+
+								weight = getNumberFromFixed(processedBallotsObjValue);
+
 							}
-							
 						}
 								
 					}
@@ -235,16 +239,16 @@ export class DataSyncProvider implements OnModuleInit{
 							user_entity.choice_idx = [choice_idx];
 							user_entity.proposals = [proposal_id];
 							user_entity.weight = weight?[weight]:[];
-							user_entity.rswp_balance = rswpBalanceCurrent.value;
-							user_entity.rocket_fuel = rocketFuelCurrent.value;
-							user_entity.staked_rswp = stakedRswpCurrent.value;
+							user_entity.rswp_balance = getNumberFromFixed(rswpBalanceCurrent.value) 
+							user_entity.rocket_fuel = getNumberFromFixed(rocketFuelCurrent.value) 
+							user_entity.staked_rswp = getNumberFromFixed(stakedRswpCurrent.value) 
 
 							proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
 							if (proposal_entity){
 								let lp_weight = proposal_entity.lp_weight;
 
-								user_entity.staked_lp_value = [stakedLpCurrent.value * lp_weight];
-								user_entity.lp_value = [lpCurrent.value * lp_weight];
+								user_entity.staked_lp_value = [getNumberFromFixed(stakedLpCurrent.value) * lp_weight];
+								user_entity.lp_value = [getNumberFromFixed(lpCurrent.value) * lp_weight];
 							}
 							
 							await user_entity.save()
@@ -270,9 +274,9 @@ export class DataSyncProvider implements OnModuleInit{
 							user_entity.weight.push(weight);
 						}
 
-						user_entity.rswp_balance = rswpBalanceCurrent.value;
-						user_entity.rocket_fuel = rocketFuelCurrent.value;
-						user_entity.staked_rswp = stakedRswpCurrent.value;
+						user_entity.rswp_balance = getNumberFromFixed(rswpBalanceCurrent.value);
+						user_entity.rocket_fuel = getNumberFromFixed(rocketFuelCurrent.value);
+						user_entity.staked_rswp = getNumberFromFixed(stakedRswpCurrent.value);
 						
 						let staked_lp_value = []
 						let lp_value = []
@@ -281,8 +285,8 @@ export class DataSyncProvider implements OnModuleInit{
 							let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
 							if (proposal_entity){
 								let lp_weight = proposal_entity.lp_weight;
-								staked_lp_value.push(stakedLpCurrent.value * lp_weight)
-								lp_value.push(lpCurrent.value * lp_weight)	
+								staked_lp_value.push(getNumberFromFixed(stakedLpCurrent.value) * lp_weight)
+								lp_value.push(getNumberFromFixed(lpCurrent.value) * lp_weight)	
 							}
 						}
 						user_entity.lp_value = Object.keys(lp_value).length>0?lp_value:user_entity.lp_value;
@@ -318,7 +322,7 @@ export class DataSyncProvider implements OnModuleInit{
 				getContractMeta(this.staking_contract),
 				getContractMeta(this.lp_staking_contract)
 			])
-
+			
 			if(Object.keys(daoMeta).length > 0){
 				//Proposals
 				const proposals = daoMeta.con_lite_dao.Proposals
@@ -357,10 +361,10 @@ export class DataSyncProvider implements OnModuleInit{
 
 							if(lpWeight){
 								const lpWeightArray = Object.keys(lpWeight);
-								if(lpWeightArray.length > 0){
+								if(lpWeightArray.length > 0 && lpWeight[proposal_id]){
 									let lp_weight;
-									lpWeight[proposal_id]?lp_weight = lpWeight[proposal_id].con_rswp_lst001.__fixed__:lp_weight = 0;
-									proposalObj.lp_weight = parseFloat(lp_weight); 
+									
+									proposalObj.lp_weight = getNumberFromFixed(lpWeight[proposal_id].con_rswp_lst001) 
 									
 								}
 							}
@@ -420,11 +424,11 @@ export class DataSyncProvider implements OnModuleInit{
 							if(Object.keys(ballots_proposal_id.backwards_index).length > 0){
 								const vkObj = ballots_proposal_id.backwards_index;
 								vk = Object.keys(vkObj)[0];
-								const ballot_id = parseInt(vkObj[vk]);
+								const ballot_id = vkObj[vk];
 
 								//forwards_index
 								const ballotForwardObj = ballots_proposal_id.forwards_index;	
-								const choice_idx = parseInt(ballotForwardObj[ballot_id].choice);
+								const choice_idx = ballotForwardObj[ballot_id].choice;
 								let counted_weight;
 								
 								if(processedBallots){
@@ -432,13 +436,12 @@ export class DataSyncProvider implements OnModuleInit{
 										
 										if(processedBallots[p]){
 											
-											const ballot_id = parseInt(Object.keys(processedBallots[p])[0]);
+											const ballot_id = Object.keys(processedBallots[p])[0];
 											counted_weight = processedBallots[p][ballot_id].weight;
 											vk = processedBallots[p][ballot_id].user_vk;
 											if(Object.keys(counted_weight).length > 0){
-												counted_weight = parseFloat(counted_weight.__fixed__);
-											}else{
-												counted_weight = parseInt(counted_weight)
+											
+												counted_weight = getNumberFromFixed(counted_weight)
 											}
 
 										}
@@ -505,8 +508,6 @@ export class DataSyncProvider implements OnModuleInit{
 					
 				} 
 			}
-
-			//CHECK FOR __FIXED__ AND NOT __FIXED__
 			
 			if (Object.keys(rswpBalanceMeta).length > 0){
 				const rswpBalances = rswpBalanceMeta.con_rswp_lst001.balances
@@ -517,7 +518,7 @@ export class DataSyncProvider implements OnModuleInit{
 					for (let vk of vks){
 						let user_entity = await UserEntity.findOne({where: {vk: vk}});
 						if (user_entity){
-							user_entity.rswp_balance = parseFloat(rswpBalances[vk].__hash_self__);
+							user_entity.rswp_balance = getNumberFromFixed(rswpBalances[vk].__hash_self__);
 							await user_entity.save();
 						}
 					}
@@ -534,7 +535,7 @@ export class DataSyncProvider implements OnModuleInit{
 						let user_entity = await UserEntity.findOne({where: {vk: vk}});
 						if (user_entity){
 							
-							user_entity.rocket_fuel = parseFloat(dexStakedAmount[vk].con_rswp_lst001);
+							user_entity.rocket_fuel = getNumberFromFixed(dexStakedAmount[vk].con_rswp_lst001);
 							await user_entity.save();
 						}
 					}
@@ -552,7 +553,7 @@ export class DataSyncProvider implements OnModuleInit{
 										let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
 										if (proposal_entity){
 											let lp_weight = proposal_entity.lp_weight;
-											lp_value.push(parseFloat(dexLp.con_rswp_lst001[vk])*lp_weight)	
+											lp_value.push(getNumberFromFixed(dexLp.con_rswp_lst001[vk]) * lp_weight)	
 										}
 									}
 									user_entity.lp_value = Object.keys(lp_value).length>0?lp_value:user_entity.lp_value;
@@ -573,7 +574,7 @@ export class DataSyncProvider implements OnModuleInit{
 					for (let vk of vks){
 						let user_entity = await UserEntity.findOne({where: {vk: vk}});
 						if (user_entity){
-							user_entity.staked_rswp = parseFloat(staking[vk]);
+							user_entity.staked_rswp = getNumberFromFixed(staking[vk]);
 							await user_entity.save();
 						}
 					}
@@ -593,7 +594,7 @@ export class DataSyncProvider implements OnModuleInit{
 								let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
 								if (proposal_entity){
 									let lp_weight = proposal_entity.lp_weight;
-									staked_lp_value.push(parseFloat(lpStaking[vk])*lp_weight)	
+									staked_lp_value.push(getNumberFromFixed(lpStaking[vk])*lp_weight)	
 								}
 							}
 							user_entity.staked_lp_value = Object.keys(staked_lp_value).length>0?staked_lp_value:user_entity.staked_lp_value;
