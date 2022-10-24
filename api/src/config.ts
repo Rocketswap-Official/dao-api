@@ -6,7 +6,7 @@ export const config_prod = {
     dex_native_token: "con_rswp_lst001",
     dao_contract: "con_lite_dao",
     network_type: "mainnet",
-    block_service_urls: process.env.block_service_urls?.split(",") || ["165.22.47.195:3535"]
+    block_service_urls: process.env.block_service_urls?.split(",") || ["0.0.0.0:3535"]
     //block_service_url: process.env.BLOCK_SERVICE_URL || "0.0.0.0:3535"
 };
 
