@@ -104,4 +104,15 @@ dist
 .tern-port
 
 # Sqlite database
-.sqlite
+api/*.sqlite
+
+# Sveltekit Ignores
+.DS_Store
+node_modules
+/ui/build
+.svelte-kit
+/ui/package
+/ui/.env
+/ui/.env.*
+/ui/!.env.example
+

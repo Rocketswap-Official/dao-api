@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import { updateLastBlock } from "../entities/last-block.entity";
-import { IKvp } from "../types";
+import { IKvp } from "../types/types";
 import { log } from "../utils/logger";
 import { BlockService } from "./block.service";
 

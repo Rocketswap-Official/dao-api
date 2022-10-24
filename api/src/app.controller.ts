@@ -1,14 +1,21 @@
-import { Controller, Get, Query, Param} from '@nestjs/common';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { ProposalService, UserService } from './app.service';
+import { ProposalEntity } from './entities/proposal.entity';
+import { I_Proposal } from './types/shared-types';
 
 @Controller('proposals')
 export class ProposalController {
-  constructor(private readonly proposalService: ProposalService){}
+  constructor(private readonly proposalService: ProposalService) { }
 
   //return all proposals
   @Get()
-  getProposals(): any {
-    return this.proposalService.getProposals();
+  async getProposals(): Promise<ProposalEntity[]> {
+    return await this.proposalService.getProposals();
+  }
+
+  @Get('all_proposals')
+  async getAllProposals(): Promise<ProposalEntity[]> {
+    return await this.proposalService.getProposals();
   }
 
   // return only proposals with open state
@@ -32,27 +39,27 @@ export class ProposalController {
   @Get('latest')
   getLatestProposal(): any {
     return this.proposalService.getLatestProposal();
-    
+
   }
 
-   // return a specific proposal by id
+  // return a specific proposal by id
   @Get(':id')
   getProposal(@Param() param): any {
-    if(isNaN(param.id) === false){
+    if (isNaN(param.id) === false) {
       const id = parseInt(param.id)
       return this.proposalService.getProposal(id);
     }
-    
-     
-   }
-  
+
+
+  }
+
 }
 
 // router for user related stuff
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService){}
-  
+  constructor(private readonly userService: UserService) { }
+
   @Get()
   getUsers(): object {
     return this.userService.getUsers();
@@ -68,4 +75,4 @@ export class UserController {
 
 
 
-  
+

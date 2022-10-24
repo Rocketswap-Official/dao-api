@@ -1,0 +1,9 @@
+{
+    "execMap": {
+        "ts": "ts-node"
+    },
+    "events": {
+        "start": "cp src/types/shared-types.ts ../ui/src/types/imported-types.ts",
+        "restart": "cp src/types/shared-types.ts ../ui/src/types/imported-types.ts"
+    }
+}

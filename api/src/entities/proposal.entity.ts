@@ -1,7 +1,8 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
+import { I_Proposal } from "../types/shared-types";
 
 @Entity()
-export class ProposalEntity extends BaseEntity{    
+export class ProposalEntity extends BaseEntity implements I_Proposal {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -15,7 +16,7 @@ export class ProposalEntity extends BaseEntity{
     description: string;
 
     @Column("simple-json")
-    date_decision: {__time__: string};
+    date_decision: { __time__: string };
 
     @Column("simple-array")
     choices: [];
@@ -26,7 +27,7 @@ export class ProposalEntity extends BaseEntity{
     @Column({ default: 0 })
     ballot_count: number;
 
-    @Column({ default: "false"})
+    @Column({ default: "false" })
     counted: string;
 
     @Column({ default: "false" })

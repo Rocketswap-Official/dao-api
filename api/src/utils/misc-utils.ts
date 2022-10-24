@@ -1,7 +1,7 @@
 //import { TokenEntity } from "../entities/token.entity";
 import { log } from "./logger";
 import { config } from "../config";
-import { IKvp } from "../types";
+import { IKvp } from "../types/types";
 const Fs = require("fs");
 
 const validators = require("types-validate-assert");
