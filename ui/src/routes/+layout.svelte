@@ -53,8 +53,8 @@
 		main {
 			padding: 20vh 5vw 15vw;
 		}
-		main.connected{
+		/* main.connected{
 			padding: 27vh 5vw 15vw;
-		}
+		} */
     }
 </style>
