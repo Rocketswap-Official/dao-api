@@ -8,10 +8,10 @@ export class ProposalController {
   constructor(private readonly proposalService: ProposalService) { }
 
   //return all proposals
-  @Get()
-  async getProposals(): Promise<ProposalEntity[]> {
-    return await this.proposalService.getProposals();
-  }
+  // @Get()
+  // async getProposals(): Promise<ProposalEntity[]> {
+  //   return await this.proposalService.getProposals();
+  // }
 
   @Get('all_proposals')
   async getAllProposals(): Promise<ProposalEntity[]> {
