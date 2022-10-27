@@ -8,6 +8,7 @@
     import PieChart from './pieChart.svelte';
 
     export let choices: any[];
+    export let total: number;
     
     //get vk from lamden wallet
     let vk = $wallet_store;
@@ -77,7 +78,7 @@
     
 </script>
 
-<div>
+<div style="margin-bottom: 3vw">
     <ol type="A" style="">
     {#each choices as choice}
         {#if vkVoted}
@@ -127,8 +128,19 @@
     
 </div>
 
-<div style="overflow: hidden;">
+<div class="flex row space-between">
+
+    <div class="flex col j-end ">
+        <div style="font-size: var(--units-1vw:);">
+            <div style="font-weight: 500">Total votes: {(total/102000321*100).toFixed(8)}%</div>
+            <div>{total}/102000321 RSWP</div>
+        </div>
+        
+    </div>
+    
     <PieChart {labels} {weights} {backgroundColor}/>
+    
+    
 </div>
 
 <style>
@@ -163,6 +175,7 @@
         padding-left: 2em; 
        
     }
+
     /* .disable{
         opacity: 0.7;
         pointer-events: none;
