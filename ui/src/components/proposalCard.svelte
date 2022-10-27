@@ -1,8 +1,6 @@
-<!--div>proposal card </div-->
-<!--div>we will need a progress bar component </div-->
 <script lang="ts">
     
-    import ProgressBar from './choiceSelectorPieChart.svelte';
+    import ChoiceSelectorPieChart from './choiceSelectorPieChart.svelte';
     import  type { I_Proposal, I_User }  from '../types/imported-types';
     export let proposal: I_Proposal;
     export let user: I_User[];
@@ -19,7 +17,7 @@
     //console.log(label)
 
     if (Object.keys(user).length > 0){
-        for (let u of user){
+        for (let u  of user){
             for (let ui of u.proposals){
                 if (ui === proposal.proposal_id){
                     let indx = u.proposals.indexOf(ui);
@@ -76,34 +74,22 @@
 <div class="container panel">
     <div class="proposal-title">#{proposal.proposal_id} - {proposal.title}</div>
     <div class="metadata-container">
-        <div>Status: <span class="text-green" >{proposal.state}</span></div>
+        <div>Status: <span class="{proposal.state === 'concluded'?'text-secondary':'text-green'}" >{proposal.state}</span></div>
         <div>Voting Ends: {proposal.date_decision.__time__}</div>
     </div>
 
-    <!--div>Description: 
-        <h4 >
-            {proposal.description}
-        </h4>
-    </div-->
-
     <div class="choice-container">
-        
-            
-        <ProgressBar choices={choiceArray} />
+             
+        <ChoiceSelectorPieChart choices={choiceArray} {total}/>
             
     </div>
     
-
-    <div class="stats-container">
-        <div>Total votes: {(total/102000321*100).toFixed(8)}%</div>
-        <div>{total}/102000321 RSWP</div>
-    </div>
 </div>
 
 <style>
     .container{
         width: 60%;
-        padding: 3vw;
+        padding: 2.5vw;
         box-shadow: var(--panel-box-shadow-higher);
         margin-bottom: 15px;
         color: var(--font-primary-color);
@@ -124,9 +110,12 @@
         overflow-x: hidden;
         /* margin: 10px 0 10px 0; */
     }
-    .stats-container{
+    .text-secondary {
+        color: var(--secondary-color)
+    }
+    /* .stats-container{
         margin-top: 10px;
         font-size: 11px;
-    }
+    } */
    
 </style>
