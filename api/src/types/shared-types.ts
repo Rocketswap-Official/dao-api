@@ -12,3 +12,16 @@ export interface I_Proposal {
     lp_weight: number;
     results: {};
 }
+
+export interface I_User {
+    vk?: string;
+    ballot_idx?: number[];
+    choice_idx?: number[]
+    weight?: number[]
+    proposals?: number[]
+    rswp_balance: number;
+    rocket_fuel: number;
+    staked_rswp: number;
+    staked_lp_value?: number[];
+    lp_value?: number[];
+}
