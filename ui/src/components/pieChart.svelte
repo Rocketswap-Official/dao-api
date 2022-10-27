@@ -35,24 +35,23 @@
             pieConfig
            
         );
+        //pie.ctx.translate(30, 0)
         
     })
     
 
 </script>
 
-
-    <canvas bind:this={myChart}>
-        <div></div>
-    </canvas>
+    <div class="canvas-container">
+        <canvas bind:this={myChart}></canvas>
+    </div>
+    
 
 
 <style>
     canvas {
         position: relative;
         width: 10vw; 
-        margin-left: 80%;
-        /* right: -37.5%; */
     }
     
 </style>
