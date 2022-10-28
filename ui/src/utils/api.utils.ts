@@ -1,5 +1,5 @@
 import axios from "axios"
-import { proposals_store , users_store} from "../store";
+import { proposals_store, users_store } from "../store";
 import type { I_Proposal, I_User } from "../types/imported-types";
 
 

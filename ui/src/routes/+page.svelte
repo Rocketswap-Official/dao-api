@@ -1,5 +1,10 @@
-<script>
+<script lang="ts">
     import ProposalCard from '../components/proposalCard.svelte';
+    import Modal from '../components/modal/modal.svelte';
+	import { onMount } from 'svelte';
+	import { show_vote_modal } from '../components/modal/modal-utils';
+	import type { I_Proposal } from '../types/imported-types';
+
     //import { proposals_store, users_store } from '../store';
     //mock data
     const proposals = [{
@@ -7,7 +12,7 @@
         "title":'some proposal', 
 		"description": 'this is enginneered', 
 		"date_decision": {__time__:"29/10/2021"}, 
-	 	"choices": ['yeah its me', 'nope not me', 'we shall see'],
+	 	"choices": ['This is the first proposal', 'No', "I'm undecided"],
 	 	"state": "open",
         "ballot_count": 1,
         "lp_weight": 123,
@@ -66,9 +71,9 @@
         {#each proposals as proposal}
             
             <ProposalCard {proposal} {user}/> 
-            
-        {/each}
-    {:else}
-        <p style="color: red; font-size: 11px;">No proposals to display</p>
-    {/if}
+            {/each}
+            {:else}
+            <p style="color: red; font-size: 11px;">No proposals to display</p>
+            {/if}
 </div>
+<Modal/>
