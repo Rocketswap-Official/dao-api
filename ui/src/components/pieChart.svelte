@@ -51,7 +51,7 @@
 <style>
     canvas {
         position: relative;
-        width: 10vw; 
+        width: 12vw; 
     }
     
 </style>
