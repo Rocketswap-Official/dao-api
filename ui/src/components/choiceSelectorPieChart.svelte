@@ -19,12 +19,6 @@
     let justVoted = false;
     let vote: any;
     let n = 0;
-    let l = ["A","B", "C", "D", "E"];
-    let cl = [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-    ];
     let labels: string[] = [];
     let weights: number[] = [];
     let backgroundColor: string[] = [];
@@ -78,8 +72,8 @@
     
 </script>
 
-<div style="margin-bottom: 3vw">
-    <ol type="A" style="">
+<div style="margin-bottom: 3vw; font-size: var(--units-1_14vw);">
+    <ol type="A">
     {#each choices as choice}
         {#if vkVoted}
             {#if choice.choiceIdx === chosenChoice}
@@ -99,29 +93,17 @@
             {/if}
             
         {:else}
-            <li class="mb-1" style="font-size: var(--units-1vw); font-weight: 500">
-                <!--span>A)</span-->
-                <div class="flex row space-between" style="align-items: flex-end; ">
+            <li class="mb-1" style="margin-left: var(--units-1_4vw); font-weight: 400">
+                
+                <div class="flex row space-between">
                     <div style="width: 70%; overflow:hidden; ">{choice.choice}</div>
                     <div>{choice.voteWeight}%</div>
                 </div>
                 
-                <!--div class="progress-bar">
-                    <div class="track text-primary-color-dark weight-300" style="width: {choice.voteWeight}">{choice.voteWeight}</div>
-                </div-->
+            
+                
             </li>
-            <!--label for="choice">
-                <button 
-                    data-proposal-id={choice.proposalId} 
-                    data-choice-idx={choice.choiceIdx} 
-                    class="{justVoted?'disable':''}"
-                    on:click={castBallot_}>
-                    {choice.choice}
-                </button>
-            </label>
-            <div class="progress-bar">
-                <div class="track text-primary-color-dark weight-300" style="width: {choice.voteWeight}">{choice.voteWeight}</div>
-            </div-->
+            
         {/if}
     {/each}
     </ol>
@@ -131,7 +113,7 @@
 <div class="flex row space-between">
 
     <div class="flex col j-end ">
-        <div style="font-size: var(--units-1vw:);">
+        <div style="font-size: var(--units-09vw);">
             <div style="font-weight: 500">Total votes: {(total/102000321*100).toFixed(8)}%</div>
             <div>{total}/102000321 RSWP</div>
         </div>
@@ -144,7 +126,7 @@
 </div>
 
 <style>
-    
+
     .progress-bar{
         width: 100%;
         height: 14px;
@@ -171,14 +153,8 @@
     .voted {
         border: 2px solid seagreen;
     }
-    ol {
-        padding-left: 2em; 
-       
+    ol {    
+        padding-left: 0;
     }
-
-    /* .disable{
-        opacity: 0.7;
-        pointer-events: none;
-    } */
-
+    
 </style>
