@@ -7,7 +7,7 @@
         "title":'some proposal', 
 		"description": 'this is enginneered', 
 		"date_decision": {__time__:"29/10/2021"}, 
-	 	"choices": ['yeah its me jsbjab djajdbj abjxbjb xjsbjs bdjsjds dhjs bdjsb jdbsj bjsbj bsjbjsbd jsbdjbsj dbsjdb jsbdjsb djs bdjsbd jbs jdbjad bjab djsb djab djadb jsad bsajbd sjdbjs dbjs bjsj sbfjskj hjsjsb djsdks dbjsb dksahd jsdkjs bdks hdjsd sdbs dbs jdsjds das djah', 'nope not me', 'we shall see'],
+	 	"choices": ['yeah its me', 'nope not me', 'we shall see'],
 	 	"state": "open",
         "ballot_count": 1,
         "lp_weight": 123,
