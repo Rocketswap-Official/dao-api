@@ -1,9 +1,12 @@
 <script lang="ts">
     
     import ChoiceSelectorPieChart from './choiceSelectorPieChart.svelte';
+    import Button from './button/button.svelte';
     import  type { I_Proposal, I_User }  from '../types/imported-types';
     export let proposal: I_Proposal;
     export let user: I_User[];
+
+    const showModal = ()=>{let n; n= true}
 
     let results = proposal.results
     let choices = proposal.choices
@@ -83,6 +86,19 @@
         <ChoiceSelectorPieChart choices={choiceArray} {total}/>
             
     </div>
+
+    <div class="flex row j-end">
+        <div class="mr-1em">
+            <Button act = {showModal}>
+                Cast vote
+            </Button>
+        </div>
+        
+        <Button act = {showModal}>
+            Details
+        </Button>
+    </div>
+    
     
 </div>
 
@@ -93,16 +109,17 @@
         box-shadow: var(--panel-box-shadow-higher);
         margin-bottom: 15px;
         color: var(--font-primary-color);
+        font-size: var(--units-1_14vw);
         font-weight: 300;
     }
     .proposal-title {
-        font-size: var(--units-1_14vw);
+        /* font-size: var(--units-1_14vw); */
         font-weight: 500;
 
     }
     .metadata-container{
         margin-bottom: 3vw;
-        font-size: var(--units-09vw);
+        font-size: var(--units-1vw);
     }
     .choice-container{
         margin-bottom: 3vw;
