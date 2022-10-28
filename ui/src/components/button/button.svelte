@@ -32,9 +32,10 @@
 		margin: var(--units-1vw) auto 0;
 	}
 	button > div {
-		padding-left: var(--units-1vw);
-		padding-right: var(--units-1vw);
+		padding: var(--units-02vw) var(--units-1_14vw);
+		/* padding-right: var(--units-1_14vw); */
 	}
+	
 	@media (max-width: 480px) {
 	}
 </style>
