@@ -1,4 +1,8 @@
 {
+    "ignore": [
+        ".git",
+        "dist"
+      ],
     "execMap": {
         "ts": "ts-node"
     },
