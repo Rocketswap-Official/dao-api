@@ -104,7 +104,7 @@
 
 <style>
     .container{
-        width: 60%;
+        /* width: 60%; */
         padding: 2.5vw;
         box-shadow: var(--panel-box-shadow-higher);
         margin-bottom: 15px;
@@ -130,9 +130,5 @@
     .text-secondary {
         color: var(--secondary-color)
     }
-    /* .stats-container{
-        margin-top: 10px;
-        font-size: 11px;
-    } */
    
 </style>
