@@ -14,8 +14,8 @@
         "results": {},
         "counted": "false",
         "verified": "false"
-     },
-     {
+    },
+    {
         "proposal_id": 2,
         "title":'some proposal', 
 		"description": 'this is enginneered', 
@@ -27,7 +27,7 @@
         "results": {"0": 123, "1": 321,"2":222},
         "counted": "tru",
         "verified": "true"
-     }];
+    }];
 
     const user = [{
         "vk": 'cccccccccc',
@@ -57,7 +57,9 @@
     //const proposals = [];
 </script>
 
-<div>
+<div style="display: grid; 
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-gap: 50px">
     <!--div>
         use $proposals_store here
         use $users_store here
