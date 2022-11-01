@@ -9,8 +9,8 @@
 	let showToast = true
 	let toast_data = {
 		title:'Success',
-		//message:'Transaction Successful'
-		errorMessage: 'User closed popup window'
+		message:'Transaction Successful'
+		//errorMessage: 'User closed popup window'
 	}
 	
 	// Components
