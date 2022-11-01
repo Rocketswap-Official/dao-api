@@ -4,13 +4,13 @@ export interface I_Proposal {
     title: string;
     description: string;
     date_decision: { __time__: string };
-    choices: [];
+    choices: string[];
     state: string;
     ballot_count: number;
     counted: string;
     verified: string;
     lp_weight: number;
-    results: {};
+    results: any;
 }
 
 export interface I_User {
