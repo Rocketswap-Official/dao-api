@@ -11,6 +11,3 @@ export const modal_callback: Writable<Function | false> = writable()
 //Toast
 export const showToast: Writable<any> = writable(false)
 export const toast_data: Writable<I_Toast> = writable({})
-// export const title = writable('')
-// export const message = writable('')
-// export const errorMessage = writable('')
