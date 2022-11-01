@@ -3,7 +3,15 @@
 	import '../css/flex.css';
 	import '../css/layout.css';
 	import '../css/styled-defaults.css';
+	import Toast from '../components/toast.svelte';
+	//import { showToast, title, message, errorMessage} from '../store.ts'
 
+	let showToast = true
+	let title = 'Success';
+	let message = 'Transaction Successful';
+    //let errorMessage = 'User closed popup window';
+	let errorMessage = '';
+	
 	// Components
 
 	// import Header from '$lib/header/Header.svelte';
@@ -29,9 +37,13 @@
 	<slot />
 </main> -->
 
+<Toast {showToast} {title} {message} {errorMessage}/>
+
 <main>
 	<slot />
 </main>
+
+
 <!--
 <svelte:window on:resize={close_menu} />
 -->
