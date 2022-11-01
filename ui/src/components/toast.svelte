@@ -1,25 +1,26 @@
 <script lang="ts">
+    import { fly } from 'svelte/transition';
+    import close_x from '$lib/svg/close-x-white.svg'
     //import some icons
 
-    export let title: string;
-    export let message: string;
-    export let errorMessage: string;
     export let showToast: boolean = false;
+    export let toast_data: any;
+    
 </script>
 
 {#if showToast}
-    <div class="toast-container {errorMessage?'error':'success'}">
+    <div transition:fly='{{x:100, duration: 600}}' class="toast-container {toast_data.errorMessage?'error':'success'}">
         
-        <div class="times" on:click={()=>showToast=false}>&times</div>
+        <img class="close" src={close_x} alt="close" on:click={()=>showToast=false} on:keyup={()=>showToast=false}/>
         
         <h3 class="title">
-            {title}
+            {toast_data.title}
         </h3>
         <div class="message-area">
-            {#if errorMessage}
-                {errorMessage}
+            {#if toast_data.errorMessage}
+                {toast_data.errorMessage}
             {:else}
-                {message}
+                {toast_data.message}
             {/if}
         </div>
         
@@ -33,13 +34,16 @@
         width: 250px;
         border-radius: 5px;
         padding: 0.5em 1em 3.5em 1em;
+        right: 0.7em; 
+        z-index: 100;
     }
-    .times{
+    .close{
         position: absolute;
-        top: 0;
-        font-size: 24px;
-        font-weight: 850;
-        right: 0.3em;
+        top: 1em;
+        width: 1.5em;
+        /* font-size: 24px;
+        font-weight: 850; */
+        right: 1em;
         cursor: pointer;
     }
     .title {
