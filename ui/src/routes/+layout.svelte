@@ -4,13 +4,14 @@
 	import '../css/layout.css';
 	import '../css/styled-defaults.css';
 	import Toast from '../components/toast.svelte';
-	//import { showToast, title, message, errorMessage} from '../store.ts'
+	//import { showToast, toast_data } from '../store.ts'
 
 	let showToast = true
-	let title = 'Success';
-	let message = 'Transaction Successful';
-    //let errorMessage = 'User closed popup window';
-	let errorMessage = '';
+	let toast_data = {
+		title:'Success',
+		//message:'Transaction Successful'
+		errorMessage: 'User closed popup window'
+	}
 	
 	// Components
 
@@ -37,7 +38,7 @@
 	<slot />
 </main> -->
 
-<Toast {showToast} {title} {message} {errorMessage}/>
+<Toast {showToast} {toast_data}/>
 
 <main>
 	<slot />
