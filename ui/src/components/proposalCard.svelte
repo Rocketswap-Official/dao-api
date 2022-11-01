@@ -8,8 +8,8 @@
 
     const showModal = ()=>{let n; n= true}
 
-    let results = proposal.results
-    let choices = proposal.choices
+    let results: any = proposal.results
+    let choices: string[] = proposal.choices
     let total = 0;
     let choiceArray: any[] = [];
 
@@ -61,9 +61,9 @@
         for (let u0 of choiceArray){
             
             let w = u0.voteWeight;
-            u0.voteWeight = (w/total*100).toFixed(2) + "%";
+            u0.voteWeight = (w/total*100).toFixed(2);
             if(w === 0 || total === 0){
-                u0.voteWeight = "0.00%" 
+                u0.voteWeight = parseFloat("0.00")
                 
             }
             
