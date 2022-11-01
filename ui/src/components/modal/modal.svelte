@@ -1,6 +1,6 @@
 <script>
     import { fly } from 'svelte/transition';
-    import close_x from '$lib/svg/close-x.svg'
+    import close_x from '$lib/svg/close-x-white.svg'
     import { modal_open_store } from '../../store';
     import { handle_modal_close } from '../../events'
 	import { onMount } from 'svelte';
