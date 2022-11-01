@@ -25,3 +25,9 @@ export interface I_User {
     staked_lp_value?: number[];
     lp_value?: number[];
 }
+
+export interface I_Toast {
+    title?: string;
+    message?: string;
+    errorMessage?: string;
+}
