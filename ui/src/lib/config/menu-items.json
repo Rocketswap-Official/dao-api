@@ -1,0 +1,24 @@
+
+[
+    {
+        "name": "Home",
+        "logo": "icon_home",
+        "path" : "/"
+    },
+    {
+        "name": "Create",
+        "logo": "icon_create",
+        "path" : "/create_proposal"
+    },
+    {
+        "name": "Voted",
+        "logo": "icon_voted",
+        "path" : "/voted_proposals"
+    },
+    {
+        "name": "Help",
+        "logo": "icon_help",
+        "path" : "/help"
+    }
+    
+]
