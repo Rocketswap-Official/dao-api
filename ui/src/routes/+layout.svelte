@@ -4,9 +4,11 @@
 	import '../css/layout.css';
 	import '../css/styled-defaults.css';
 	import Toast from '../components/toast.svelte';
+	import Header from '../components/header/header.svelte';
+	import LeftMenu from '../components/leftMenu/leftMenu.svelte';
 	//import { showToast, toast_data } from '../store.ts'
 
-	let showToast = true
+	let showToast = false;
 	let toast_data = {
 		title:'Success',
 		message:'Transaction Successful'
@@ -29,10 +31,10 @@
 // onMount(async ()=>await syncProposals())
 
 </script>
-<!-- <Header />
+<Header/>
 <LeftMenu />
-<MobileMenu />
-<Modal /> -->
+<!--MobileMenu /-->
+<!--Modal /--> 
 
 <!-- <main class:connected={$wallet_connected}>
 	<slot />
