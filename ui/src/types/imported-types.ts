@@ -4,14 +4,16 @@ export interface I_Proposal {
     title: string;
     description: string;
     date_decision: { __time__: string };
-    choices: string[];
+    choices: I_Choice[];
     state: string;
     ballot_count: number;
     counted: string;
     verified: string;
     lp_weight: number;
-    results: any;
+    results: {};
 }
+
+export interface I_Choice { choice: string, choiceIdx: number, proposalId: number, vk: string, voteWeight: number }
 
 export interface I_User {
     vk?: string;
@@ -24,10 +26,4 @@ export interface I_User {
     staked_rswp: number;
     staked_lp_value?: number[];
     lp_value?: number[];
-}
-
-export interface I_Toast {
-    title?: string;
-    message?: string;
-    errorMessage?: string;
 }
