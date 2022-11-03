@@ -1,7 +1,7 @@
 <script>
 	// Images
 	import logo_rocket from '$lib/svg/logo-rocket.svg';
-	import logo_rocketswap from '$lib/svg/logo-dao.svg';
+	import logo_dao from '$lib/svg/logo-dao.svg';
 	import logo_twitter from '$lib/svg/logo-twitter.svg';
 	import logo_medium from '$lib/svg/logo-medium.svg';
 	import logo_telegram from '$lib/svg/logo-telegram.svg';
@@ -21,14 +21,32 @@
 </script>
 
 <header class="desktop flex" class:connected={$wallet_connected}>
-		<div class="corner left flex row">
+		<!--div class="corner left flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
 				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="desktop flex row max-content">
 				<div class="ml-1 rocketswap">
 					<a href="https://rocketswap.exchange/">
-						<img src={logo_rocketswap} alt="Rocketswap" />
+						<img src={logo_dao} alt="Rocketswap" />
+					</a>
+					TAU: $0.066 | RSWP: $0.016
+				</div>
+	
+				<span class="inline-flex align-center ml-1 weight-300 max-content">
+					Powered by <a href="https://www.lamden.io" class="link-primary">Lamden</a>
+				</span>
+			</div>
+		</div-->
+
+		<div class="flex row">
+			<a href="https://rocketswap.exchange/" class="desktop max-content">
+				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
+			</a>
+			<div class="desktop flex row max-content">
+				<div class="flex col justify-center ml-1 dao">
+					<a href="https://rocketswap.exchange/">
+						<img src={logo_dao} alt="Rocketswap" />
 					</a>
 					TAU: $0.066 | RSWP: $0.016
 				</div>
@@ -38,6 +56,7 @@
 				</span>
 			</div>
 		</div>
+
 	
 		{#if $wallet_connected}
 			<div class="wallet-balance-address desktop flex align-center">
@@ -72,13 +91,27 @@
 
 <header class="mobile flex col" class:connected={$wallet_connected}>
 	<div class="flex">
-		<div class="corner left flex row">
+		<!--div class="corner left flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
 				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="flex col grow">
 				<a href="https://rocketswap.exchange/" class="rocketswap">
-					<img src={logo_rocketswap} alt="Rocketswap" />
+					<img src={logo_dao} alt="Rocketswap" />
+				</a>
+				<span class="subtitle inline-flex align-center ml-1 weight-300 max-content">
+					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
+					TAU: $0.066 | RSWP: $0.016
+				</span>
+			</div>
+		</div-->
+		<div class="flex row">
+			<a href="https://rocketswap.exchange/" class="desktop max-content">
+				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
+			</a>
+			<div class="flex col grow">
+				<a href="https://rocketswap.exchange/" class="rocketswap">
+					<img src={logo_dao} alt="Rocketswap" />
 				</a>
 				<span class="subtitle inline-flex align-center ml-1 weight-300 max-content">
 					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
@@ -136,7 +169,7 @@
 	.corner a {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: center;  
 		height: 100%;
 	}
 
@@ -154,7 +187,7 @@
 
 	.corner img {
 		width: 100%;
-		height: 100%;
+		height: 100%; 
 		object-fit: contain;
 	}
 
@@ -167,7 +200,7 @@
 		font-weight: 200;
 	}
 
-	.rocketswap{
+	.dao{
 		line-height: 0.8;
 		padding: var(--units-015vw);
 	}
