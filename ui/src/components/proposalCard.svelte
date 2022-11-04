@@ -3,6 +3,7 @@
     import ChoiceSelectorPieChart from './choiceSelectorPieChart.svelte';
     import Button from './button/button.svelte';
     import  type { I_Proposal, I_User }  from '../types/imported-types';
+    import { handle_modal_open } from '../events'
     export let proposal: I_Proposal;
     export let user: I_User[];
 
@@ -89,12 +90,12 @@
 
     <div class="flex row j-end">
         <div class="mr-1em">
-            <Button act = {showModal}>
+            <Button act = {handle_modal_open} style="">
                 Cast vote
             </Button>
         </div>
         
-        <Button act = {showModal}>
+        <Button act = {showModal} style="">
             Details
         </Button>
     </div>
