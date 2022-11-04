@@ -6,6 +6,7 @@
 	import Toast from '../components/toast.svelte';
 	import Header from '../components/header/header.svelte';
 	import LeftMenu from '../components/leftMenu/leftMenu.svelte';
+	import Modal from '../components/modal/modal.svelte'
 	//import { showToast, toast_data } from '../store.ts'
 
 	let showToast = false;
@@ -34,7 +35,7 @@
 <Header/>
 <LeftMenu />
 <!--MobileMenu /-->
-<!--Modal /--> 
+<Modal/> 
 
 <!-- <main class:connected={$wallet_connected}>
 	<slot />
