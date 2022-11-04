@@ -36,7 +36,7 @@
                     <img src={close_x} alt="close" />
                 </button>
                 
-                <svelte:component this={$modal_open_store} />
+                <!--svelte:component this={$modal_open_store} /-->
             </div>
         {/if}
     </div>
