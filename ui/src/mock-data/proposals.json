@@ -1,0 +1,39 @@
+{
+    "proposals": [
+        {
+            "proposal_id": 1,
+            "title":"some proposal", 
+            "description": "this is enginneered", 
+            "date_decision": {"__time__":"29/10/2021"}, 
+            "choices": ["This is the first proposal", "No", "I'm undecided"],
+            "state": "open",
+            "ballot_count": 1,
+            "lp_weight": 123,
+            "results": {},
+            "counted": "false",
+            "verified": "false"
+    
+        },
+
+        {
+            "proposal_id": 2,
+            "title":"some proposal", 
+            "description": "this is enginneered", 
+            "date_decision": {"__time__": "29/10/2021"}, 
+            "choices": ["yeah its me", "nope not me", "we shall see"],
+            "state": "concluded",
+            "ballot_count": 1,
+            "lp_weight": 102,
+            "results": {"0": 123, "1": 321,"2":222},
+            "counted": "true",
+            "verified": "true"
+        }
+    ]   
+
+}
+
+    
+   
+
+
+
