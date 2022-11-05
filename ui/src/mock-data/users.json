@@ -1,0 +1,37 @@
+{
+    "users": [
+        {
+            "vk": "cccccccccc",
+            "ballot_idx": [1],
+            "choice_idx": [0,2],
+            "weight": [],
+            "proposals": [1,2],
+            "rswp_balance": 1000,
+            "rocket_fuel": 2000,
+            "staked_rswp": 50000,
+            "staked_lp_value": [2000, 3000],
+            "lp_value": [3000, 4000]
+    
+        },
+
+        {
+            "vk": "bbbbbbbbbb",
+            "ballot_idx": [1],
+            "choice_idx": [2,0],
+            "weight": [],
+            "proposals": [1,2],
+            "rswp_balance": 1000,
+            "rocket_fuel": 2020,
+            "staked_rswp": 50500,
+            "staked_lp_value": [2020, 3300],
+            "lp_value": [3300, 4040]
+        }
+    ]   
+
+}
+
+    
+   
+
+
+
