@@ -8,6 +8,14 @@
 	import LeftMenu from '../components/leftMenu/leftMenu.svelte';
 	import Modal from '../components/modal/modal.svelte'
 	//import { showToast, toast_data } from '../store.ts'
+	import { syncProposals, syncUsers } from '../utils/api.utils'
+	import { onMount } from 'svelte';
+
+	onMount(()=>{
+		syncProposals()
+		syncUsers()
+	})
+	
 
 	let showToast = false;
 	let toast_data = {
