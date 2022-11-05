@@ -6,9 +6,12 @@
     import { wallet_store } from "../store"
     import { pieLabels, pieColours } from "../pie";
     import PieChart from './pieChart.svelte';
+    //import type { Writable } from "svelte/store";
+	import type { I_Choice } from "src/types/imported-types";
 
-    export let choices: any[];
-    export let total: number;
+    export let choices: I_Choice[];
+    let total: number;
+
     
     //get vk from lamden wallet
     let vk = $wallet_store;
@@ -31,35 +34,35 @@
         labels.push(pieLabels[n]);
         weights.push(parseFloat(c.voteWeight));
         backgroundColor.push(pieColours[n]);
+        total = c.total
         n = n + 1
     }
 
-    //console.log(backgroundColor)
 
-    const castBallot_= (e: any) =>{
-        let proposalId = parseInt(e.target.getAttribute("data-proposal-id"));
-        let choiceIdx = parseInt(e.target.getAttribute("data-choice-idx"));
-        vote(proposalId, choiceIdx)
-        justChosen = e.target
-    }
+    // const castBallot_= (e: any) =>{
+    //     let proposalId = parseInt(e.target.getAttribute("data-proposal-id"));
+    //     let choiceIdx = parseInt(e.target.getAttribute("data-choice-idx"));
+    //     vote(proposalId, choiceIdx)
+    //     justChosen = e.target
+    // }
     
-    onMount(()=>{
-        vote = castBallot
+    // onMount(()=>{
+    //     vote = castBallot
 
-        document.addEventListener('lamdenWalletTxStatus', async(response: any) => {
-            let data = await response.detail.data
-            if (data.resultInfo.type === 'error') {
+    //     document.addEventListener('lamdenWalletTxStatus', async(response: any) => {
+    //         let data = await response.detail.data
+    //         if (data.resultInfo.type === 'error') {
                 
-                console.log(data.resultInfo)
-            }
-            if (Object.keys(data.txBlockResult).length > 0){
-                if (data.txBlockResult.result === "None"){
-                    justChosen.disabled = true;
-                    justChosen.style.border = '2px solid seagreen';
-                    justVoted = true;
-                }
-            }
-            console.log(data)
+    //             console.log(data.resultInfo)
+    //         }
+    //         if (Object.keys(data.txBlockResult).length > 0){
+    //             if (data.txBlockResult.result === "None"){
+    //                 justChosen.disabled = true;
+    //                 justChosen.style.border = '2px solid seagreen';
+    //                 justVoted = true;
+    //             }
+    //         }
+            //console.log(data)
             
             //data.resultInfo.title: "Transaction Pending" 
             //data.resultInfo.title: "Transaction Successful"
@@ -67,8 +70,8 @@
             //data.resultInfo.type: "success"
             
                 
-        });
-    })
+    //     });
+    // })
     
 </script>
 
