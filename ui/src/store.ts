@@ -1,5 +1,5 @@
 import { writable, type Writable } from "svelte/store";
-import type { I_Proposal, I_User } from "./types/imported-types"
+import type { I_Proposal, I_User, I_Choice } from "./types/imported-types"
 
 export const proposals_store: Writable<I_Proposal[]> = writable([])
 export const users_store: Writable<I_User[]> = writable([])
@@ -11,3 +11,6 @@ export const modal_callback: Writable<Function | false> = writable()
 //Toast
 // export const showToast: Writable<any> = writable(false)
 // export const toast_data: Writable<I_Toast> = writable({})
+
+//ChoiceArray
+export const choice_array_store: Writable<I_Choice[]> = writable([])
