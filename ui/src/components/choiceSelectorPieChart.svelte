@@ -1,12 +1,8 @@
-<!--div>progress bar</div-->
-
 <script lang="ts">
-    import { castBallot } from "../utils/contractMethodCalls"
-    import { onMount } from "svelte";
+    
     import { wallet_store } from "../store"
     import { pieLabels, pieColours } from "../pie";
     import PieChart from './pieChart.svelte';
-    //import type { Writable } from "svelte/store";
 	import type { I_Choice } from "src/types/imported-types";
 
     export let choices: I_Choice[];
@@ -38,13 +34,6 @@
         n = n + 1
     }
 
-
-    // const castBallot_= (e: any) =>{
-    //     let proposalId = parseInt(e.target.getAttribute("data-proposal-id"));
-    //     let choiceIdx = parseInt(e.target.getAttribute("data-choice-idx"));
-    //     vote(proposalId, choiceIdx)
-    //     justChosen = e.target
-    // }
     
     // onMount(()=>{
     //     vote = castBallot
