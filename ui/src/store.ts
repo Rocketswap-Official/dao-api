@@ -7,6 +7,7 @@ export const wallet_store: Writable<any> = writable(null)
 
 export const modal_open_store: Writable<any> = writable(false)
 export const modal_data_store: Writable<any> = writable({})
+export const modal_index_store: Writable<number> = writable(0)
 export const modal_callback: Writable<Function | false> = writable()
 //Toast
 // export const showToast: Writable<any> = writable(false)
