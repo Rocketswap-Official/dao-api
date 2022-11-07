@@ -1,9 +1,19 @@
-<script>
+<script lang="ts">
     import { fly } from 'svelte/transition';
     import close_x from '$lib/svg/close-x-white.svg'
-    import { modal_open_store } from '../../store';
+    import { modal_open_store, modal_index_store } from '../../store';
     import { handle_modal_close } from '../../events'
 	import { onMount } from 'svelte';
+    import type { I_ModalType } from '../../types/imported-types'
+
+	import VotingModal from './content/voting-modal.svelte';
+
+    const modalType: I_ModalType[] = [
+        {type: 'noModal', component: ''},
+        {type: 'voting', component: VotingModal}
+    ]
+
+    $: chosenModal  = modalType[$modal_index_store]
 
     // modal_open_store.subscribe(setup_document_for_modal)
 
@@ -36,7 +46,7 @@
                     <img src={close_x} alt="close" />
                 </button>
                 
-                <!--svelte:component this={$modal_open_store} /-->
+                <svelte:component this={chosenModal.component} />
             </div>
         {/if}
     </div>
