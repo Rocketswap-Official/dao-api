@@ -2,15 +2,25 @@
 
     import ChoiceSelectorPieChart from '../components/choiceSelectorPieChart.svelte';
     import ProposalCard from '../components/proposalCard.svelte';
-    import { proposals_store, choice_array_store } from '../store';
+    import Button from '../components/button/button.svelte'
+    import { handle_modal_open_voting } from '../events'
+    import { proposals_store, choice_array_store} from '../store';
+
+    const showModal = ()=>{let n; n= true}
+
+   
 
     let n = 0;
     let it = 0;
     const increment = ()=>{
+        n = it
+        n = n + 1 - 1
         it = it + 1
-        if(it>1) n = n + 1
         return n
+
     }
+
+    
 
     
 </script>
@@ -26,6 +36,18 @@
             <ProposalCard {proposal}> 
                 
                 <ChoiceSelectorPieChart choices ={$choice_array_store[increment()]}/>
+
+                <div class="flex row j-end" style="margin-top: 3vw;">
+                    <div class="mr-1em">
+                        <Button bid={n=n+1} act = {handle_modal_open_voting} style="">
+                            Cast vote
+                        </Button>
+                    </div>
+                    
+                    <Button bid={n=n+1} act = {showModal} style="">
+                        Details
+                    </Button>
+                </div>
                 
             </ProposalCard>
             
