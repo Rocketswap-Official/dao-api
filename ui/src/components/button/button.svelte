@@ -1,6 +1,15 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { modal_data_store } from '../../store'
+	export let bid: any;
 	export let act: any;
 	export let style: T_ButtonStyle = ""; // primary / secondary
+
+	(()=>{
+		modal_data_store.set(bid - 1)
+	})()
+	
+	
 
 	type T_ButtonStyle = "primary" | "secondary" | ""
 	type T_ButtonIcon = "arrow-right" | "";
