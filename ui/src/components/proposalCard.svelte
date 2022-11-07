@@ -2,7 +2,7 @@
     
     import Button from './button/button.svelte';
     import  type { I_Proposal, I_User }  from '../types/imported-types';
-    import { handle_modal_open } from '../events'
+    import { handle_modal_open_voting } from '../events'
 
     export let proposal: I_Proposal;
 
@@ -25,9 +25,9 @@
             
     </div>
 
-    <div class="flex row j-end">
+    <!--div class="flex row j-end">
         <div class="mr-1em">
-            <Button act = {handle_modal_open} style="">
+            <Button act = {handle_modal_open_voting} style="">
                 Cast vote
             </Button>
         </div>
@@ -35,7 +35,7 @@
         <Button act = {showModal} style="">
             Details
         </Button>
-    </div>
+    </div-->
     
     
 </div>
@@ -60,7 +60,7 @@
         font-size: var(--units-1vw);
     }
     .choice-container{
-        margin-bottom: 3vw;
+        /* margin-bottom: 3vw; */
         width: 100%;
         overflow-x: hidden;
         /* margin: 10px 0 10px 0; */
