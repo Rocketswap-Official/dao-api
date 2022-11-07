@@ -1,3 +1,5 @@
+import type { ComponentType } from "svelte";
+
 export interface I_Proposal {
     id?: number;
     proposal_id: number;
@@ -35,3 +37,9 @@ export interface I_User {
     staked_lp_value: number[];
     lp_value: number[];
 }
+
+export interface I_ModalType {
+    type: string;
+    component: ComponentType | string;
+}
+
