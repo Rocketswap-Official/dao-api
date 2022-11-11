@@ -6,8 +6,26 @@
     let title = ''; 
     let description = '';
     let date_decision = '' ;
-    let choice0 = '';
-    $: choiceArray = [choice0];
+    //let choice0 = '';
+    let i = 0;
+    let choiceObj = {id: i, text: ''}
+    let choices = [];
+    //$: choiceArray = [choice0];
+
+    const addChoice = () =>{
+        if(choices.length==3){
+            return
+        };
+        i = i+1
+		choiceObj.id = i;			
+		choices = [...choices,choiceObj];
+		choiceObj  = {id: i, text: ''};
+		
+	}
+
+    const delChoice = (id) =>{
+		choices = choices.filter(item =>item.id !== id); 
+	}
 
 
     //let submit;
@@ -60,16 +78,29 @@
     </span><br>
 
     <div class="choices">
-            <label for="choices">choices</label><br>
+        <label for="choices">choices</label><br>
         <div class="flex space-between">
-            <input type="text" bind:value={choice0} style="width: 100%; margin-right: 0.5em;">
-            <button class="outlined white" >
+            <input type="text"  style="width: 100%; margin-right: 0.5em;">
+            <button class="outlined white" on:click={addChoice}>
                 <div>
                     <!--image class="svg" src={Plus} alt="plus"/-->
                     +
                 </div>
             </button>
-        </div>    
+        </div> 
+        {#each choices as choice }
+        <div class="flex space-between" style="margin-top: 1em">
+            <input type="text" bind:value={choice.text} style="width: 100%; margin-right: 0.5em;">
+            <button class="outlined white" on:click={delChoice(choice.id)}>
+                <div>
+                    <!--image class="svg" src={Plus} alt="plus"/-->
+                    -
+                </div>
+            </button>
+        </div> 
+        
+        
+        {/each}   
             
             
     </div>
