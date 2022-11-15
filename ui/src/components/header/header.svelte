@@ -12,15 +12,15 @@
 	import { toggle_menu } from '$lib/mobile-menu/menu-functions'
 
 	// Stores
-	import { wallet_connected, wallet_vk, tau_balance } from '$lib/js/stores/user-stores';
+	import { tau_balance } from '$lib/js/stores/user-stores';
 
-	// Service
-	import { format_wallet_address, tauhq_addresses } from '$lib/js/string-formatting'
+	import { wallet_store } from '../../store';
+	import { format_wallet_address, tauhq_addresses } from './header'
 
 
 </script>
 
-<header class="desktop flex" class:connected={$wallet_connected}>
+<header class="desktop flex" class:connected={$wallet_store}>
 		<!--div class="corner left flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
 				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
@@ -58,11 +58,11 @@
 		</div>
 
 	
-		{#if $wallet_connected}
+		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$tau_balance} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_vk)}`}" target="_blank">
-					{format_wallet_address($wallet_vk)}
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
 		{/if}
@@ -72,7 +72,7 @@
 		</div>
 
 		<div class="corner right flex row align-center">
-			{#if $wallet_connected}
+			{#if $wallet_store}
 				<button class="icon">
 					<img src="{icon_notification}" alt="notification">
 				</button>
@@ -89,7 +89,7 @@
 		</div>
 </header>
 
-<header class="mobile flex col" class:connected={$wallet_connected}>
+<header class="mobile flex col" class:connected={$wallet_store}>
 	<div class="flex">
 		<!--div class="corner left flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
@@ -119,11 +119,11 @@
 				</span>
 			</div>
 		</div>
-		{#if $wallet_connected}
+		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$tau_balance} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_vk)}`}" target="_blank">
-					{format_wallet_address($wallet_vk)}
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
 		{/if}
@@ -131,12 +131,12 @@
 			<img src={menu_burger} alt="menu" on:click={toggle_menu}/>
 		</div>
 	</div>
-	{#if $wallet_connected}
+	{#if $wallet_store}
 		<div class="connected-row flex align-center center">
 			<div class="wallet-balance-address  flex align-center">
 				{`${$tau_balance} TAU |`}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_vk)}`}" target="_blank">
-					{format_wallet_address($wallet_vk)}
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
 			<button class="icon">
