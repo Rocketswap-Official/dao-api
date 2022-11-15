@@ -7,22 +7,30 @@
 	import Header from '../components/header/header.svelte';
 	import LeftMenu from '../components/leftMenu/leftMenu.svelte';
 	import Modal from '../components/modal/modal.svelte'
-	//import { showToast, toast_data } from '../store.ts'
+	import { lwc_store, wallet_store,toast_store } from '../store'
 	import { syncProposals, syncUsers } from '../utils/api.utils'
-	import { onMount } from 'svelte';
+	import { 
+        initWalletController,
+        handleWalletInfo,
+        handleTxnInfo,
+        getCurrentWalletInfo,
+        isWalletInstalled
+    } from '../utils/connections.utils'
+	
+	import { browser } from '$app/environment';
 
-	onMount(()=>{
-		syncProposals()
-		syncUsers()
-	})
+	syncProposals();
+	syncUsers();
+
+	if(browser){
+		
+		initWalletController();
+		getCurrentWalletInfo($lwc_store)
+	}
 	
 
-	let showToast = false;
-	let toast_data = {
-		title:'Success',
-		message:'Transaction Successful'
-		//errorMessage: 'User closed popup window'
-	}
+	$lwc_store?.events.on('newInfo', handleWalletInfo)
+    $lwc_store?.events.on('txStatus', handleTxnInfo)
 	
 	// Components
 
@@ -49,16 +57,16 @@
 	<slot />
 </main> -->
 
-<Toast {showToast} {toast_data}/>
+<Toast  toast_data={$toast_store}/>
 
 <main>
 	<slot />
 </main>
 
-
-<!--
-<svelte:window on:resize={close_menu} />
--->
+<!--button on:click={()=>toast_store.set({show: $toast_store.show = !$toast_store.show})}>
+	Toast
+</button-->
+<!--svelte:window on:resize={close_menu} /-->
 <style>
 	main {
 		padding: 7vmax 5vw 15vw 10vw;
