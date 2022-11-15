@@ -4,32 +4,34 @@
 
     // Utils
     import { close_menu } from '$lib/mobile-menu/menu-functions'
-    import { open_connect_main } from '$lib/js/event-handlers'
+   // import { open_connect_main } from '$lib/js/event-handlers'
 
     // Stores
-    import { wallet_connected } from '$lib/js/stores/user-stores'
+    import { lwc_store, wallet_store } from '../../store'
+
+    import { isWalletInstalled } from '../../utils/connections.utils'
 
     // Services
-    import { disconnect_wallet } from '$lib/js/services/wallet.service'
+    //import { disconnect_wallet } from '$lib/js/services/wallet.service'
 
-    function handle_click(){
+    function connectWallet(){
         close_menu()
-        if ($wallet_connected) disconnect_wallet()
-        else{
-            open_connect_main()
-        }
+
+        isWalletInstalled($lwc_store)
+        // if ($wallet_store) disconnect_wallet()
+        // else{
+        //     open_connect_main()
+        // }
     }
 
 </script>
 
 <li>
-    <button class="flex align-center" on:click={handle_click}>
+    <button class="flex align-center" on:click={connectWallet}>
         <img src={icon_connect_wallet} alt="Connect Wallet" />
-        {#if $wallet_connected}
-            Disconnect Wallet
-        {:else}
-            Connect Wallet
-        {/if}
+
+        {$wallet_store?"Connected":"Connect Wallet"}
+
     </button>
 </li>
 
