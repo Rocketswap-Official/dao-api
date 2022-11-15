@@ -10,8 +10,8 @@ export const processChoices = (choices: I_ChoicesObj[]): string[] =>{
 }
 
 export const sendTransaction = async (lwc, transaction: I_TransactionObj): Promise<void> =>{
-    //lwc.sendTransaction(transaction) 
-    console.log(transaction)
+    lwc.sendTransaction(transaction) 
+    //console.log(transaction)
 }
 
 //##########Config##############################
