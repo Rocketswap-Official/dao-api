@@ -1,5 +1,5 @@
 <script>
-    import CreateProposal from '../../components/createProposal.svelte';
+    import CreateProposal from '../../components/createProposal/createProposal.svelte';
 </script>
 
 <CreateProposal/>
