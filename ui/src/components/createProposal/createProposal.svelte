@@ -1,6 +1,12 @@
 <script lang="ts">
     //import { createProposal } from "$lib/js/contractMethodCalls.js"
-    import { proposalTxnInfo, processChoices, type I_ChoicesObj } from './createProposal'
+    import { 
+        proposalTxnInfo, 
+        processChoices, 
+        type I_ChoicesObj, 
+        sendTransaction 
+    } from './createProposal'
+    import { lwc_store } from '../../store';
     import { onMount } from "svelte";
     //import Plus from '$lib/svg/plus.svg';
     
@@ -33,7 +39,8 @@
         
         let c = processChoices(choices)
         proposalTxnInfo.kwargs.choices = [...c]
-        console.log(proposalTxnInfo)
+        sendTransaction($lwc_store, proposalTxnInfo)
+        //console.log(proposalTxnInfo)
     }
 
 </script>
