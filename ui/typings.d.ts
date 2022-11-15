@@ -1,0 +1,1 @@
+declare module 'lamden_wallet_controller';
