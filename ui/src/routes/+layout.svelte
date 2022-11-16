@@ -1,21 +1,21 @@
 <script lang="ts">
-	import '../css/app.css';
-	import '../css/flex.css';
-	import '../css/layout.css';
-	import '../css/styled-defaults.css';
-	import Toast from '../components/toast.svelte';
-	import Header from '../components/header/header.svelte';
-	import LeftMenu from '../components/leftMenu/leftMenu.svelte';
-	import Modal from '../components/modal/modal.svelte'
-	import { lwc_store, wallet_store,toast_store } from '../store'
-	import { syncProposals, syncUsers } from '../utils/api.utils'
+	import '$lib/css/app.css';
+	import '$lib/css/flex.css';
+	import '$lib/css/layout.css';
+	import '$lib/css/styled-defaults.css';
+	import Toast from '$lib/components/toast.svelte';
+	import Header from '$lib/components/header/header.svelte';
+	import LeftMenu from '$lib/components/leftMenu/leftMenu.svelte';
+	import Modal from '$lib/components/modal/modal.svelte'
+	import { lwc_store, wallet_store,toast_store } from '$lib/store'
+	import { syncProposals, syncUsers } from '$lib/utils/api.utils'
 	import { 
         initWalletController,
         handleWalletInfo,
         handleTxnInfo,
         getCurrentWalletInfo,
         isWalletInstalled
-    } from '../utils/connections.utils'
+    } from '$lib/utils/connections.utils'
 	
 	import { browser } from '$app/environment';
 

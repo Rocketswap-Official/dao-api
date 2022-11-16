@@ -1,10 +1,10 @@
 <script lang="ts">
 
-    import ChoiceSelectorPieChart from '../components/choiceSelectorPieChart.svelte';
-    import ProposalCard from '../components/proposalCard.svelte';
-    import Button from '../components/button/button.svelte'
+    import ChoiceSelectorPieChart from '$lib/components/choiceSelectorPieChart.svelte';
+    import ProposalCard from '$lib/components/proposalCard.svelte';
+    import Button from '$lib/components/button/button.svelte'
     import { handle_modal_open_voting } from '../events'
-    import { proposals_store, choice_array_store} from '../store';
+    import { proposals_store, choice_array_store} from '$lib/store';
 
     const showModal = ()=>{let n; n= true}
 

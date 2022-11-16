@@ -10,7 +10,7 @@
 {#if toast_data.show}
     <div transition:fly='{{x:120, duration: 600}}' class="toast-container {toast_data.error?'error':'success'}">
         
-        <img class="close" src={close_x} alt="close" on:click={()=>toast_store.set({show:false})} on:keyup={()=>showToast=false}/>
+        <img class="close" src={close_x} alt="close" on:click={()=>toast_store.set({show:false})} on:keyup={()=>toast_store.set({show:false})}/>
         
         <h3 class="title">
             {toast_data.title}

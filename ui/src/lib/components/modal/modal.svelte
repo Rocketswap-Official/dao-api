@@ -2,7 +2,7 @@
     import { fly } from 'svelte/transition';
     import close_x from '$lib/svg/close-x-white.svg'
     import { modal_open_store, modal_index_store } from '../../store';
-    import { handle_modal_close } from '../../events'
+    import { handle_modal_close } from '../../../events'
 	import { onMount } from 'svelte';
     import type { I_ModalType } from '../../types/imported-types'
 

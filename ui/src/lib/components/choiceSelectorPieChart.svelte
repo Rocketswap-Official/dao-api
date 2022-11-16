@@ -1,9 +1,9 @@
 <script lang="ts">
     
     import { wallet_store } from "../store"
-    import { pieLabels, pieColours } from "../pie";
-    import PieChart from './pieChart.svelte';
-	import type { I_Choice } from "src/types/imported-types";
+    import { pieLabels, pieColours } from "./pieChart/pie";
+    import PieChart from './pieChart/pieChart.svelte';
+	import type { I_Choice } from "../types/imported-types";
 
     export let choices: I_Choice[];
     let total: number;

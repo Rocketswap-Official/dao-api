@@ -1,7 +1,7 @@
 <script lang="ts">
     import Chart from 'chart.js/auto';
     //import ChartDataLabels from 'chartjs-plugin-datalabels';
-    import { pieOptions } from '../pie';
+    import { pieOptions } from './pie';
     import { onMount } from 'svelte';
 
     export let labels: string[];

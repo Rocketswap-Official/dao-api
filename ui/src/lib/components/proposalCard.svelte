@@ -2,7 +2,7 @@
     
     import Button from './button/button.svelte';
     import  type { I_Proposal, I_User }  from '../types/imported-types';
-    import { handle_modal_open_voting } from '../events'
+    import { handle_modal_open_voting } from '../../events'
 
     export let proposal: I_Proposal;
 

@@ -1,4 +1,4 @@
-import VotingModal from './content/voting-modal.svelte'
+import VotingModal from './content/voting-modal.svelte';
 import { modal_data_store, modal_open_store, proposals_store } from '../../store'
 import type { I_Proposal } from '../../types/imported-types'
 

@@ -1,5 +1,5 @@
 import WalletController from 'lamden_wallet_controller';
-import { connectionRequest } from '../config'
+import { connectionRequest } from '../../config'
 import { lwc_store, wallet_store, toast_store } from '../store';
 
 
