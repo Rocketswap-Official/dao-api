@@ -20,7 +20,16 @@ export const handleWalletInfo = (wInfo: any)=> {
     }
     wallet_store.set(wInfo.wallets[0])
 }
-export const handleTxnInfo = (txInfo: any)=> console.log(txInfo)
+export const handleTxnInfo = (txInfo: any)=> {
+    txInfo.errors.forEach(err => {
+        if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
+            toast_store.set({show: true, error:true, title:"Wallet error", message:"Your wallet is not connected"})
+            return
+        }
+        toast_store.set({show: true, error:true, title:"Transaction error", message:err})
+        
+    })
+}
 
 export const initWalletController= ()=>{
     const lwc = new WalletController(connectionRequest);
