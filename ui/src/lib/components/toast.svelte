@@ -15,7 +15,10 @@
         <h3 class="title">
             {toast_data.title}
         </h3>
-        <div class="message-area">
+        <div class="message-area flex align-center">
+            {#if toast_data?.pending}
+                <img class="gif" src="Iphone-spinner-2.gif" alt="spinner"/>
+            {/if}
             
             {toast_data.message}
             
@@ -55,5 +58,8 @@
     }
     .error {
         background-color: rgb(234,76,28);
+    }
+    .gif {
+        width: 30px;
     }
 </style>
