@@ -6,7 +6,7 @@
         type I_ChoicesObj, 
         sendTransaction 
     } from './createProposal'
-    import { lwc_store } from '../../store';
+    import { lwc_store, toast_store } from '../../store';
     import { onMount } from "svelte";
     //import Plus from '$lib/svg/plus.svg';
     
@@ -36,7 +36,7 @@
     let buttonText = 'submit'
 
     const submitNewProposal = ()=>{
-        
+        toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
         let c = processChoices(choices)
         proposalTxnInfo.kwargs.choices = [...c]
         sendTransaction($lwc_store, proposalTxnInfo)
