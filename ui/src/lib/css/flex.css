@@ -62,3 +62,6 @@
 .flex.a-end {
     align-items: end;
 }
+.flex.a-start{
+    align-items: flex-start;
+}
