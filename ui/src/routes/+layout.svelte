@@ -29,7 +29,7 @@
 	}
 	
 
-	$lwc_store?.events.on('newInfo', handleWalletInfo)
+	//$lwc_store?.events.on('newInfo', handleWalletInfo)
     $lwc_store?.events.on('txStatus', handleTxnInfo)
 	
 	// Components
