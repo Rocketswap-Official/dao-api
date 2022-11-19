@@ -1,22 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { modal_data_store } from '../../store'
-	export let bid: any;
+	import { modal_data_store } from '../../store';
+	export let id: number;
 	export let act: any;
 	export let style: T_ButtonStyle = ""; // primary / secondary
-
-	(()=>{
-		modal_data_store.set(bid - 1)
-	})()
 	
-	
-
-	type T_ButtonStyle = "primary" | "secondary" | ""
+	const setId = ()=>{
+		modal_data_store.set(id-1);
+	}
+		
+	type T_ButtonStyle = "primary" | "secondary" | "";
 	type T_ButtonIcon = "arrow-right" | "";
+
 </script>
 
 <div>
-	<button on:click={act} class="connect outlined white {style}">
+	<button  on:click={setId} on:click={act} class="connect outlined white {style}">
 		<div>
 			<slot />
 		</div>
