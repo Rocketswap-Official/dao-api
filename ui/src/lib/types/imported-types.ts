@@ -1,5 +1,7 @@
 import type { ComponentType } from "svelte";
 
+//########## Proposal Types ##############################
+
 export interface I_Proposal {
     id?: number;
     proposal_id: number;
@@ -21,9 +23,11 @@ export interface I_Choice {
     choiceIdx: number, 
     proposalId: number, 
     vk?: string, 
-    voteWeight: number, 
+    voteWeight: number|string, 
     total: number 
 }
+
+//########## User Types ##############################
 
 export interface I_User {
     vk: string;
@@ -38,8 +42,36 @@ export interface I_User {
     lp_value: number[];
 }
 
+//########## Modal Types ##############################
+
 export interface I_ModalType {
     type: string;
     component: ComponentType | string;
 }
 
+//########## Transaction Types ##############################
+
+export interface I_ProposalInfo {
+    title: string;
+    description: string;
+    date_decision: string;
+    choices: I_ChoicesObj[]
+}
+export interface I_ChoicesObj {
+    id: number;
+    text: string;
+
+}
+export interface I_TransactionObj{
+    networkType: string;
+    methodName: string; 
+    kwargs: any; 
+    stampLimit: number;
+}
+
+
+export interface I_BallotInfo {
+    proposal_idx: string|number;
+    choice_idx: string|number;
+    
+}
