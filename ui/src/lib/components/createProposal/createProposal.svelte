@@ -1,13 +1,11 @@
 <script lang="ts">
     //import { createProposal } from "$lib/js/contractMethodCalls.js"
-    import { 
-        proposalTxnInfo, 
-        processChoices, 
-        type I_ChoicesObj, 
-        sendTransaction 
-    } from './createProposal'
+    import {  processChoices } from './createProposal.utils';
+    import { sendTransaction } from '../../../funcs';
+    import type { I_ChoicesObj } from '../../types/imported-types';
+    import { proposalTxnInfo } from '../../../config';
     import { lwc_store, toast_store } from '../../store';
-    import { onMount } from "svelte";
+    //import { onMount } from "svelte";
     //import Plus from '$lib/svg/plus.svg';
     
     let i = 0;
