@@ -8,7 +8,6 @@
 
     const showModal = ()=>{let n; n= true}
 
-   
 
     let n = 0;
     let it = 0;
@@ -39,12 +38,12 @@
 
                 <div class="flex row j-end" style="margin-top: 3vw;">
                     <div class="mr-1em">
-                        <Button bid={n=n+1} act = {handle_modal_open_voting} style="">
+                        <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
                             Cast vote
                         </Button>
                     </div>
                     
-                    <Button bid={n=n+1} act = {showModal} style="">
+                    <Button id={proposal.proposal_id} act = {showModal} style="">
                         Details
                     </Button>
                 </div>
