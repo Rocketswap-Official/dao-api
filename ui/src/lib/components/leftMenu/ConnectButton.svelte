@@ -1,6 +1,4 @@
 <script>
-    // Icons
-    import icon_connect_wallet from '$lib/svg/menu/icon-connect-wallet.svg'
 
     // Utils
     import { close_menu } from '$lib/mobile-menu/menu-functions'
@@ -28,7 +26,7 @@
 
 <li>
     <button class="flex align-center" on:click={connectWallet}>
-        <img src={icon_connect_wallet} alt="Connect Wallet" />
+        <img src="svg/menu/icon-connect-wallet.svg" alt="Connect Wallet" />
 
         {$wallet_store?"Connected":"Connect Wallet"}
 
