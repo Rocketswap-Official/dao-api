@@ -1,10 +1,5 @@
 <script>
-	// Images
-	import logo_rocket from '$lib/svg/logo-rocket.svg';
-	import logo_dao from '$lib/svg/logo-dao.svg';
-	import logo_twitter from '$lib/svg/logo-twitter.svg';
-	import logo_medium from '$lib/svg/logo-medium.svg';
-	import logo_telegram from '$lib/svg/logo-telegram.svg';
+	
 	import menu_burger from './menu-burger.svg';
 	import icon_notification from './icon-notification.svg';
 
@@ -41,12 +36,12 @@
 
 		<div class="flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
-				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
+				<img src="svg/logo-rocket.svg" alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="desktop flex row max-content">
 				<div class="flex col justify-center ml-1 dao">
 					<a href="https://rocketswap.exchange/">
-						<img src={logo_dao} alt="Rocketswap" />
+						<img src="svg/logo-dao.svg" alt="Rocketswap" />
 					</a>
 					TAU: $0.066 | RSWP: $0.016
 				</div>
@@ -78,13 +73,13 @@
 				</button>
 			{/if}
 			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
-				<img src={logo_telegram} alt="Telegram" />
+				<img src="svg/logo-telegram.svg" alt="Telegram" />
 			</a>
 			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
-				<img class="logo_medium" src={logo_medium} alt="Medium" />
+				<img class="logo_medium" src="svg/logo-medium.svg" alt="Medium" />
 			</a>
 			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
-				<img src={logo_twitter} alt="Twitter" />
+				<img src="svg/logo-twitter.svg" alt="Twitter" />
 			</a>
 		</div>
 </header>
@@ -107,11 +102,11 @@
 		</div-->
 		<div class="flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
-				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
+				<img src="svg/logo-rocket.svg" alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="flex col grow">
 				<a href="https://rocketswap.exchange/" class="rocketswap">
-					<img src={logo_dao} alt="Rocketswap" />
+					<img src="svg/logo-dao.svg" alt="Rocketswap" />
 				</a>
 				<span class="subtitle inline-flex align-center ml-1 weight-300 max-content">
 					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
