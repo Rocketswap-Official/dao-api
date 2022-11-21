@@ -8,3 +8,11 @@ export const getCheckBoxGroup = (choices, group)=>{
     }
     return group
 }
+
+export const CheckVoted = (vk, choices)=>{
+    let voted = false;
+    for (let c of choices){
+        if(c.vk == vk)voted = true
+    }
+    return voted
+}
