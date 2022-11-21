@@ -1,6 +1,5 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
-    import close_x from '$lib/svg/close-x-white.svg'
     import { modal_open_store, modal_index_store } from '../../store';
     import { handle_modal_close } from '../../../events'
     import type { I_ModalType } from '../../types/imported-types'
@@ -41,7 +40,7 @@
                  in:fly="{{ y: -50, duration: 500 }}">
 
                 <button class="icon close" on:click={handle_modal_close} on:keyup={handle_modal_close}>
-                    <img src={close_x} alt="close" />
+                    <img src="svg/close-x-white.svg" alt="close" />
                 </button>
                 
                 <svelte:component this={chosenModal.component} />
