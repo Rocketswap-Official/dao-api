@@ -2,7 +2,7 @@
     "users": [
         {
             "vk": "cccccccccc",
-            "ballot_idx": [1],
+            "ballot_idx": [1,1],
             "choice_idx": [0,2],
             "weight": [],
             "proposals": [1,2],
@@ -16,7 +16,7 @@
 
         {
             "vk": "bbbbbbbbbb",
-            "ballot_idx": [1],
+            "ballot_idx": [1,1],
             "choice_idx": [2,0],
             "weight": [],
             "proposals": [1,2],
