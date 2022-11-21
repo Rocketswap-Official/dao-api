@@ -4,13 +4,10 @@
     import { pieLabels, pieColours } from "./pieChart/pie";
     import PieChart from './pieChart/pieChart.svelte';
 	import type { I_Choice } from "../types/imported-types";
-    import leadingVoteSvg from '$lib/svg/award-medal-badge-svgrepo-com.svg';
-    import choiceSelectedSvg from '$lib/svg/check-svgrepo-com.svg';
 
     export let choices: I_Choice[];
     let total: number;
-
-    
+    //console.log(choices)
     //get vk from lamden wallet
     //let vk = $wallet_store;
     let vk = "cccccccccc"
@@ -50,7 +47,7 @@
 
             <div class="flex row a-start">
 
-                <img class="svg" class:visibility={choice.voteWeight == maxValue} src={leadingVoteSvg} alt="leading vote"/>
+                <img class="svg" class:visibility={choice.voteWeight == maxValue} src="svg/award-medal-badge.svg" alt="leading vote"/>
 
                 <li class="mb-1" style="margin-left: var(--units-1_4vw); font-weight: 400">    
                    
@@ -61,7 +58,7 @@
 
             <div class="flex row a-start">
                 <div>{choice.voteWeight}%</div>
-                <img class="svg2" class:visibility={choice.vk == vk} src={choiceSelectedSvg} alt="selected choice"/>
+                <img class="svg2" class:visibility={choice.vk === vk} src="svg/checked.svg" alt="selected choice"/>
             </div>
                                     
         </div>
