@@ -1,6 +1,5 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
-    import close_x from '$lib/svg/close-x-white.svg'
     import { toast_store } from '../store'
 
     export let toast_data: any;
@@ -10,7 +9,7 @@
 {#if toast_data.show}
     <div transition:fly='{{x:120, duration: 600}}' class="toast-container {toast_data.error?'error':'success'}">
         
-        <img class="close" src={close_x} alt="close" on:click={()=>toast_store.set({show:false})} on:keyup={()=>toast_store.set({show:false})}/>
+        <img class="close" src="svg/close-x-white.svg" alt="close" on:click={()=>toast_store.set({show:false})} on:keyup={()=>toast_store.set({show:false})}/>
         
         <h3 class="title">
             {toast_data.title}
