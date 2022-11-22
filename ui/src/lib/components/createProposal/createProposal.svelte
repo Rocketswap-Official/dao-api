@@ -34,23 +34,80 @@
     let buttonText = 'submit'
 
     const submitNewProposal = ()=>{
-        toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
+
         let c = processChoices(choices)
+
         proposalTxnInfo.kwargs.choices = [...c]
+
+        if(!proposalTxnInfo.kwargs.title || !proposalTxnInfo.kwargs.description || !proposalTxnInfo.kwargs.date_decision){
+            console.log(proposalTxnInfo.kwargs.choices)
+            
+              
+            toast_store.set({
+                show: true, 
+                error: true, 
+                title:"Input Error", 
+                message:"Empty required field!"
+            })
+            return
+        }
+
+        if(proposalTxnInfo.kwargs.choices.length > 0){
+
+            for (let c of proposalTxnInfo.kwargs.choices){
+                if (!c){
+                    toast_store.set({
+                        show: true, 
+                        error: true, 
+                        title:"Input Error", 
+                        message:"Empty required field!"
+                    })
+                return 
+                }
+            }
+        }
+
+        if(proposalTxnInfo.kwargs.choices.length === 0){
+            toast_store.set({
+                show: true, 
+                error: true, 
+                title:"Input Error", 
+                message:"Empty required field!"
+            })
+
+            return 
+        }
+
+        if(proposalTxnInfo.kwargs.choices.length === 1){
+            toast_store.set({
+                show: true, 
+                error: true, 
+                title:"Input Error", 
+                message:"At least two choices required"
+            })
+
+            return 
+        }
+
+        toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
+        
         sendTransaction($lwc_store, proposalTxnInfo)
-        //console.log(proposalTxnInfo)
+        console.log(proposalTxnInfo)
     }
 
 </script>
 
 <div class="form panel flex col" >
     <label for="title">title</label><br>
-    <input type="text" bind:value={proposalTxnInfo.kwargs.title} style=" margin-bottom: 2em;"><br>
+    <input type="text" 
+        bind:value={proposalTxnInfo.kwargs.title} 
+        style=" margin-bottom: 2em;"
+        maxlength="20" required><br>
     <label for="description">description</label><br>
-    <textarea bind:value={proposalTxnInfo.kwargs.description}></textarea><br>
+    <textarea bind:value={proposalTxnInfo.kwargs.description} maxlength="50"></textarea><br>
     <label for="date_decision">date_decision</label><br>
     <span>
-        <input type="date" bind:value={proposalTxnInfo.kwargs.date_decision}>
+        <input type="date" bind:value={proposalTxnInfo.kwargs.date_decision} required/>
     </span><br>
 
     <div id="choices" class="choices">
@@ -66,7 +123,11 @@
         {#each choices as choice}
             
             <div class="flex space-between" style="margin-top: 1em">
-                <input type="text"  bind:value={choice.text} style="width: 100%; margin-right: 0.5em;">
+                <input 
+                    type="text"  
+                    bind:value={choice.text} 
+                    style="width: 100%; margin-right: 0.5em;"
+                    maxlength="30" required/>
                 <button class="outlined white" on:click={delChoice(choice.id)}>
                     <div> - </div>
                 </button>
@@ -88,7 +149,7 @@
 
 <style>
     .form{
-        width: 70%;
+        width: 50%;
         margin:auto;
         padding: 2.5vw;
         box-shadow: var(--panel-box-shadow-higher);
