@@ -15,19 +15,37 @@
     let choices: any = $choice_array_store[idx]
     //console.log(choices)
     let group: any = []
+    // when uncommented user wallet is taken from store
     //let vk = $wallet_store;
     let vk = "cccccccccc";
     let selectOne: any;
     let changeBackgroundColor: any;
 
     group = getCheckBoxGroup(choices, group);
-    let voted = CheckVoted(vk, choices);
-    //let voted = false;
+
+    // when uncommented it checks whether user has voted on current proposal
+    //let voted = CheckVoted(vk, choices);
+    let voted = false;
      
-    const submitSelectedChoice = ()=>{
+    const submitSelectedChoice = async(e: any)=>{
+
+        if(!ballotTxnInfo.kwargs.proposal_idx || ballotTxnInfo.kwargs.choice_idx === ""){
+            toast_store.set({show: true, error: true, title:"Input Error", message:"No selected choice!"})
+            return
+        }
+
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
 
-        sendTransaction($lwc_store, ballotTxnInfo)
+        await sendTransaction($lwc_store, ballotTxnInfo)
+
+        //#####disabling button after submission does'nt work!#####
+
+        //e.target.disabled = true;
+
+        // setTimeout(()=> {
+        //     e.target.disabled = false;
+        // },4000)
+
         console.log(ballotTxnInfo)
         
     }
