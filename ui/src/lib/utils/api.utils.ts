@@ -134,5 +134,13 @@ export async function checkVerified(proposal: I_Proposal, proposalChoices: I_Cho
     return proposalChoices
 }
 
+export function findVotedProposals(vk: string, store: any) {
+    for (let u of store){
+        if (u.vk === vk){
+            return u.proposals
+        }
+    }
+}
+
 process(proposals.proposals, users.users)
 
