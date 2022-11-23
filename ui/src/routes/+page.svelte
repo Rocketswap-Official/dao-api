@@ -6,8 +6,6 @@
     import { handle_modal_open_voting, handle_modal_open_details } from '../events'
     import { proposals_store, choice_array_store} from '$lib/store';
 
-    const showModal = ()=>{let n; n= true}
-
 
     let n = 0;
     let it = 0;
