@@ -4,10 +4,12 @@
     import { handle_modal_close } from '../../../events'
     import type { I_ModalType } from '../../types/imported-types'
 	import VotingModal from './content/voting-modal.svelte';
+    import DetailsModal from './content/details-modal.svelte';
 
     const modalType: I_ModalType[] = [
         {'type': 'noModal', 'component': ''},
-        {'type': 'voting', 'component': VotingModal}
+        {'type': 'voting', 'component': VotingModal},
+        {'type': 'details', 'component': DetailsModal}
     ]
 
     $: chosenModal  = modalType[$modal_index_store]
