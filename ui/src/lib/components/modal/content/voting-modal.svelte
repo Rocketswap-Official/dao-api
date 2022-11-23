@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
     import { sendTransaction } from '../../../../funcs'
     import { ballotTxnInfo } from '../../../../config'
-    import { CheckVoted, getCheckBoxGroup } from './voting-modal.utils'
+    import { CheckVoted, getCheckBoxGroup } from './content-modal.utils'
     import { 
         wallet_store, 
         choice_array_store, 
@@ -10,10 +10,9 @@
         lwc_store, 
         toast_store } from "../../../store"
 	//import type { I_Choice } from "src/types/imported-types";
-    let idx = $modal_data_store;
+    let idx = $modal_data_store.choice_index;
 
     let choices: any = $choice_array_store[idx]
-    //console.log(choices)
     let group: any = []
     // when uncommented user wallet is taken from store
     //let vk = $wallet_store;
