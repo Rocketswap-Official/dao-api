@@ -3,7 +3,7 @@
     import ChoiceSelectorPieChart from '$lib/components/choiceSelectorPieChart.svelte';
     import ProposalCard from '$lib/components/proposalCard.svelte';
     import Button from '$lib/components/button/button.svelte'
-    import { handle_modal_open_voting } from '../events'
+    import { handle_modal_open_voting, handle_modal_open_details } from '../events'
     import { proposals_store, choice_array_store} from '$lib/store';
 
     const showModal = ()=>{let n; n= true}
@@ -43,7 +43,7 @@
                         </Button>
                     </div>
                     
-                    <Button id={proposal.proposal_id} act = {showModal} style="">
+                    <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
                         Details
                     </Button>
                 </div>
