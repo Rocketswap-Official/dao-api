@@ -6,7 +6,7 @@
 	export let style: T_ButtonStyle = ""; // primary / secondary
 	
 	const setId = ()=>{
-		modal_data_store.set(id-1);
+		modal_data_store.set({proposal_id: id, choice_index: id-1});
 	}
 		
 	type T_ButtonStyle = "primary" | "secondary" | "";
