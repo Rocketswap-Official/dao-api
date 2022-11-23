@@ -11,6 +11,12 @@ export function handle_modal_open_voting() {
     //modal_data_store.set({})
     modal_callback.set(false)
 }
+export function handle_modal_open_details() {
+    modal_open_store.set(true)
+    modal_index_store.set(2)
+    //modal_data_store.set({})
+    modal_callback.set(false)
+}
 // export function handle_modal_open_voting() {
 //     modal_open_store.set(true)
 //     modal_index_store.set(1)
