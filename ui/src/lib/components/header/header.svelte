@@ -9,7 +9,7 @@
 	// Stores
 	import { tau_balance } from '$lib/js/stores/user-stores';
 
-	import { wallet_store } from '../../store';
+	import { wallet_store, balances_store } from '../../store';
 	import { format_wallet_address, tauhq_addresses } from './header'
 
 
@@ -55,7 +55,7 @@
 	
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
-				{`${$tau_balance} TAU | `}
+				{`${$balances_store.TAU} TAU | `}
 				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
 					{format_wallet_address($wallet_store)}
 				</a>
@@ -116,7 +116,7 @@
 		</div>
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
-				{`${$tau_balance} TAU | `}
+				{`${$balances_store.TAU} TAU | `}
 				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
 					{format_wallet_address($wallet_store)}
 				</a>
