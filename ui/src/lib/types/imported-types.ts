@@ -63,6 +63,8 @@ export interface I_ChoicesObj {
 
 }
 export interface I_TransactionObj{
+    contractName?: string;
+    senderVk?: string;
     networkType: string;
     methodName: string; 
     kwargs: any; 
@@ -73,5 +75,11 @@ export interface I_TransactionObj{
 export interface I_BallotInfo {
     proposal_idx: string|number;
     choice_idx: string|number;
+    
+}
+
+export interface I_RSWPApprovalInfo {
+    amount: number;
+    to: string;
     
 }
