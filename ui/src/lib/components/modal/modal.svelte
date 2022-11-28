@@ -5,11 +5,13 @@
     import type { I_ModalType } from '../../types/imported-types'
 	import VotingModal from './content/voting-modal.svelte';
     import DetailsModal from './content/details-modal.svelte';
+    import AprovalModal from './content/approval-modal.svelte';
 
     const modalType: I_ModalType[] = [
         {'type': 'noModal', 'component': ''},
         {'type': 'voting', 'component': VotingModal},
-        {'type': 'details', 'component': DetailsModal}
+        {'type': 'details', 'component': DetailsModal},
+        {'type': 'details', 'component': AprovalModal}
     ]
 
     $: chosenModal  = modalType[$modal_index_store]
