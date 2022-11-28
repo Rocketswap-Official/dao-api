@@ -2,9 +2,11 @@
     //import { createProposal } from "$lib/js/contractMethodCalls.js"
     import {  processChoices } from './createProposal.utils';
     import { sendTransaction } from '../../../funcs';
+    import { handle_modal_open_approve } from '../../../events'
     import type { I_ChoicesObj } from '../../types/imported-types';
     import { proposalTxnInfo } from '../../../config';
-    import { lwc_store, toast_store } from '../../store';
+    import { lwc_store, toast_store, rswp_approval_store } from '../../store';
+    import { encodeDateTime } from '../../utils/encoding'
     //import { onMount } from "svelte";
     //import Plus from '$lib/svg/plus.svg';
     
@@ -34,6 +36,11 @@
     let buttonText = 'submit'
 
     const submitNewProposal = ()=>{
+
+        if(!$rswp_approval_store){
+            handle_modal_open_approve()
+            return
+        }
 
         let c = processChoices(choices)
 
@@ -88,11 +95,15 @@
 
             return 
         }
+        
+        
+
+        proposalTxnInfo.kwargs.date_decision = encodeDateTime(proposalTxnInfo.kwargs.date_decision)
 
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
         
         sendTransaction($lwc_store, proposalTxnInfo)
-        console.log(proposalTxnInfo)
+        // console.log(proposalTxnInfo)
     }
 
 </script>
