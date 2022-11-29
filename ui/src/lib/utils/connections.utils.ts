@@ -1,34 +1,47 @@
 import WalletController from 'lamden_wallet_controller';
 import { connectionRequest } from '../../config'
 import { lwc_store, wallet_store, toast_store } from '../store';
+import { getTauBalance, getApprovalBalance } from './api.utils';
 
 
-export const handleWalletInfo = (wInfo: any)=> {
-    if (wInfo.errors){
-        wInfo.errors.forEach(err => {
+export const handleWalletInfo = async (wInfo: any)=> {
+    if (wInfo?.errors){
+        for(let err of wInfo.errors){
             if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
                 toast_store.set({show: true, error:true, title:"Wallet error", message:"Kindly connect to wallet"})
                 return
             }
             toast_store.set({show: true, error:true, title:"Wallet error", message:err})
-            
-        })
+        }    
+        
         // setTimeout(()=>{
         //     toast_store.set({show: false})
         // }, 2500)
         return
     }
-    wallet_store.set(wInfo.wallets[0])
+
+    let address = wInfo.wallets[0];
+
+    await getTauBalance(address);
+
+    await getApprovalBalance(address);
+    
+    wallet_store.set(address);
+
 }
+
 export const handleTxnInfo = (txInfo: any)=> {
-    txInfo.errors.forEach(err => {
-        if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
-            toast_store.set({show: true, error:true, title:"Wallet error", message:"Your wallet is not connected"})
-            return
+    if (txInfo?.errors){
+        for (let err of txInfo.errors){
+            if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
+                toast_store.set({show: true, error:true, title:"Wallet error", message:"Your wallet is not connected"})
+                return
+            }
+            toast_store.set({show: true, error:true, title:"Transaction error", message:err})
+            
         }
-        toast_store.set({show: true, error:true, title:"Transaction error", message:err})
-        
-    })
+    }
+        console.log(txInfo)
 }
 
 export const initWalletController= ()=>{
