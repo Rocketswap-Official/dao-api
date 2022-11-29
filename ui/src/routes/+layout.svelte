@@ -3,12 +3,19 @@
 	import '$lib/css/flex.css';
 	import '$lib/css/layout.css';
 	import '$lib/css/styled-defaults.css';
+	import { 
+		proposals_store, 
+		users_store, 
+		lwc_store, 
+		wallet_store,
+		toast_store 
+	} from '$lib/store'
+
 	import Toast from '$lib/components/toast.svelte';
 	import Header from '$lib/components/header/header.svelte';
 	import LeftMenu from '$lib/components/leftMenu/leftMenu.svelte';
 	import Modal from '$lib/components/modal/modal.svelte'
-	import { lwc_store, wallet_store,toast_store } from '$lib/store'
-	import { syncProposals, syncUsers } from '$lib/utils/api.utils'
+	import { initSyncDaoData } from '$lib/utils/api.utils'
 	import { 
         initWalletController,
         handleWalletInfo,
@@ -19,9 +26,12 @@
 	
 	import { browser } from '$app/environment';
 
-	syncProposals();
-	syncUsers();
+	
 
+	//initSyncDaoData();
+
+	
+	
 	if(browser){
 		
 		initWalletController();
@@ -29,8 +39,8 @@
 	}
 	
 
-	//$lwc_store?.events.on('newInfo', handleWalletInfo)
-    $lwc_store?.events.on('txStatus', handleTxnInfo)
+	$lwc_store?.events.on('newInfo', handleWalletInfo);
+    $lwc_store?.events.on('txStatus', handleTxnInfo);
 	
 	// Components
 
