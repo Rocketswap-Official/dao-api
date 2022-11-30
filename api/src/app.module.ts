@@ -15,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'db.sqlite',
       entities: [ProposalEntity, UserEntity, LastBlockEntity],
       //shouldn't be used in production
-      synchronize: true,
+      //synchronize: true,
       autoLoadEntities: true
     })
   ],
