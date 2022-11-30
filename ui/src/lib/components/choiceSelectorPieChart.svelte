@@ -6,6 +6,7 @@
 	import type { I_Choice } from "../types/imported-types";
 
     export let choices: I_Choice[];
+    
     let total: number;
     //console.log(choices)
     //get vk from lamden wallet
@@ -32,6 +33,13 @@
         backgroundColor.push(pieColours[n]);
         total = c.total
         n = n + 1
+    }
+
+    let wT = 0
+
+    //do not render pie chart area when there is no voted weight
+    for(let w of weights){
+        wT = wT + w
     }
 
     maxValue = Math.max(...weights)
@@ -77,10 +85,13 @@
         </div>
         
     </div>
+
+    {#if wT > 0}
     
     <PieChart {labels} {weights} {backgroundColor}/>
     
-    
+    {/if}
+
 </div>
 
 
