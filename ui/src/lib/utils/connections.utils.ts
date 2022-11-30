@@ -40,8 +40,19 @@ export const handleTxnInfo = (txInfo: any)=> {
             toast_store.set({show: true, error:true, title:"Transaction error", message:err})
             
         }
+
+        return
     }
-        console.log(txInfo)
+
+    toast_store.set({
+        show: true, 
+        error: txInfo.resultInfo.errorInfo?true:false,
+        title: txInfo.resultInfo.title, 
+        message: txInfo.txBlockResult.result === 'None'?txInfo.resultInfo.subtitle:txInfo.txBlockResult.result
+    })
+
+    
+    console.log(txInfo)
 }
 
 export const initWalletController= ()=>{
@@ -70,20 +81,4 @@ export const getCurrentWalletInfo = (lwc)=>{
 
 
 
-//TODO: add the below to some configs or txn utils
-// export const castBallot = (proposalIdx: number, choiceIdx: number)=>{
 
-//     const detail = JSON.stringify({
-//         networkType: 'marvinnet', 
-//         methodName: 'cast_ballot', 
-//         kwargs: {
-//             proposal_idx: proposalIdx,
-//             choice_idx: choiceIdx
-//         }, 
-//         stampLimit: 100
-//     });
-
-//     //Send transaction to the wallet
-//     document.dispatchEvent(new CustomEvent('lamdenWalletSendTx', {detail}));
-
-// }
