@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
     import { sendTransaction } from '../../../../funcs'
+    import { handleTxnInfo } from '../../../utils/connections.utils'
     import { ballotTxnInfo } from '../../../../config'
     import { CheckVoted, getCheckBoxGroup } from './content-modal.utils'
     import { 
@@ -35,7 +36,7 @@
 
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
 
-        await sendTransaction($lwc_store, ballotTxnInfo)
+        await sendTransaction($lwc_store, handleTxnInfo, ballotTxnInfo)
 
         //#####disabling button after submission does'nt work!#####
 
