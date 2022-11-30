@@ -7,15 +7,9 @@ import { I_Proposal } from './types/shared-types';
 export class ProposalController {
   constructor(private readonly proposalService: ProposalService) { }
 
-  //return all proposals
-  // @Get()
-  // async getProposals(): Promise<ProposalEntity[]> {
-  //   return await this.proposalService.getProposals();
-  // }
-
   @Get('all_proposals')
-  async getAllProposals(): Promise<ProposalEntity[]> {
-    return await this.proposalService.getProposals();
+  getAllProposals(): Promise<ProposalEntity[]> {
+    return this.proposalService.getProposals();
   }
 
   // return only proposals with open state
