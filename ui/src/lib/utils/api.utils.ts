@@ -17,11 +17,11 @@ const local_hostnames = [
 ]
 
 const apiUrl = [
-    'localhost:35993/'
+    'localhost:2001'
 ]
 
 const blockservice = [
-    'https://blockservice.opticprotocol.finance/'
+    'blockservice.opticprotocol.finance'
 ]
 
 // const isProd = () => !local_hostnames.includes(window.location.hostname)
@@ -38,12 +38,12 @@ const blockservice = [
 
 export async function syncProposals() {
     try {
-        const proposals: any = (await axios.get(`${apiUrl[0]}all_proposals`)).data as I_Proposal[]
+        const proposals: any = (await axios.get(`http://${apiUrl[0]}/proposals/all_proposals`)).data as I_Proposal[]
         
-        let data = proposals.proposals;
-        proposals_store.set(data);
-
-        return data
+        //let data = proposals.proposals;
+        proposals_store.set(proposals);
+        
+        return proposals
 
     } catch (err) {
         console.log(err)
@@ -52,12 +52,12 @@ export async function syncProposals() {
 
 export async function syncUsers() {
     try {
-        const users: any = (await axios.get(`${apiUrl[0]}users`)).data as I_User[]
+        const users: any = (await axios.get(`http://${apiUrl[0]}/users`)).data as I_User[]
         
-        let data = users.users;
-        users_store.set(data);
-
-        return data
+        //let data = users.users;
+        users_store.set(users);
+        //console.log(data)
+        return users
 
     } catch (err) {
         console.log(err)
@@ -186,7 +186,7 @@ function get_fixed_value( obj: any ){
 
 export async function getTauBalance(vk: string) {
     try {
-        const balance: any = (await axios.get(`${blockservice[0]}current/one/currency/balances/${vk}`)).data
+        const balance: any = (await axios.get(`https://${blockservice[0]}/current/one/currency/balances/${vk}`)).data
         
         balances_store.set({TAU: get_fixed_value(balance.value)})
         
@@ -199,7 +199,7 @@ export async function getApprovalBalance(vk: string) {
     let dao_contract = "con_lite_dao_test";
     let rswp = "con_rswp_lst001";
     try {
-        const rswp_approval_amount: any = (await axios.get(`${blockservice[0]}current/one/${rswp}/balances/${vk}:${dao_contract}`)).data
+        const rswp_approval_amount: any = (await axios.get(`https://${blockservice[0]}/current/one/${rswp}/balances/${vk}:${dao_contract}`)).data
         
         rswp_approval_store.set(get_fixed_value(rswp_approval_amount.value))
         
