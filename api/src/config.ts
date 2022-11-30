@@ -6,8 +6,8 @@ export const config_prod = {
     dex_native_token: "con_rswp_lst001",
     dao_contract: "con_lite_dao_test",
     network_type: "mainnet",
-    block_service_urls: process.env.block_service_urls?.split(",") || ["localhost:35993"]
-    //["blockservice.opticprotocol.finance"]
+    block_service_urls: process.env.block_service_urls?.split(",") || ["blockservice.opticprotocol.finance"]
+    
     //block_service_url: process.env.BLOCK_SERVICE_URL || "0.0.0.0:3535"
 };
 
