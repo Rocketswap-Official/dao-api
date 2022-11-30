@@ -1,5 +1,7 @@
 <script lang="ts">
+    import WalletController  from 'lamden_wallet_controller'
     import { RswpApprovalTxnInfo } from '../../../../config'
+    import { handleTxnInfo } from '../../../utils/connections.utils'
     import { wallet_store } from '../../../store'
     import { onMount } from 'svelte'
 
@@ -9,13 +11,14 @@
 
         submitRSWPApproval = ()=>{
 
-
+            const lwc = new WalletController();
+    
             RswpApprovalTxnInfo.senderVk = $wallet_store;
             RswpApprovalTxnInfo.kwargs.amount = 999999999999999999999999999999;
             RswpApprovalTxnInfo.kwargs.to = 'con_lite_dao_test';
 
-            
-            document.dispatchEvent(new CustomEvent('lamdenWalletSendTx', {detail: JSON.stringify(RswpApprovalTxnInfo)}));
+            lwc.sendTransaction(RswpApprovalTxnInfo, handleTxnInfo)
+            //document.dispatchEvent(new CustomEvent('lamdenWalletSendTx', {detail: JSON.stringify(RswpApprovalTxnInfo)}));
             console.log(RswpApprovalTxnInfo)
         }
 
