@@ -2,6 +2,7 @@
     //import { createProposal } from "$lib/js/contractMethodCalls.js"
     import {  processChoices } from './createProposal.utils';
     import { sendTransaction } from '../../../funcs';
+    import { handleTxnInfo } from '../../utils/connections.utils'
     import { handle_modal_open_approve } from '../../../events'
     import type { I_ChoicesObj } from '../../types/imported-types';
     import { proposalTxnInfo } from '../../../config';
@@ -102,7 +103,7 @@
 
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
         
-        sendTransaction($lwc_store, proposalTxnInfo)
+        sendTransaction($lwc_store, handleTxnInfo, proposalTxnInfo)
         // console.log(proposalTxnInfo)
     }
 
