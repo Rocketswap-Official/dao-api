@@ -23,7 +23,7 @@ export interface I_Choice {
     choiceIdx: number, 
     proposalId: number, 
     vk?: string, 
-    voteWeight: number|string, 
+    voteWeight: number, 
     total: number 
 }
 
