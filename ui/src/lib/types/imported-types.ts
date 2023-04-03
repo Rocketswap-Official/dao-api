@@ -65,6 +65,7 @@ export interface I_ChoicesObj {
 export interface I_TransactionObj{
     contractName?: string;
     senderVk?: string;
+    networkName: string;
     networkType: string;
     methodName: string; 
     kwargs: any; 
