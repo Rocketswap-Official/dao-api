@@ -1,84 +1,106 @@
-import WalletController from 'lamden_wallet_controller';
-import { connectionRequest } from '../../config'
-import { lwc_store, wallet_store, toast_store } from '../store';
+import WalletController from '$lib/walletController';
+import { connectionRequest, toastWalletMessage, walletError } from '../../config';
+import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
 
+let response;
 
-export const handleWalletInfo = async (wInfo: any)=> {
-    if (wInfo?.errors){
-        for(let err of wInfo.errors){
-            if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
-                toast_store.set({show: true, error:true, title:"Wallet error", message:"Kindly connect to wallet"})
-                return
-            }
-            toast_store.set({show: true, error:true, title:"Wallet error", message:err})
-        }    
-        
-        // setTimeout(()=>{
-        //     toast_store.set({show: false})
-        // }, 2500)
-        return
-    }
+const sendToastMessage = (message) => {
+	toast_store.set({
+		show: true,
+		error: true,
+		title: 'Wallet error',
+		message: 'Connection request not initialised!'
+	});
+};
 
-    let address = wInfo.wallets[0];
-
-    await getTauBalance(address);
-
-    await getApprovalBalance(address);
-    
-    wallet_store.set(address);
-
+const closeToast = ()=>{
+	toast_store.set({ show: false });
 }
 
-export const handleTxnInfo = (txInfo: any)=> {
-    if (txInfo?.errors){
-        for (let err of txInfo.errors){
-            if(err=="You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."){
-                toast_store.set({show: true, error:true, title:"Wallet error", message:"Your wallet is not connected"})
-                return
-            }
-            toast_store.set({show: true, error:true, title:"Transaction error", message:err})
-            
-        }
+const updateBalances = async (wInfo) => {
+	let vk = wInfo.wallets[0];
+	await Promise.all([await getTauBalance(vk), await getApprovalBalance(vk)]);
+	wallet_store.set(wInfo.wallets[0]);
+};
 
-        return
-    }
+export const handleWalletInfo = async (wInfo) => {
+	response = 'got an event!';
+	if (wInfo?.errors) {
+		for (let err of wInfo.errors) {
+			if (err === walletError.authError) {
+				return;
+			} else if (err === walletError.existError) {
+				sendToastMessage(toastWalletMessage.existError);
+				setTimeout(() => {
+					closeToast();
+				}, 2500);
 
-    toast_store.set({
-        show: true, 
-        error: txInfo.resultInfo.errorInfo?true:false,
-        title: txInfo.resultInfo.title, 
-        message: txInfo.txBlockResult.result === 'None'?txInfo.resultInfo.subtitle:txInfo.txBlockResult.result
-    })
+				return;
+			}
+			sendToastMessage(err);
+		}
+		setTimeout(() => {
+			closeToast();
+		}, 2500);
 
-    
-    console.log(txInfo)
-}
+		return;
+	}
+	await updateBalances(wInfo);
+};
 
-export const initWalletController= ()=>{
-    const lwc = new WalletController(connectionRequest);
-    
-    lwc_store.set(lwc) 
-      
-}
+export const handleTxnInfo = (txInfo: any) => {
+	if (txInfo?.errors) {
+		for (let err of txInfo.errors) {
+			if (
+				err ==
+				"You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize."
+			) {
+				toast_store.set({
+					show: true,
+					error: true,
+					title: 'Wallet error',
+					message: 'Your wallet is not connected'
+				});
+				return;
+			}
+			toast_store.set({ show: true, error: true, title: 'Transaction error', message: err });
+		}
 
+		return;
+	}
 
+	toast_store.set({
+		show: true,
+		error: txInfo.resultInfo.errorInfo ? true : false,
+		title: txInfo.resultInfo.title,
+		message:
+			txInfo.txBlockResult.result === 'None'
+				? txInfo.resultInfo.subtitle
+				: txInfo.txBlockResult.result
+	});
 
-export const isWalletInstalled = (lwc)=>{
-    lwc.walletIsInstalled()
-        .then(installed=>{
-            if(installed){}
-            else {
-                //send "install wallet" info to toast
-                toast_store.set({show: true, error:true, title:"Wallet error", message:"Install Wallet" })
-            }
-        })
-}
+	console.log(txInfo);
+};
 
-export const getCurrentWalletInfo = (lwc)=>{
-    lwc.getInfo() // might change
-}
+export const controllerInstance = () => {
+	return new WalletController(connectionRequest);
+};
 
+export const isWalletInstalled = (lwc) => {
+	if (lwc === null) {
+		sendToastMessage(toastWalletMessage.initialseError);
+		return;
+	}
 
+	lwc.sendConnection(connectionRequest);
+	setTimeout(() => {
+		if (response === undefined) {
+			sendToastMessage(toastWalletMessage.installError);
+		}
+	}, 1000);
+};
 
-
+export const getCurrentWalletInfo = (lwc) => {
+	lwc.getInfo(); // might change
+};
