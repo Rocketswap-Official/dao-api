@@ -111,9 +111,13 @@ api/*.sqlite
 node_modules
 /ui/build
 .svelte-kit
-/ui/package
+/ui/package-lock.json
+/ui/package.json
 /ui/.env
 /ui/.env.*
 /ui/!.env.example
 /ui/src/imported-types.ts
 
+api/package-lock.json
+api/package.json
+.gitignore
