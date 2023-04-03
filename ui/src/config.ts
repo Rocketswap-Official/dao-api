@@ -1,11 +1,31 @@
 import type {I_ProposalInfo, I_TransactionObj, I_BallotInfo, I_RSWPApprovalInfo} from './lib/types/imported-types'
 
+export const contracts = {
+    rswp: "con_rswp_lst001",
+    dao: "con_lite_dao_test"
+}
+
+
+
+export const blockserviceUrls = {
+    testnet: ["arko-bs-1.lamden.io", "arko-bs-2.lamden.io", "arko-bs-3.lamden.io"],
+    mainnet: ["", "", ""]
+}
+
+export const arkoUrls = {
+    testnet: "",
+    mainnet: ""
+}
+
+export const apiUrl = "localhost:2001";
+
 export const connectionRequest = {
-    appName: 'Lite DAO',
-    version: '1.0.0', 
-    logo: 'dao.svg', 
-    contractName: 'con_lite_dao_test', 
-    networkType: 'mainnet'
+    appName: "Lite DAO",
+    version: "1.0.0", 
+    logo: "dao.svg", 
+    contractName: contracts.dao, 
+    networkType: "mainnet",
+    networkName: "arko"
 }
 
 export let proposalInfo: I_ProposalInfo = {
@@ -28,7 +48,7 @@ export let RSWPApprovalInfo:  I_RSWPApprovalInfo = {
 }
 
 export let proposalTxnInfo: I_TransactionObj = {
-   
+    networkName: "arko",
     networkType: "mainnet",
     methodName: "create_proposal",
     kwargs: proposalInfo, 
@@ -37,7 +57,7 @@ export let proposalTxnInfo: I_TransactionObj = {
 }
 
 export let ballotTxnInfo: I_TransactionObj = {
-   
+    networkName: "arko",
     networkType: "mainnet",
     methodName: "cast_ballot",
     kwargs: ballotInfo, 
@@ -47,9 +67,21 @@ export let ballotTxnInfo: I_TransactionObj = {
 
 export let RswpApprovalTxnInfo: I_TransactionObj = {
     contractName: "con_rswp_lst001",
+    networkName: "arko",
     networkType: "mainnet",
     methodName: "approve",
     kwargs: RSWPApprovalInfo, 
     stampLimit: 100
     
+}
+
+export const walletError = {
+    authError: `You must be an authorized dApp to send this message type. Send 'lamdenWalletConnect' event first to authorize.`,
+    existError: `contractName: '${connectionRequest.contractName}' does not exists on '${connectionRequest.networkType}' network.`
+}
+
+export const toastWalletMessage = {
+    existError: "dapp contract does not exist or check your internet",
+    initialiseError: "Connection request not initialised!",
+    installError: "Install Wallet"
 }
