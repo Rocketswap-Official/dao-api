@@ -111,8 +111,6 @@ api/*.sqlite
 node_modules
 /ui/build
 .svelte-kit
-/ui/package-lock.json
-/ui/package.json
 /ui/.env
 /ui/.env.*
 /ui/!.env.example
@@ -121,3 +119,5 @@ node_modules
 api/package-lock.json
 api/package.json
 .gitignore
+ui/package.json
+ui/package-lock.json
