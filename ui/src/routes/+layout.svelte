@@ -3,45 +3,29 @@
 	import '$lib/css/flex.css';
 	import '$lib/css/layout.css';
 	import '$lib/css/styled-defaults.css';
-	import { 
-		proposals_store, 
-		users_store, 
-		lwc_store, 
-		wallet_store,
-		toast_store 
-	} from '$lib/store'
-
+	import { lwc_store, toast_store } from '$lib/store';
+	import { onMount } from 'svelte';
 	import Toast from '$lib/components/toast.svelte';
 	import Header from '$lib/components/header/header.svelte';
 	import LeftMenu from '$lib/components/leftMenu/leftMenu.svelte';
-	import Modal from '$lib/components/modal/modal.svelte'
-	import { initSyncDaoData } from '$lib/utils/api.utils'
-	import { 
-        initWalletController,
-        handleWalletInfo,
-        handleTxnInfo,
-        getCurrentWalletInfo,
-        isWalletInstalled
-    } from '$lib/utils/connections.utils'
-	
-	import { browser } from '$app/environment';
+	import Modal from '$lib/components/modal/modal.svelte';
+	import {
+		controllerInstance,
+		handleWalletInfo,
+		// handleTxnInfo,
+		getCurrentWalletInfo,
+		isWalletInstalled
+	} from '$lib/utils/connections.utils';
 
-	
+	onMount(() => {
+		const lwc = controllerInstance();
+		getCurrentWalletInfo(lwc);
+		lwc_store.set(lwc);
+		lwc.events.on('newInfo', handleWalletInfo);
+	});
 
-	//initSyncDaoData();
+	//$lwc_store?.events.on('txStatus', handleTxnInfo);
 
-	
-	
-	if(browser){
-		
-		initWalletController();
-		getCurrentWalletInfo($lwc_store)
-	}
-	
-
-	$lwc_store?.events.on('newInfo', handleWalletInfo);
-    //$lwc_store?.events.on('txStatus', handleTxnInfo);
-	
 	// Components
 
 	// import Header from '$lib/header/Header.svelte';
@@ -53,21 +37,21 @@
 
 	// import { wallet_connected } from '$lib/js/stores/user-stores';
 
-	// 
+	//
 	// let wallet_connected = true
-// onMount(async ()=>await syncProposals())
-
+	// onMount(async ()=>await syncProposals())
 </script>
-<Header/>
+
+<Header />
 <LeftMenu />
 <!--MobileMenu /-->
-<Modal/> 
+<Modal />
 
 <!-- <main class:connected={$wallet_connected}>
 	<slot />
 </main> -->
 
-<Toast  toast_data={$toast_store}/>
+<Toast toast_data={$toast_store} />
 
 <main>
 	<slot />
@@ -76,6 +60,7 @@
 <!--button on:click={()=>toast_store.set({show: $toast_store.show = !$toast_store.show})}>
 	Toast
 </button-->
+
 <!--svelte:window on:resize={close_menu} /-->
 <style>
 	main {
@@ -98,5 +83,5 @@
 		/* main.connected{
 			padding: 27vh 5vw 15vw;
 		} */
-    }
+	}
 </style>
