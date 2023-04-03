@@ -8,14 +8,13 @@
     const submitRSWPApproval = ()=>{
 
         RswpApprovalTxnInfo.senderVk = $wallet_store;
-        RswpApprovalTxnInfo.kwargs.amount = 999999999999999999999999999999;
+        RswpApprovalTxnInfo.kwargs.amount = {__fixed__: "999999999999999999999999999999"};
         RswpApprovalTxnInfo.kwargs.to = contracts.dao;
 
         $lwc_store.sendTransaction(RswpApprovalTxnInfo, handleTxnInfo)
         console.log(RswpApprovalTxnInfo)
     }
 
-    
 </script>
 <div>
     <div class="flex col align-center">
