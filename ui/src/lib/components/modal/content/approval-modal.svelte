@@ -1,28 +1,19 @@
 <script lang="ts">
-    import WalletController  from 'lamden_wallet_controller'
-    import { RswpApprovalTxnInfo } from '../../../../config'
-    import { handleTxnInfo } from '../../../utils/connections.utils'
-    import { wallet_store } from '../../../store'
-    import { onMount } from 'svelte'
+    // import WalletController  from 'lamden_wallet_controller'
+    import { lwc_store, wallet_store } from '../../../store';
+    import { RswpApprovalTxnInfo } from '../../../../config';
+    import { handleTxnInfo } from '../../../utils/connections.utils';
+    import { contracts } from '../../../../config';
 
-    let submitRSWPApproval: any;
+    const submitRSWPApproval = ()=>{
 
-    onMount(()=>{
+        RswpApprovalTxnInfo.senderVk = $wallet_store;
+        RswpApprovalTxnInfo.kwargs.amount = 999999999999999999999999999999;
+        RswpApprovalTxnInfo.kwargs.to = contracts.dao;
 
-        submitRSWPApproval = ()=>{
-
-            const lwc = new WalletController();
-    
-            RswpApprovalTxnInfo.senderVk = $wallet_store;
-            RswpApprovalTxnInfo.kwargs.amount = 999999999999999999999999999999;
-            RswpApprovalTxnInfo.kwargs.to = 'con_lite_dao_test';
-
-            lwc.sendTransaction(RswpApprovalTxnInfo, handleTxnInfo)
-            //document.dispatchEvent(new CustomEvent('lamdenWalletSendTx', {detail: JSON.stringify(RswpApprovalTxnInfo)}));
-            console.log(RswpApprovalTxnInfo)
-        }
-
-    })
+        $lwc_store.sendTransaction(RswpApprovalTxnInfo, handleTxnInfo)
+        console.log(RswpApprovalTxnInfo)
+    }
 
     
 </script>
