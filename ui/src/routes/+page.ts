@@ -4,10 +4,17 @@ import { get } from 'svelte/store';
 
 export async function load() {
     let daoData = await initSyncDaoData();
-
-    return {
-        proposals: daoData[0],
-        choiceArray: daoData[1]
-        
-    };
+    if(daoData.length > 0){
+        return {
+            proposals: daoData[0],
+            choiceArray: daoData[1]
+            
+        }
+    }else{
+        return {
+            proposals: [],
+            choiceArray: []
+            
+        } 
+    }
 }
