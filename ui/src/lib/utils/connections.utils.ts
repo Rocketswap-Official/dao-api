@@ -3,8 +3,6 @@ import { connectionRequest, toastWalletMessage, walletError } from '../../config
 import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
 
-let response;
-
 const sendToastMessageError = (title, message) => {
 	toast_store.set({
 		show: true,
@@ -32,6 +30,8 @@ const updateBalances = async (wInfo) => {
 	await Promise.all([await getTauBalance(vk), await getApprovalBalance(vk)]);
 	wallet_store.set(wInfo.wallets[0]);
 };
+
+let response;
 
 export const handleWalletInfo = async (wInfo) => {
 	response = 'got an event!';
@@ -101,8 +101,4 @@ export const isWalletInstalled = (lwc) => {
 			sendToastMessageError("Wallet Error", toastWalletMessage.installError);
 		}
 	}, 1000);
-};
-
-export const getCurrentWalletInfo = (lwc) => {
-	lwc.getInfo(); // might change
 };
