@@ -10,8 +10,8 @@
     let total: number;
     //console.log(choices)
     //get vk from lamden wallet
-    //let vk = $wallet_store;
-    let vk = "cccccccccc"
+    let vk = $wallet_store;
+    // let vk = "cccccccccc"
     let vkVoted = false;
     let chosenChoice: number;
     let justChosen: any;
@@ -21,7 +21,7 @@
     let labels: string[] = [];
     let weights: number[] = [];
     let backgroundColor: string[] = [];
-    let maxValue = 0;
+
 
     for (let c of choices){
         if (c.vk === vk){
@@ -32,6 +32,7 @@
         weights.push(parseFloat(c.voteWeight));
         backgroundColor.push(pieColours[n]);
         total = c.total
+        console.log(c.voteWeight)
         n = n + 1
     }
 
@@ -42,9 +43,10 @@
         wT = wT + w
     }
 
-    maxValue = Math.max(...weights)
+    const maxValue = Math.max(...weights)
+    const sumWeights = weights.reduce((a,b)=> a+b)
 
-    const average = weights.reduce((a,b)=> a+b) / weights.length
+    const average = sumWeights / weights.length
     
     const is_all_same_value = (choiceVoteWeight: number)=>{
         for(let w of weights){
@@ -91,8 +93,8 @@
 
     <div class="flex col j-end ">
         <div style="font-size: var(--units-09vw);">
-            <div style="font-weight: 500">Total votes: {(total/102000321*100).toFixed(8)}%</div>
-            <div>{total}/102000321 RSWP</div>
+            <div style="font-weight: 500">Total votes: {(total/1200000000*100).toFixed(2)}%</div>
+            <div>{total}/1200000000 RSWP</div>
         </div>
         
     </div>
