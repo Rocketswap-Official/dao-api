@@ -1,7 +1,6 @@
 <script lang="ts">
     //import { createProposal } from "$lib/js/contractMethodCalls.js"
     import {  processChoices } from './createProposal.utils';
-    import { sendTransaction } from '../../../funcs';
     import { handleTxnInfo } from '../../utils/connections.utils'
     import { handle_modal_open_approve } from '../../../events'
     import type { I_ChoicesObj } from '../../types/imported-types';
@@ -29,7 +28,7 @@
     }
 
     const delChoice = (id: number) =>{
-		choices = choices.filter(item =>item.id !==id)
+		choices = choices.filter(item =>item.id !== id)
 	}
 
 
@@ -102,8 +101,9 @@
         proposalTxnInfo.kwargs.date_decision = encodeDateTime(proposalTxnInfo.kwargs.date_decision)
 
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
+
+        $lwc_store.sendTransaction(proposalTxnInfo, handleTxnInfo)
         
-        sendTransaction($lwc_store, handleTxnInfo, proposalTxnInfo)
         // console.log(proposalTxnInfo)
     }
 
