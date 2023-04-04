@@ -12,19 +12,14 @@
 	import {
 		controllerInstance,
 		handleWalletInfo,
-		// handleTxnInfo,
-		getCurrentWalletInfo,
-		isWalletInstalled
 	} from '$lib/utils/connections.utils';
 
 	onMount(() => {
 		const lwc = controllerInstance();
-		getCurrentWalletInfo(lwc);
 		lwc_store.set(lwc);
+		lwc.getInfo();
 		lwc.events.on('newInfo', handleWalletInfo);
 	});
-
-	//$lwc_store?.events.on('txStatus', handleTxnInfo);
 
 	// Components
 
