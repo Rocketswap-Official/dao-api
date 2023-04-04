@@ -44,6 +44,17 @@
 
     maxValue = Math.max(...weights)
 
+    const average = weights.reduce((a,b)=> a+b) / weights.length
+    
+    const is_all_same_value = (choiceVoteWeight: number)=>{
+        for(let w of weights){
+            if (w !== average){
+                return maxValue === choiceVoteWeight 
+            }       
+        }
+        return false      
+    }
+
     
 </script>
 
@@ -55,7 +66,7 @@
 
             <div class="flex row a-start">
 
-                <img class="svg" class:visibility={choice.voteWeight == maxValue} src="svg/award-medal-badge.svg" alt="leading vote"/>
+                <img class="svg" class:visibility={is_all_same_value(choice.voteWeight)} src="svg/award-medal-badge.svg" alt="leading vote"/>
 
                 <li class="mb-1" style="margin-left: var(--units-1_4vw); font-weight: 400">    
                    
