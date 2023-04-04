@@ -80,7 +80,7 @@
     .modal{
         position: relative;
         z-index: 102;
-        box-sizing: border-box;
+        /* box-sizing: border-box; */
         padding: var(--units-3vw);
         width: 55vw;
 
