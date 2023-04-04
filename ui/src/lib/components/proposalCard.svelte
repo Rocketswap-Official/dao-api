@@ -68,7 +68,7 @@
     .choice-container{
         /* margin-bottom: 3vw; */
         width: 100%;
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
         /* margin: 10px 0 10px 0; */
     }
     .text-secondary {
