@@ -1,20 +1,11 @@
 import { initSyncDaoData } from '../lib/utils/api.utils'
-import { choice_array_store } from '../lib/store';
-import { get } from 'svelte/store';
 
 export async function load() {
-    let daoData = await initSyncDaoData();
-    if(daoData.length > 0){
-        return {
-            proposals: daoData[0],
-            choiceArray: daoData[1]
-            
-        }
-    }else{
-        return {
-            proposals: [],
-            choiceArray: []
-            
-        } 
+    const daoData = await initSyncDaoData();
+    const has_content = daoData.length > 0
+    return {
+        proposals: has_content? daoData[0]: [],
+        choiceArray: has_content? daoData[1]: []
+        
     }
 }
