@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-    import { sendTransaction } from '../../../../funcs'
     import { handleTxnInfo } from '../../../utils/connections.utils'
     import { ballotTxnInfo } from '../../../../config'
     import { CheckVoted, getCheckBoxGroup } from './content-modal.utils'
@@ -16,8 +15,8 @@
     let choices: any = $choice_array_store[idx]
     let group: any = []
     // when uncommented user wallet is taken from store
-    //let vk = $wallet_store;
-    let vk = "cccccccccc";
+    let vk = $wallet_store;
+    // let vk = "cccccccccc";
     let selectOne: any;
     let changeBackgroundColor: any;
 
@@ -36,7 +35,7 @@
 
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
 
-        await sendTransaction($lwc_store, handleTxnInfo, ballotTxnInfo)
+        $lwc_store.sendTransaction(ballotTxnInfo, handleTxnInfo)
 
         //#####disabling button after submission does'nt work!#####
 
@@ -99,7 +98,7 @@
             {#each choices as choice}
                 
             <!--TODO: leave a little space between list bullet and border-->
-        
+
                 <div class="choice mb-1 " class:voted={choice.vk === vk}>  
                     
                     <li >
