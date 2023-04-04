@@ -6,17 +6,19 @@
 
     export let proposal: I_Proposal;
 
+    let dateArray = proposal.date_decision.__time__
+    const date = new Date(...dateArray)
     const showModal = ()=>{let n; n= true}
 
     
 </script>
 
 
-<div class="container panel">
+<div class="container">
     <div class="proposal-title">#{proposal.proposal_id} - {proposal.title}</div>
     <div class="metadata-container">
         <div>Status: <span class="{proposal.state === 'concluded'?'text-secondary':'text-green'}" >{proposal.state}</span></div>
-        <div>Voting Ends: {proposal.date_decision.__time__}</div>
+        <div>Voting Ends: {date}</div>
     </div>
 
     <div class="choice-container">
@@ -45,6 +47,10 @@
         width: 60%; 
         padding: 2.5vw;
         box-shadow: var(--panel-box-shadow-higher);
+
+        border-radius: var(--panel-border-radius);
+	    background-color: var(--panel-background-color);
+
         margin-bottom: 15px;
         color: var(--font-primary-color);
         font-size: var(--units-1_14vw);
