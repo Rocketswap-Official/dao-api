@@ -1,4 +1,3 @@
-
 export default {
     icon_home: "svg/menu/icon-home.svg", 
     icon_home_color: "svg/menu/icon-home-color.svg",
