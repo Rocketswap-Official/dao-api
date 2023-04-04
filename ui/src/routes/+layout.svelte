@@ -21,30 +21,14 @@
 		lwc.events.on('newInfo', handleWalletInfo);
 	});
 
-	// Components
-
-	// import Header from '$lib/header/Header.svelte';
-	// import LeftMenu from '$lib/left-menu/LeftMenu.svelte';
 	// import MobileMenu from '$lib/mobile-menu/MobileMenu.svelte';
-	// import Modal from '$lib/modals/Modal.svelte';
 
-	// Stores
-
-	// import { wallet_connected } from '$lib/js/stores/user-stores';
-
-	//
-	// let wallet_connected = true
-	// onMount(async ()=>await syncProposals())
 </script>
 
 <Header />
 <LeftMenu />
 <!--MobileMenu /-->
 <Modal />
-
-<!-- <main class:connected={$wallet_connected}>
-	<slot />
-</main> -->
 
 <Toast toast_data={$toast_store} />
 
