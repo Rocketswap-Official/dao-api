@@ -184,7 +184,6 @@ export class DataSyncProvider implements OnModuleInit{
 					}	 
 				}
 
-
 				if(processedBallots && Object.keys(processedBallots).length > 0){
 					
 					for(let p of processedBallots){
@@ -200,10 +199,8 @@ export class DataSyncProvider implements OnModuleInit{
 								weight = getNumberFromFixed(processedBallotsObjValue);
 
 							}
-						}
-								
+						}			
 					}
-
 				}
 
 				let proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
@@ -306,9 +303,6 @@ export class DataSyncProvider implements OnModuleInit{
 		
 	}
 
-
-
-
 	public startFillUpDatabase = async()=> {
 
 		//fetch data from blockservice
@@ -340,173 +334,143 @@ export class DataSyncProvider implements OnModuleInit{
 				let proposalObj;
 				let userObj;
 
+				if(proposals && Object.keys(proposals).length > 0){
+					const proposal_ids = Object.keys(proposals)
 
-				if(proposals){
-					if(Object.keys(proposals).length > 0){
-						const proposal_ids = Object.keys(proposals)
+					for (let p of proposal_ids){
+						const proposal_id = parseInt(p)
+						const results = proposals[proposal_id].results
 
-						for (let p of proposal_ids){
-							const proposal_id = parseInt(p)
-							const results = proposals[proposal_id].results
-
-							proposalObj = {
-								proposal_id: proposal_id,
-								title: proposals[proposal_id].title,
-								description: proposals[proposal_id].description,
-								date_decision: proposals[proposal_id].date_decision,
-								choices: proposals[proposal_id].choices,
-								state: proposals[proposal_id].state,
-								results: results?results:{}
-							}
-
-							if(lpWeight){
-								const lpWeightArray = Object.keys(lpWeight);
-								if(lpWeightArray.length > 0 && lpWeight[proposal_id]){
-									let lp_weight;
-									
-									proposalObj.lp_weight = getNumberFromFixed(lpWeight[proposal_id].con_rswp_lst001) 
-									
-								}
-							}
-							
-							if(ballotCount){
-								if(Object.keys(ballotCount).length > 0){
-									const ballot_counts = ballotCount[proposal_id] //a string or numb?
-
-									if(ballot_counts !== undefined){
-										proposalObj.ballot_count = ballot_counts;
-									}
-									
-								}
-							}
-							
-							if(ballots){
-								if(Object.keys(ballots).length > 0){
-									const ballots_proposal_id = ballots[proposal_id]
-				
-									if(ballots_proposal_id){
-									
-										const counted = ballots_proposal_id.counted; 
-										const verified = ballots_proposal_id.verified;
-										if(counted){
-											proposalObj.counted = "true";
-										}
-										if(verified){
-											proposalObj.verified = "true";
-										}
-									}
-								}
-							}
-
-
-							if(proposalObj && Object.keys(proposalObj).length > 0){
-								proposalArray.push(proposalObj);
-							}
-							
+						proposalObj = {
+							proposal_id: proposal_id,
+							title: proposals[proposal_id].title,
+							description: proposals[proposal_id].description,
+							date_decision: proposals[proposal_id].date_decision,
+							choices: proposals[proposal_id].choices,
+							state: proposals[proposal_id].state,
+							results: results?results:{}
 						}
 
-						await ProposalEntity.insert(proposalArray);
-						log.log(`saved all current proposal data`)
+						if(lpWeight){
+							const lpWeightArray = Object.keys(lpWeight);
+							if(lpWeightArray.length > 0 && lpWeight[proposal_id]){
+								let lp_weight;
+								
+								proposalObj.lp_weight = getNumberFromFixed(lpWeight[proposal_id].con_rswp_lst001) 	
+							}
+						}
 						
+						if(ballotCount && Object.keys(ballotCount).length > 0){
+							const ballot_counts = ballotCount[proposal_id] //a string or numb?
+
+							if(ballot_counts !== undefined){
+								proposalObj.ballot_count = ballot_counts;
+							}
+						}
+						
+						if(ballots && Object.keys(ballots).length > 0){
+							const ballots_proposal_id = ballots[proposal_id]
+		
+							if(ballots_proposal_id){
+							
+								const counted = ballots_proposal_id.counted; 
+								const verified = ballots_proposal_id.verified;
+								if(counted){
+									proposalObj.counted = "true";
+								}
+								if(verified){
+									proposalObj.verified = "true";
+								}
+							}
+						}
+
+						if(proposalObj && Object.keys(proposalObj).length > 0){
+							proposalArray.push(proposalObj);
+						}
 					}
-				} 
 
+					await ProposalEntity.insert(proposalArray);
+					log.log(`saved all current proposal data`)	
+				}
 
-				if(ballots){
-					if(Object.keys(ballots).length > 0){
-						
-						const proposal_ids = Object.keys(ballots)
-						
-						for (let p of proposal_ids){
-							const ballots_proposal_id = ballots[p]
-							let vk;
-							//backwards_index
-							if(Object.keys(ballots_proposal_id.backwards_index).length > 0){
-								const vkObj = ballots_proposal_id.backwards_index;
-								vk = Object.keys(vkObj)[0];
-								const ballot_id = vkObj[vk];
-
-								//forwards_index
-								const ballotForwardObj = ballots_proposal_id.forwards_index;	
-								const choice_idx = ballotForwardObj[ballot_id].choice;
-								let counted_weight;
-								
-								if(processedBallots){
-									if(Object.keys(processedBallots).length > 0){
-										
-										if(processedBallots[p]){
-											
-											const ballot_id = Object.keys(processedBallots[p])[0];
-											counted_weight = processedBallots[p][ballot_id].weight;
-											vk = processedBallots[p][ballot_id].user_vk;
-											if(Object.keys(counted_weight).length > 0){
-											
-												counted_weight = getNumberFromFixed(counted_weight)
-											}
-
-										}
-									
-									}
+				if(ballots && Object.keys(ballots).length > 0){
 					
-								}
-								
-								let found = false;
-								if(userArray.length > 0){
-									for (let ent of userArray){
-										if(ent.vk === vk){
-											ent.proposals.push(parseInt(p)); 
-											ent.ballot_idx.push(ballot_id); 
-											ent.choice_idx.push(choice_idx);
-											if(counted_weight){
-												ent.weight.push(counted_weight);
-											}
-											
-											found = true;
-										} 
-									}
-																	
-								}
-								
-								if(!found){
-									userObj = {
-										vk: vk,
-										ballot_idx: [ballot_id],
-										choice_idx: [choice_idx],
-										weight: counted_weight?[counted_weight]:[],
-										proposals: [parseInt(p)]
-			
-									}
-									
-								}
+					const proposal_ids = Object.keys(ballots)
+					
+					for (let p of proposal_ids){
+						const ballots_proposal_id = ballots[p]
+						let vk;
+						//backwards_index
+						if(Object.keys(ballots_proposal_id.backwards_index).length > 0){
+							const vkObj = ballots_proposal_id.backwards_index;
+							vk = Object.keys(vkObj)[0];
+							const ballot_id = vkObj[vk];
 
+							//forwards_index
+							const ballotForwardObj = ballots_proposal_id.forwards_index;	
+							const choice_idx = ballotForwardObj[ballot_id].choice;
+							let counted_weight;
+							
+							if(processedBallots && Object.keys(processedBallots).length > 0){
 								
+								if(processedBallots[p]){
+				
+									const ballot_id = Object.keys(processedBallots[p])[0];
+									counted_weight = processedBallots[p][ballot_id].weight;
+									vk = processedBallots[p][ballot_id].user_vk;
+									if(Object.keys(counted_weight).length > 0){
+									
+										counted_weight = getNumberFromFixed(counted_weight)
+									}
+								}
 							}
 							
+							let found = false;
+							if(userArray.length > 0){
+								for (let ent of userArray){
+									if(ent.vk === vk){
+										ent.proposals.push(parseInt(p)); 
+										ent.ballot_idx.push(ballot_id); 
+										ent.choice_idx.push(choice_idx);
+										if(counted_weight){
+											ent.weight.push(counted_weight);
+										}
+										
+										found = true;
+									} 
+								}									
+							}
 							
-							if(userObj && Object.keys(userObj).length > 0){
-								if(userArray.length > 0){
-									let last_obj = userArray[userArray.length - 1]
-									if(last_obj.vk !== userObj.vk){
-										userArray.push(userObj);
-									}
-								}else{
+							if(!found){
+								userObj = {
+									vk: vk,
+									ballot_idx: [ballot_id],
+									choice_idx: [choice_idx],
+									weight: counted_weight?[counted_weight]:[],
+									proposals: [parseInt(p)]
+		
+								}
+							}
+						}
+						
+						if(userObj && Object.keys(userObj).length > 0){
+							if(userArray.length > 0){
+								let last_obj = userArray[userArray.length - 1]
+								if(last_obj.vk !== userObj.vk){
 									userArray.push(userObj);
 								}
-								
-									
-							}
-							
-						} 
-
-						if(userArray.length > 0){
-
-							await UserEntity.insert(userArray);
-							log.log(`saved all current user data `)
+							}else{
+								userArray.push(userObj);
+							}		
 						}
-					
+					} 
+
+					if(userArray.length > 0){
+
+						await UserEntity.insert(userArray);
+						log.log(`saved all current user data `)
 					}
-					
-				} 
+				}	 
 			}
 			
 			if (Object.keys(rswpBalanceMeta).length > 0){
@@ -611,9 +575,6 @@ export class DataSyncProvider implements OnModuleInit{
 			log.warn({ err })
 		}
 	}
-	
-	
-
 	
 	//blockservice data structure
 
