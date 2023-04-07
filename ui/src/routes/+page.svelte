@@ -21,8 +21,8 @@
 </script>
 
 <div style="display: grid; 
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); 
-    grid-gap: 50px">
+    grid-template-columns:repeat(auto-fit, minmax(500px, 1fr)); 
+    grid-gap: 20px">
     
     {#if Object.keys(data.proposals).length > 0}
         
