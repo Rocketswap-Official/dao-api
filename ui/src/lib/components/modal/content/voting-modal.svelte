@@ -11,23 +11,19 @@
         toast_store } from "../../../store"
 	//import type { I_Choice } from "src/types/imported-types";
     let idx = $modal_data_store.choice_index;
-
     let choices: any = $choice_array_store[idx]
     let group: any = []
     // when uncommented user wallet is taken from store
     let vk = $wallet_store;
-    // let vk = "cccccccccc";
     let selectOne: any;
     let changeBackgroundColor: any;
 
     group = getCheckBoxGroup(choices, group);
 
     // when uncommented it checks whether user has voted on current proposal
-    //let voted = CheckVoted(vk, choices);
-    let voted = false;
-     
-    const submitSelectedChoice = async(e: any)=>{
+    let voted = CheckVoted(vk, choices);
 
+    const submitSelectedChoice = async(e: any)=>{
         if(!ballotTxnInfo.kwargs.proposal_idx || ballotTxnInfo.kwargs.choice_idx === ""){
             toast_store.set({show: true, error: true, title:"Input Error", message:"No selected choice!"})
             return
