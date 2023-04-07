@@ -67,7 +67,8 @@ export function getVal(state: IKvp[] | IKvp, idx?: number) {
 export function getValue(value: any) {
 	if (!value) {
 		return 0;
-	} else if (Number(value)! === NaN) {
+	// } else if (Number(value)! === NaN) {
+	} else if (Number.isNaN(Number(value)!)) {
 		// is
 		return value;
 	} else if (value.__fixed__) {
