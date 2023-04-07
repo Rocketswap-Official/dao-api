@@ -7,22 +7,12 @@
     export let choices: I_Choice[];
     
     let total: number;
-    let vkVoted = false;
-    let chosenChoice: number;
-    let justChosen: any;
-    let justVoted = false;
-    let vote: any;
     let n = 0;
     let labels: string[] = [];
     let weights: number[] = [];
     let backgroundColor: string[] = [];
-
-
+    
     for (let c of choices){
-        if (c.vk === $wallet_store){
-            vkVoted = true;
-            chosenChoice = c.choiceIdx;
-        }
         labels.push(pieLabels[n]);
         weights.push(c.voteWeight);
         backgroundColor.push(pieColours[n]);
@@ -39,7 +29,6 @@
 
     const maxValue = Math.max(...weights)
     const sumWeights = weights.reduce((a,b)=> a+b)
-
     const average = sumWeights / weights.length
     
     const is_all_same_value = (choiceVoteWeight: number)=>{
@@ -50,10 +39,6 @@
         }
         return false      
     }
-
-    // DEBUG
-    // console.log(choices)
-
     
 </script>
 
@@ -76,8 +61,7 @@
 
             <div class="flex row a-start">
                 <div>{choice.voteWeight}%</div>
-                <!--img class="svg2" class:visibility={choice.vk === vk} src="svg/checked.svg" alt="selected choice"/-->
-                <img class="svg2" class:visibility={vkVoted} src="svg/checked.svg" alt="selected choice"/>
+                <img class="svg2" class:visibility={choice.vk === $wallet_store} src="svg/checked.svg" alt="selected choice"/>
                 
             </div>
                                     
