@@ -1,17 +1,12 @@
 <script lang="ts">
-    
-    import { wallet_store } from "../store"
     import { pieLabels, pieColours } from "./pieChart/pie";
     import PieChart from './pieChart/pieChart.svelte';
 	import type { I_Choice } from "../types/imported-types";
+    import { wallet_store } from "../store"
 
     export let choices: I_Choice[];
     
     let total: number;
-    //console.log(choices)
-    //get vk from lamden wallet
-    let vk = $wallet_store;
-    // let vk = "cccccccccc"
     let vkVoted = false;
     let chosenChoice: number;
     let justChosen: any;
@@ -24,15 +19,14 @@
 
 
     for (let c of choices){
-        if (c.vk === vk){
+        if (c.vk === $wallet_store){
             vkVoted = true;
             chosenChoice = c.choiceIdx;
         }
         labels.push(pieLabels[n]);
-        weights.push(parseFloat(c.voteWeight));
+        weights.push(c.voteWeight);
         backgroundColor.push(pieColours[n]);
         total = c.total
-        console.log(c.voteWeight)
         n = n + 1
     }
 
@@ -57,6 +51,9 @@
         return false      
     }
 
+    // DEBUG
+    // console.log(choices)
+
     
 </script>
 
@@ -79,7 +76,9 @@
 
             <div class="flex row a-start">
                 <div>{choice.voteWeight}%</div>
-                <img class="svg2" class:visibility={choice.vk === vk} src="svg/checked.svg" alt="selected choice"/>
+                <!--img class="svg2" class:visibility={choice.vk === vk} src="svg/checked.svg" alt="selected choice"/-->
+                <img class="svg2" class:visibility={vkVoted} src="svg/checked.svg" alt="selected choice"/>
+                
             </div>
                                     
         </div>
