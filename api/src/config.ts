@@ -6,7 +6,8 @@ export const config_prod = {
     dex_native_token: "con_rswp_lst001",
     dao_contract: "con_lite_dao_test",
     network_type: "mainnet",
-    block_service_urls: process.env.block_service_urls?.split(",") || ["blockservice.opticprotocol.finance"]
+    network_name: "arko",
+    block_service_urls: process.env.block_service_urls?.split(",") || ["arko-bs-2.lamden.io"]
     
     //block_service_url: process.env.BLOCK_SERVICE_URL || "0.0.0.0:3535"
 };
