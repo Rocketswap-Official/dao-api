@@ -97,30 +97,32 @@ export async function initSyncDaoData() {
 				// LEVEL 2
 				for (let u of users) {
 					// LEVEL 1
-					for (let up of u.proposals) {
-						if (up === proposal.proposal_id) {
+					for (let up of u.proposals) { //up type is string
+						if (parseInt(up) === proposal.proposal_id) { //proposal.proposal_id type is number
 							let indx = u.proposals.indexOf(up);
 							let c = u.choice_idx[indx];
 							const weights = [
 								u.rswp_balance,
 								u.rocket_fuel,
 								u.staked_rswp,
-								u.staked_lp_value[indx],
-								u.lp_value[indx]
+								u.staked_lp_value? parseFloat(u.staked_lp_value[indx]) : 0,
+								Object.is(u.lp_value, null)? 0: parseFloat(u.staked_lp_value[indx])
 							];
 							let cWeight = weights.reduce((a, b) => {
+								a === "NaN"? 0 : a
 								return a + b;
 							});
+							
 
 							// LEVEL 0
 							for (let uc of proposalChoices) {
-								if (uc.choiceIdx === c) {
+								if (uc.choiceIdx === parseInt(c)) {
 									uc.voteWeight += cWeight;
 									uc.vk = u.vk;
 								}
 							}
 							// LEVEL 0
-							total += cWeight;
+							total += cWeight;	
 						}
 					}
 					// LEVEL 1
