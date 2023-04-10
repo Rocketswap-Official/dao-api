@@ -1,24 +1,31 @@
-import { writable, type Writable } from "svelte/store";
-import type { I_Proposal, I_User, I_Choice } from "./types/imported-types"
+import { writable, type Writable } from 'svelte/store';
+import { browser } from '$app/environment';
+import type { I_Proposal, I_User, I_Choice } from './types/imported-types';
 
-export const proposals_store: Writable<I_Proposal[]> = writable([])
-export const users_store: Writable<I_User[]> = writable([])
-export const wallet_store: Writable<string> = writable("")
-export const balances_store: Writable<any> = writable({TAU: 0, RSWP: 0})
+export const proposals_store: Writable<I_Proposal[]> = writable([]);
+export const users_store: Writable<I_User[]> = writable([]);
 
-export const modal_open_store: Writable<any> = writable(false)
-export const modal_data_store: Writable<any> = writable({})
-export const modal_index_store: Writable<number> = writable(0)
-export const modal_callback: Writable<Function | false> = writable()
+export const wallet_store: Writable<string> = writable(
+	(browser && localStorage.getItem('vk')) || ''
+);
+wallet_store.subscribe((value) => browser && (localStorage.vk = value));
+
+// export const balances_store: Writable<any> = writable({TAU: 0, RSWP: 0})
+export const balances_store: Writable<any> = writable({ TAU: 0 });
+
+export const modal_open_store: Writable<any> = writable(false);
+export const modal_data_store: Writable<any> = writable({});
+export const modal_index_store: Writable<number> = writable(0);
+export const modal_callback: Writable<Function | false> = writable();
 //Toast
 // export const showToast: Writable<any> = writable(false)
-export const toast_store: Writable<any> = writable({show: false})
+export const toast_store: Writable<any> = writable({ show: false });
 
 //ChoiceArray
-export const choice_array_store: Writable<I_Choice[]> = writable([])
+export const choice_array_store: Writable<I_Choice[]> = writable([]);
 
 //Lamden Wallet Controller
-export const lwc_store: Writable<any> = writable(null)
+export const lwc_store: Writable<any> = writable(null);
 
-//RSWP approval 
-export const rswp_approval_store: Writable<number> = writable(0)
+//RSWP approval
+export const rswp_approval_store: Writable<number> = writable(0);
