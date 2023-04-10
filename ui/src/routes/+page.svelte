@@ -6,7 +6,8 @@
     import { handle_modal_open_voting, handle_modal_open_details } from '../events'
     //import { proposals_store, choice_array_store} from '$lib/store';
 
-    export let data: any;
+    export let data
+    
     let n = 0;
     let it = 0;
     const increment = ()=>{
