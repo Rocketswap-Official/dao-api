@@ -13,7 +13,6 @@ import type { I_Proposal, I_User, I_Choice } from '../types/imported-types';
 //import proposals from '../mock-data/proposals.json'
 //import users from '../mock-data/users.json'
 
-
 const selectBlockservice = () => {
 	const min = Math.ceil(0);
 	const max = Math.floor(2);
@@ -97,22 +96,23 @@ export async function initSyncDaoData() {
 				// LEVEL 2
 				for (let u of users) {
 					// LEVEL 1
-					for (let up of u.proposals) { //up type is string
-						if (parseInt(up) === proposal.proposal_id) { //proposal.proposal_id type is number
+					for (let up of u.proposals) {
+						//up type is string
+						if (parseInt(up) === proposal.proposal_id) {
+							//proposal.proposal_id type is number
 							let indx = u.proposals.indexOf(up);
 							let c = u.choice_idx[indx];
 							const weights = [
 								u.rswp_balance,
 								u.rocket_fuel,
 								u.staked_rswp,
-								u.staked_lp_value? parseFloat(u.staked_lp_value[indx]) : 0,
-								Object.is(u.lp_value, null)? 0: parseFloat(u.staked_lp_value[indx])
+								u.staked_lp_value ? parseFloat(u.staked_lp_value[indx]) : 0,
+								Object.is(u.lp_value, null) ? 0 : parseFloat(u.staked_lp_value[indx])
 							];
 							let cWeight = weights.reduce((a, b) => {
-								a === "NaN"? 0 : a
+								a === 'NaN' ? 0 : a;
 								return a + b;
 							});
-							
 
 							// LEVEL 0
 							for (let uc of proposalChoices) {
@@ -122,7 +122,7 @@ export async function initSyncDaoData() {
 								}
 							}
 							// LEVEL 0
-							total += cWeight;	
+							total += cWeight;
 						}
 					}
 					// LEVEL 1
@@ -156,15 +156,6 @@ export async function initSyncDaoData() {
 }
 
 //remove this function to an appropriate place
-export function findVotedProposals(vk: string, store: any) {
-	for (let u of store) {
-		if (u.vk === vk) {
-			return u.proposals;
-		}
-	}
-}
-
-//remove this function to an appropriate place
 function get_fixed_value(obj: any) {
 	let value: number;
 	if (obj === null) return 0;
@@ -188,7 +179,9 @@ export async function getApprovalBalance(vk: string) {
 	try {
 		const rswp_approval_amount = (
 			await axios.get(
-				`https://${selectBlockservice()}/current/one/${contracts.rswp}/balances/${vk}:${contracts.dao}`
+				`https://${selectBlockservice()}/current/one/${contracts.rswp}/balances/${vk}:${
+					contracts.dao
+				}`
 			)
 		).data;
 
