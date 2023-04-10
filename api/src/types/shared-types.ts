@@ -13,7 +13,13 @@ export interface I_Proposal {
     results: {};
 }
 
-export interface I_Choice { choice: string, choiceIdx: number, proposalId: number, vk: string, voteWeight: number }
+export interface I_Choice { 
+    choice: string, 
+    choiceIdx: number, 
+    proposalId: number, 
+    vk: string, 
+    voteWeight: number 
+}
 
 export interface I_User {
     vk?: string;
