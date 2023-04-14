@@ -1,6 +1,8 @@
 export default {
 	icon_open: 'svg/menu/icon-open.svg',
 	icon_open_color: 'svg/menu/icon-open-color.svg',
+	icon_counted: 'svg/menu/icon-counted.svg',
+	icon_counted_color: 'svg/menu/icon-counted-color.svg',
 	icon_concluded: 'svg/menu/icon-concluded.svg',
 	icon_concluded_color: 'svg/menu/icon-concluded-color.svg',
 	icon_create: 'svg/menu/icon-create.svg',
