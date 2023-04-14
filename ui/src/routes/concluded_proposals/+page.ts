@@ -1,7 +1,7 @@
-import { filterConcludedProposals } from '../../lib/utils/api.utils';
+import { filterProposals } from '../../lib/utils/api.utils';
 
 export async function load() {
-	const daoData = await filterConcludedProposals();
+	const daoData = await filterProposals('concluded');
 	const has_content = daoData.length > 0;
 	return {
 		proposals: has_content ? daoData[0] : [],
