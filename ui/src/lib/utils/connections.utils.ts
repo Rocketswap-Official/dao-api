@@ -1,4 +1,4 @@
-import WalletController from '$lib/walletController';
+import WalletController from '../../lib/walletController';
 import { connectionRequest, toastWalletMessage, walletError } from '../../config';
 import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
@@ -21,9 +21,9 @@ const sendToastMessageSuccess = (title, message) => {
 	});
 };
 
-const closeToast = ()=>{
+const closeToast = () => {
 	toast_store.set({ show: false });
-}
+};
 
 const updateBalances = async (wInfo) => {
 	let vk = wInfo.wallets[0];
@@ -41,14 +41,14 @@ export const handleWalletInfo = async (wInfo) => {
 				// put setTimeout here too?
 				return;
 			} else if (err === walletError.existError) {
-				sendToastMessageError("Wallet Error", toastWalletMessage.existError);
+				sendToastMessageError('Wallet Error', toastWalletMessage.existError);
 				setTimeout(() => {
 					closeToast();
 				}, 2500);
 
 				return;
 			}
-			sendToastMessageError("Wallet Error", err);
+			sendToastMessageError('Wallet Error', err);
 		}
 		setTimeout(() => {
 			closeToast();
@@ -61,28 +61,24 @@ export const handleWalletInfo = async (wInfo) => {
 
 export const handleTxnInfo = (txInfo: any) => {
 	//handle txn results
-    const { data } = txInfo
-    const { errors, txBlockResult } = data;
-    if(errors){  
-		// DEBUG
-		console.log(errors)   
-		sendToastMessageError("Txn Error", errors[0])       
-    } else {
+	const { data } = txInfo;
+	const { errors, txBlockResult } = data;
+	if (errors) {
+		sendToastMessageError('Txn Error', errors[0]);
+	} else {
 		// const { title, returnResult } = resultInfo;
-		if (txBlockResult && Object.keys(txBlockResult).length > 0){
-			// DEBUG
-			console.log(txBlockResult)
+		if (txBlockResult && Object.keys(txBlockResult).length > 0) {
 			const { result, stamps_used } = txBlockResult;
-			if(result === "None"){
-				sendToastMessageSuccess("Txn Success", `Success! \nstamps used: ${stamps_used}`)
-			}else if (result.includes("Error")){
-				sendToastMessageError("Txn Error", `${result} \nstamps used: ${stamps_used}`)
+			if (result === 'None') {
+				sendToastMessageSuccess('Txn Success', `Success! \nstamps used: ${stamps_used}`);
+			} else if (result.includes('Error')) {
+				sendToastMessageError('Txn Error', `${result} \nstamps used: ${stamps_used}`);
 			}
-		} 
-    }
-	setTimeout(()=>{
+		}
+	}
+	setTimeout(() => {
 		closeToast();
-	}, 4000)
+	}, 4000);
 };
 
 export const controllerInstance = () => {
@@ -91,14 +87,14 @@ export const controllerInstance = () => {
 
 export const isWalletInstalled = (lwc) => {
 	if (lwc === null) {
-		sendToastMessageError("Wallet Error", toastWalletMessage.initialiseError);
+		sendToastMessageError('Wallet Error', toastWalletMessage.initialiseError);
 		return;
 	}
 
 	lwc.sendConnection(connectionRequest);
 	setTimeout(() => {
 		if (response === undefined) {
-			sendToastMessageError("Wallet Error", toastWalletMessage.installError);
+			sendToastMessageError('Wallet Error', toastWalletMessage.installError);
 		}
 	}, 1000);
 };
