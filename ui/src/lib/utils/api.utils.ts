@@ -145,6 +145,7 @@ export const initSyncDaoData = async () => {
 			proposalChoices = await checkVerified(proposal, proposalChoices);
 			choiceArray.push(proposalChoices);
 			proposalChoices = [];
+			// proposals[proposals.indexOf(proposal)] = proposal.date_decision.__time__ as const
 		}
 		// LEVEL 4
 		choice_array_store.set(choiceArray);
@@ -155,32 +156,14 @@ export const initSyncDaoData = async () => {
 	return [];
 };
 
-export const filterOpenProposals = async () => {
+export const filterProposals = async (state: string) => {
 	const [proposals, choiceArray] = await initSyncDaoData();
 	if (proposals.length > 0 && choiceArray.length > 0) {
-		let filteredProposals = [];
-		let filteredChoice = [];
+		let filteredProposals: any[] = [];
+		let filteredChoice: any[] = [];
 
 		for (let p of proposals) {
-			if (p.state === 'open') {
-				filteredProposals.push(p);
-				filteredChoice.push(choiceArray[proposals.indexOf(p)]);
-			}
-		}
-		return [filteredProposals, filteredChoice];
-	} else {
-		return [];
-	}
-};
-
-export const filterConcludedProposals = async () => {
-	const [proposals, choiceArray] = await initSyncDaoData();
-	if (proposals.length > 0 && choiceArray.length > 0) {
-		let filteredProposals = [];
-		let filteredChoice = [];
-
-		for (let p of proposals) {
-			if (p.state === 'concluded') {
+			if (p.state === state) {
 				filteredProposals.push(p);
 				filteredChoice.push(choiceArray[proposals.indexOf(p)]);
 			}
