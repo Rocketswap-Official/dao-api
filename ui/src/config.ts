@@ -1,5 +1,6 @@
 import type {
 	I_ProposalInfo,
+	I_CountObj,
 	I_TransactionObj,
 	I_BallotInfo,
 	I_RSWPApprovalInfo
@@ -52,6 +53,10 @@ export let RSWPApprovalInfo: I_RSWPApprovalInfo = {
 	to: ''
 };
 
+export let CounInfo = {
+	proposal_idx: 0
+};
+
 export let proposalTxnInfo: I_TransactionObj = {
 	networkName: 'arko',
 	networkType: 'mainnet',
@@ -66,6 +71,14 @@ export let ballotTxnInfo: I_TransactionObj = {
 	methodName: 'cast_ballot',
 	kwargs: ballotInfo,
 	stampLimit: 100
+};
+
+export let countTxnInfo: I_TransactionObj = {
+	networkName: 'arko',
+	networkType: 'mainnet',
+	methodName: 'create_proposal',
+	kwargs: CounInfo,
+	stampLimit: 100 //TODO: we need a good estimate for stamps
 };
 
 export let RswpApprovalTxnInfo: I_TransactionObj = {
