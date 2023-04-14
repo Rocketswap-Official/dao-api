@@ -20,7 +20,7 @@ const selectBlockservice = () => {
 	return blockserviceUrls.mainnet[index];
 };
 
-export async function syncProposals() {
+export const syncProposals = async () => {
 	try {
 		const proposals = (await axios.get(`http://${apiUrl}/proposals/all_proposals`))
 			.data as I_Proposal[];
@@ -30,9 +30,9 @@ export async function syncProposals() {
 	} catch (err) {
 		console.log(err);
 	}
-}
+};
 
-export async function syncUsers() {
+export const syncUsers = async () => {
 	try {
 		const users = (await axios.get(`http://${apiUrl}/users`)).data as I_User[];
 		// const users = []
@@ -41,9 +41,9 @@ export async function syncUsers() {
 	} catch (err) {
 		console.log(err);
 	}
-}
+};
 
-export async function checkVerified(proposal: I_Proposal, proposalChoices: I_Choice[]) {
+export const checkVerified = async (proposal: I_Proposal, proposalChoices: I_Choice[]) => {
 	let verified = proposal.verified;
 	let results = proposal.results;
 	let total = 0;
@@ -64,9 +64,9 @@ export async function checkVerified(proposal: I_Proposal, proposalChoices: I_Cho
 	}
 
 	return proposalChoices;
-}
+};
 
-export async function initSyncDaoData() {
+export const initSyncDaoData = async () => {
 	await Promise.all([await syncProposals(), await syncUsers()]);
 
 	const proposals: I_Proposal[] = get(proposals_store);
@@ -153,17 +153,53 @@ export async function initSyncDaoData() {
 	}
 
 	return [];
-}
+};
+
+export const filterOpenProposals = async () => {
+	const [proposals, choiceArray] = await initSyncDaoData();
+	if (proposals.length > 0 && choiceArray.length > 0) {
+		let filteredProposals = [];
+		let filteredChoice = [];
+
+		for (let p of proposals) {
+			if (p.state === 'open') {
+				filteredProposals.push(p);
+				filteredChoice.push(choiceArray[proposals.indexOf(p)]);
+			}
+		}
+		return [filteredProposals, filteredChoice];
+	} else {
+		return [];
+	}
+};
+
+export const filterConcludedProposals = async () => {
+	const [proposals, choiceArray] = await initSyncDaoData();
+	if (proposals.length > 0 && choiceArray.length > 0) {
+		let filteredProposals = [];
+		let filteredChoice = [];
+
+		for (let p of proposals) {
+			if (p.state === 'concluded') {
+				filteredProposals.push(p);
+				filteredChoice.push(choiceArray[proposals.indexOf(p)]);
+			}
+		}
+		return [filteredProposals, filteredChoice];
+	} else {
+		return [];
+	}
+};
 
 //remove this function to an appropriate place
-function get_fixed_value(obj: any) {
+const get_fixed_value = (obj: any) => {
 	let value: number;
 	if (obj === null) return 0;
 	obj.__fixed__ ? (value = parseFloat(obj.__fixed__)) : (value = parseFloat(obj));
 	return value;
-}
+};
 
-export async function getTauBalance(vk: string) {
+export const getTauBalance = async (vk: string) => {
 	try {
 		const balance: any = (
 			await axios.get(`https://${selectBlockservice()}/current/one/currency/balances/${vk}`)
@@ -173,9 +209,9 @@ export async function getTauBalance(vk: string) {
 	} catch (err) {
 		console.log(err);
 	}
-}
+};
 
-export async function getApprovalBalance(vk: string) {
+export const getApprovalBalance = async (vk: string) => {
 	try {
 		const rswp_approval_amount = (
 			await axios.get(
@@ -189,4 +225,4 @@ export async function getApprovalBalance(vk: string) {
 	} catch (err) {
 		console.log(err);
 	}
-}
+};
