@@ -3,22 +3,17 @@
     import ChoiceSelectorPieChart from '$lib/components/choiceSelectorPieChart.svelte';
     import ProposalCard from '$lib/components/proposalCard.svelte';
     import Button from '$lib/components/button/button.svelte'
+    import type { I_Proposal, Tuple7 } from '../../lib/types/imported-types'
     import { handle_modal_open_details } from '../../events'
     //import { proposals_store, choice_array_store} from '$lib/store';
 
     export let data
-    
-    // let n = 0;
-    // let it = 0;
-    // const increment = ()=>{
-    //     n = it
-    //     n = n + 1 - 1
-    //     it = it + 1
-    //     return n
 
-    // }
-
-    
+    const spitDateObj = (proposalArray: I_Proposal): Date => {
+        const dateArray: Tuple7<number> = proposalArray.date_decision.__time__
+        return new Date(...dateArray)
+    }
+  
 </script>
 
 <div style="display: grid; 
@@ -28,7 +23,7 @@
     {#if Object.keys(data.proposals).length > 0}
         {#each data.proposals as proposal}
             
-            <ProposalCard {proposal}> 
+            <ProposalCard {proposal} endDate = {spitDateObj(proposal)}> 
                 
                 <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
 
