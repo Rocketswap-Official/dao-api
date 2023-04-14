@@ -6,6 +6,11 @@
         "path" : "/"
     },
     {
+        "name": "Counted",
+        "logo": "icon_counted",
+        "path" : "/counted_proposals"
+    },
+    {
         "name": "Concluded",
         "logo": "icon_concluded",
         "path" : "/concluded_proposals"
