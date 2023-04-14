@@ -7,18 +7,7 @@
     //import { proposals_store, choice_array_store} from '$lib/store';
 
     export let data
-    
-    let n = 0;
-    let it = 0;
-    const increment = ()=>{
-        n = it
-        n = n + 1 - 1
-        it = it + 1
-        return n
 
-    }
-
-    
 </script>
 
 <div style="display: grid; 
@@ -26,12 +15,11 @@
     grid-gap: 20px">
     
     {#if Object.keys(data.proposals).length > 0}
-        
         {#each data.proposals as proposal}
-           
+            
             <ProposalCard {proposal}> 
                 
-                <ChoiceSelectorPieChart choices ={data.choiceArray[increment()]}/>
+                <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
 
                 <div class="flex row j-end" style="margin-top: 3vw;">
                     <div class="mr-1em">
@@ -50,7 +38,7 @@
         {/each}
 
     {:else}
-            <p style="color: red; font-size: 11px;">No proposals to display</p>
+            <p style="color: red; font-size: 11px;">No open proposals at the moment</p>
     {/if}
 </div>
 
