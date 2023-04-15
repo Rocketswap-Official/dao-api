@@ -2,26 +2,20 @@
 	import { onMount } from "svelte";
     import { handleTxnInfo } from '../../../utils/connections.utils'
     import { ballotTxnInfo } from '../../../../config'
-    import { CheckVoted, getCheckBoxGroup } from './content-modal.utils'
+    import { getCheckBoxGroup } from './content-modal.utils'
     import { 
-        wallet_store, 
         choice_array_store, 
         modal_data_store, 
         lwc_store, 
         toast_store } from "../../../store"
-	//import type { I_Choice } from "src/types/imported-types";
+
     let idx = $modal_data_store.choice_index;
     let choices: any = $choice_array_store[idx]
     let group: any = []
-    // when uncommented user wallet is taken from store
-    let vk = $wallet_store;
     let selectOne: any;
     let changeBackgroundColor: any;
 
     group = getCheckBoxGroup(choices, group);
-
-    // when uncommented it checks whether user has voted on current proposal
-    let voted = CheckVoted(vk, choices);
 
     const submitSelectedChoice = async(e: any)=>{
         if(!ballotTxnInfo.kwargs.proposal_idx || ballotTxnInfo.kwargs.choice_idx === ""){
@@ -32,14 +26,6 @@
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
 
         $lwc_store.sendTransaction(ballotTxnInfo, handleTxnInfo)
-
-        //#####disabling button after submission does'nt work!#####
-
-        //e.target.disabled = true;
-
-        // setTimeout(()=> {
-        //     e.target.disabled = false;
-        // },4000)
 
         console.log(ballotTxnInfo)
         
@@ -89,89 +75,43 @@
 
 
 <div style="margin-top: 3vw; font-size: var(--units-1_14vw);">
-    {#if voted}
-        <ol type="A">
-            {#each choices as choice}
+    
+    <ol type="A">
+        {#each choices as choice}
+            
+        <!--TODO: leave a little space between list bullet and border-->
+    
+            <div class="choice mb-1 background" on:click={changeBackgroundColor} on:keyup={changeBackgroundColor}>  
                 
-            <!--TODO: leave a little space between list bullet and border-->
-
-                <div class="choice mb-1 " class:voted={choice.vk === vk}>  
+                <li >
                     
-                    <li >
-                        
-                        <div class="flex row space-between">
-                            <label for="choice">{choice.choice}</label>
-                            {#if choice.vk === vk}
-                                <img class="svg" src="svg/checked.svg" alt="ticker"/>
-                            {/if}  
-                        </div>
-                        
-                    </li>
+                    <div class="flex row space-between">
+                        <label for="choice">{choice.choice}</label>
+                        <input 
+                            type="checkbox" 
+                            class="checkbox"
+                            bind:group={group} 
+                            name={choice.proposalId}
+                            value={choice.choiceIdx} 
+                            on:click={selectOne}/>
+                            
+                    </div>
                     
-                </div> 
-
-            {/each}
-
-        </ol>
-        
-    
-    
-        <div class="flex row center">
-            <button class=" outlined primary white" on:click={submitSelectedChoice} disabled>
-                <div>Cast Vote</div>
-            </button>
-        </div> 
-
-    {:else}
-
-        <ol type="A">
-            {#each choices as choice}
+                </li>
                 
-            <!--TODO: leave a little space between list bullet and border-->
-        
-                <div class="choice mb-1 background" on:click={changeBackgroundColor} on:keyup={changeBackgroundColor}>  
-                    
-                    <li >
-                        
-                        <div class="flex row space-between">
-                            <label for="choice">{choice.choice}</label>
-                            <input 
-                                type="checkbox" 
-                                class="checkbox"
-                                bind:group={group} 
-                                name={choice.proposalId}
-                                value={choice.choiceIdx} 
-                                on:click={selectOne}/>
-                                
-                        </div>
-                        
-                    </li>
-                    
-                </div> 
+            </div> 
 
-            {/each}
+        {/each}
 
-        </ol>
-    
+    </ol>
 
-
-        <div class="flex row center">
-            <button class=" outlined primary white" on:click={submitSelectedChoice}>
-                <div>Cast Vote</div>
-            </button>
-        </div> 
-
-    {/if}
-    
+    <div class="flex row center">
+        <button class=" outlined primary white" on:click={submitSelectedChoice}>
+            <div>Cast Vote</div>
+        </button>
+    </div>    
 
 </div>
-<!--div style="margin-top: 3vw; font-size: var(--units-1_14vw);">
-    
-    
-
-</div-->
-
-
 
 
 <style>
@@ -187,24 +127,15 @@
     .voted {
         background-color: var(--background-color); 
         padding: 0.7em 0 0.7em 0; 
-    }
+    } 
     .choice {
         padding: 0.7em 0 0.7em 0; 
         border: 3px solid var(--background-color);
     }
-    /* input[type=checkbox], input[type=checkbox]:checked {
-        -moz-appearance:none;
-        -webkit-appearance:none;
-        -o-appearance:none;
-    } */
 
     input[type=checkbox] {
         width: 20px;
         height: 20px;
     }
-    .svg{
-        width: 20px;
-    }
-
     
 </style>
