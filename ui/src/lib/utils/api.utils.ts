@@ -98,7 +98,8 @@ export const initSyncDaoData = async () => {
 					// LEVEL 1
 					for (let up of u.proposals) {
 						//up type is string
-						if (parseInt(up) === proposal.proposal_id) {
+						let upp: number = parseInt(up);
+						if (upp === proposal.proposal_id) {
 							//proposal.proposal_id type is number
 							let indx = u.proposals.indexOf(up);
 							let c = u.choice_idx[indx];
@@ -110,12 +111,13 @@ export const initSyncDaoData = async () => {
 								Object.is(u.lp_value, null) ? 0 : parseFloat(u.staked_lp_value[indx])
 							];
 							let cWeight = weights.reduce((a, b) => {
-								a === 'NaN' ? 0 : a;
+								Number.isNaN(a) ? 0 : a;
 								return a + b;
 							});
 
 							// LEVEL 0
 							for (let uc of proposalChoices) {
+								console.log(`${uc.choiceIdx} =? ${c}`);
 								if (uc.choiceIdx === parseInt(c)) {
 									uc.voteWeight += cWeight;
 									uc.vk = u.vk;
@@ -157,21 +159,33 @@ export const initSyncDaoData = async () => {
 };
 
 export const filterProposals = async (state: string) => {
-	const [proposals, choiceArray] = await initSyncDaoData();
-	if (proposals.length > 0 && choiceArray.length > 0) {
-		let filteredProposals: any[] = [];
-		let filteredChoice: any[] = [];
+	const processedData = await initSyncDaoData();
+	if (processedData.length > 0) {
+		const [proposals, choiceArray] = processedData;
+		if (proposals.length > 0 && choiceArray.length > 0) {
+			let filteredProposals: any[] = [];
+			let filteredChoice: any[] = [];
 
-		for (let p of proposals) {
-			if (p.state === state) {
-				filteredProposals.push(p);
-				filteredChoice.push(choiceArray[proposals.indexOf(p)]);
+			for (let p of proposals) {
+				if (p.state === state) {
+					filteredProposals.push(p);
+					filteredChoice.push(choiceArray[proposals.indexOf(p)]);
+				}
 			}
+			return [filteredProposals, filteredChoice];
+		} else {
+			return [];
 		}
-		return [filteredProposals, filteredChoice];
 	} else {
 		return [];
 	}
+};
+
+export const isAnyProposalCounted = (proposals): boolean => {
+	for (let p of proposals) {
+		if (p.state === 'open' && p.counted === false) return false;
+	}
+	return true;
 };
 
 //remove this function to an appropriate place
