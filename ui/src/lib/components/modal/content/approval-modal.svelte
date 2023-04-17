@@ -1,16 +1,16 @@
 <script lang="ts">
     // import WalletController  from 'lamden_wallet_controller'
-    import { lwc_store, wallet_store } from '../../../store';
+    import { lwc_store, wallet_store, toast_store } from '../../../store';
     import { RswpApprovalTxnInfo } from '../../../../config';
     import { handleTxnInfo } from '../../../utils/connections.utils';
     import { contracts } from '../../../../config';
 
     const submitRSWPApproval = ()=>{
-
         RswpApprovalTxnInfo.senderVk = $wallet_store;
-        RswpApprovalTxnInfo.kwargs.amount = {__fixed__: "999999999999999999999999999999"};
+        RswpApprovalTxnInfo.kwargs.amount = {__fixed__: "999999999999"};
         RswpApprovalTxnInfo.kwargs.to = contracts.dao;
 
+        toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
         $lwc_store.sendTransaction(RswpApprovalTxnInfo, handleTxnInfo)
         console.log(RswpApprovalTxnInfo)
     }
