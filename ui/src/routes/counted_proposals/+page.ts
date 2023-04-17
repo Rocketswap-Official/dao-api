@@ -1,7 +1,7 @@
 import { filterProposals } from '../../lib/utils/api.utils';
 
 export async function load() {
-	const daoData = await filterProposals('counted');
+	const daoData = await filterProposals('open');
 	const has_content = daoData.length > 0;
 	return {
 		proposals: has_content ? daoData[0] : [],
