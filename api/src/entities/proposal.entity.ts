@@ -27,11 +27,11 @@ export class ProposalEntity extends BaseEntity implements I_Proposal {
     @Column({ default: 0 })
     ballot_count: number;
 
-    @Column({ default: "false" })
-    counted: string;
+    @Column({ default: false })
+    counted: boolean;
 
-    @Column({ default: "false" })
-    verified: string;
+    @Column({ default: false })
+    verified: boolean;
 
     @Column({ default: 0 })
     lp_weight: number;
