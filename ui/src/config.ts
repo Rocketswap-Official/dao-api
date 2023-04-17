@@ -1,6 +1,7 @@
 import type {
 	I_ProposalInfo,
 	I_CountObj,
+	I_VerifyObj,
 	I_TransactionObj,
 	I_BallotInfo,
 	I_RSWPApprovalInfo
@@ -8,7 +9,7 @@ import type {
 
 export const contracts = {
 	rswp: 'con_rswp_lst001',
-	dao: 'con_lite_dao_test'
+	dao: 'con_lite_dao_test3'
 };
 
 export const blockserviceUrls = {
@@ -53,7 +54,11 @@ export let RSWPApprovalInfo: I_RSWPApprovalInfo = {
 	to: ''
 };
 
-export let CounInfo = {
+export let CountInfo: I_CountObj = {
+	proposal_idx: 0
+};
+
+export let VerifyInfo: I_VerifyObj = {
 	proposal_idx: 0
 };
 
@@ -76,8 +81,16 @@ export let ballotTxnInfo: I_TransactionObj = {
 export let countTxnInfo: I_TransactionObj = {
 	networkName: 'arko',
 	networkType: 'mainnet',
-	methodName: 'create_proposal',
-	kwargs: CounInfo,
+	methodName: 'count_ballots',
+	kwargs: CountInfo,
+	stampLimit: 100 //TODO: we need a good estimate for stamps
+};
+
+export let verifyTxnInfo: I_TransactionObj = {
+	networkName: 'arko',
+	networkType: 'mainnet',
+	methodName: 'verify_ballots',
+	kwargs: VerifyInfo,
 	stampLimit: 100 //TODO: we need a good estimate for stamps
 };
 
