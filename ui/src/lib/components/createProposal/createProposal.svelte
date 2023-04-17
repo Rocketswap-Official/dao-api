@@ -36,8 +36,9 @@
     let buttonText = 'submit'
 
     const submitNewProposal = ()=>{
-
-        if(!$rswp_approval_store){
+        console.log($rswp_approval_store)
+        
+        if($rswp_approval_store < 27272){
             handle_modal_open_approve()
             return
         }
