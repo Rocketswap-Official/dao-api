@@ -19,7 +19,7 @@ export class ProposalService {
   }
 
   async getVerifiedProposals(): Promise<any> {
-    return await ProposalEntity.find({ where: { verified: "true" } })
+    return await ProposalEntity.find({ where: { verified: true } })
   }
 
   async getLatestProposal(): Promise<any> {
