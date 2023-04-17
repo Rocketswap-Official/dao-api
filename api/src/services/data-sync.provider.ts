@@ -67,7 +67,9 @@ export class DataSyncProvider implements OnModuleInit{
 	public parseBlock = async (block: BlockDTO) => {
 		const { state, contract} = block;
 
-		let proposals, lpWeight, ballotCount;
+		let proposals: [string, any];
+		let lpWeight: [string, any];
+		let ballotCount: [string, any];
 		let ballots = []; 
 		let processedBallots = [];
 		
@@ -153,9 +155,9 @@ export class DataSyncProvider implements OnModuleInit{
 			}
 
 			if(ballots && Object.keys(ballots).length > 0){
-				let proposal_id;
+				let proposal_id: number;
 				let vk;
-				let ballot_id;
+				let ballot_id: string;
 				let choice_idx;
 				let counted;
 				let verified;
@@ -167,19 +169,19 @@ export class DataSyncProvider implements OnModuleInit{
 
 					if(keyArray[keyArray.length - 2] === "backwards_index"){
 						vk = keyArray[keyArray.length-1];
-						ballot_id = parseInt(ballotsObjValue);
+						ballot_id = ballotsObjValue;
 					}
 					if(keyArray[keyArray.length - 1] === "choice"){
-						proposal_id = parseInt(keyArray[1])
+						proposal_id = keyArray[1]
 						choice_idx = ballotsObjValue;
 					}
 					if(keyArray[keyArray.length - 1] === "counted"){
-						proposal_id = parseInt(keyArray[1])
+						proposal_id = keyArray[1]
 						counted = ballotsObjValue;
 						
 					}
 					if(keyArray[keyArray.length - 1] === "verified"){
-						proposal_id = parseInt(keyArray[1])
+						proposal_id = keyArray[1]
 						verified = ballotsObjValue;
 					}	 
 				}
@@ -206,11 +208,11 @@ export class DataSyncProvider implements OnModuleInit{
 				let proposal_entity = await ProposalEntity.findOne({where: {proposal_id: proposal_id}});
 				
 				if(counted){	
-					proposal_entity.counted = "true";		
+					proposal_entity.counted = true;		
 				}
 				
 				if(verified){
-					proposal_entity.verified = "true";
+					proposal_entity.verified = true;
 				}
 
 				await proposal_entity.save()
@@ -234,7 +236,7 @@ export class DataSyncProvider implements OnModuleInit{
 							user_entity.vk = vk;
 							user_entity.ballot_idx = [ballot_id]
 							user_entity.choice_idx = [choice_idx];
-							user_entity.proposals = [proposal_id];
+							user_entity.proposals = [proposal_id.toString()];
 							user_entity.weight = weight?[weight]:[];
 							user_entity.rswp_balance = getNumberFromFixed(rswpBalanceCurrent.value) 
 							user_entity.rocket_fuel = getNumberFromFixed(rocketFuelCurrent.value) 
@@ -244,8 +246,8 @@ export class DataSyncProvider implements OnModuleInit{
 							if (proposal_entity){
 								let lp_weight = proposal_entity.lp_weight;
 
-								user_entity.staked_lp_value = [getNumberFromFixed(stakedLpCurrent.value) * lp_weight];
-								user_entity.lp_value = [getNumberFromFixed(lpCurrent.value) * lp_weight];
+								user_entity.staked_lp_value = [(getNumberFromFixed(stakedLpCurrent.value) * lp_weight).toString()];
+								user_entity.lp_value = [(getNumberFromFixed(lpCurrent.value) * lp_weight).toString()];
 							}
 							
 							await user_entity.save()
@@ -263,7 +265,7 @@ export class DataSyncProvider implements OnModuleInit{
 						if(proposal_id && user_entity.proposals.length >= 0){
 							if(counted || verified){	
 							}else{
-								user_entity.proposals.push(proposal_id);
+								user_entity.proposals.push(proposal_id.toString());
 							}
 						}
 						
@@ -279,7 +281,7 @@ export class DataSyncProvider implements OnModuleInit{
 						let lp_value = []
 						
 						for (let p of user_entity.proposals){
-							let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
+							let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: parseInt(p)}});
 							if (proposal_entity){
 								let lp_weight = proposal_entity.lp_weight;
 								staked_lp_value.push(getNumberFromFixed(stakedLpCurrent.value) * lp_weight)
@@ -319,15 +321,15 @@ export class DataSyncProvider implements OnModuleInit{
 			
 			if(Object.keys(daoMeta).length > 0){
 				//Proposals
-				const proposals = daoMeta.con_lite_dao_test.Proposals
+				const proposals = daoMeta.con_lite_dao_test3.Proposals
 				//LPWeight
-				const lpWeight = daoMeta.con_lite_dao_test.LPWeight
+				const lpWeight = daoMeta.con_lite_dao_test3.LPWeight
 				//BallotCount
-				const ballotCount = daoMeta.con_lite_dao_test.BallotCount
+				const ballotCount = daoMeta.con_lite_dao_test3.BallotCount
 				//Ballots
-				const ballots = daoMeta.con_lite_dao_test.Ballots
+				const ballots = daoMeta.con_lite_dao_test3.Ballots
 				//ProcessedBallots
-				const processedBallots = daoMeta.con_lite_dao_test.ProcessedBallots
+				const processedBallots = daoMeta.con_lite_dao_test3.ProcessedBallots
 
 				let proposalArray = []
 				let userArray = []
@@ -335,10 +337,11 @@ export class DataSyncProvider implements OnModuleInit{
 				let userObj;
 
 				if(proposals && Object.keys(proposals).length > 0){
-					const proposal_ids = Object.keys(proposals)
+					const proposal_ids_ = Object.keys(proposals)
+					const proposal_ids = proposal_ids_.map(i=>parseInt(i))
 
 					for (let p of proposal_ids){
-						const proposal_id = parseInt(p)
+						const proposal_id = p
 						const results = proposals[proposal_id].results
 
 						proposalObj = {
@@ -376,10 +379,10 @@ export class DataSyncProvider implements OnModuleInit{
 								const counted = ballots_proposal_id.counted; 
 								const verified = ballots_proposal_id.verified;
 								if(counted){
-									proposalObj.counted = "true";
+									proposalObj.counted = true;
 								}
 								if(verified){
-									proposalObj.verified = "true";
+									proposalObj.verified = true;
 								}
 							}
 						}
@@ -395,10 +398,12 @@ export class DataSyncProvider implements OnModuleInit{
 
 				if(ballots && Object.keys(ballots).length > 0){
 					
-					const proposal_ids = Object.keys(ballots)
+					const proposal_ids_ = Object.keys(ballots)
+					const proposal_ids = proposal_ids_.map(i=>parseInt(i))
 					
-					for (let p of proposal_ids){
-						const ballots_proposal_id = ballots[p]
+					for (let p of proposal_ids){ // convert p to number type?
+						const proposal_id = p
+						const ballots_proposal_id = ballots[proposal_id]
 						let vk;
 						//backwards_index
 						if(Object.keys(ballots_proposal_id.backwards_index).length > 0){
@@ -413,11 +418,11 @@ export class DataSyncProvider implements OnModuleInit{
 							
 							if(processedBallots && Object.keys(processedBallots).length > 0){
 								
-								if(processedBallots[p]){
+								if(processedBallots[proposal_id]){
 				
-									const ballot_id = Object.keys(processedBallots[p])[0];
-									counted_weight = processedBallots[p][ballot_id].weight;
-									vk = processedBallots[p][ballot_id].user_vk;
+									const ballot_id = Object.keys(processedBallots[proposal_id])[0];
+									counted_weight = processedBallots[proposal_id][ballot_id].weight;
+									vk = processedBallots[proposal_id][ballot_id].user_vk;
 									if(Object.keys(counted_weight).length > 0){
 									
 										counted_weight = getNumberFromFixed(counted_weight)
@@ -429,7 +434,7 @@ export class DataSyncProvider implements OnModuleInit{
 							if(userArray.length > 0){
 								for (let ent of userArray){
 									if(ent.vk === vk){
-										ent.proposals.push(parseInt(p)); 
+										ent.proposals.push(proposal_id); 
 										ent.ballot_idx.push(ballot_id); 
 										ent.choice_idx.push(choice_idx);
 										if(counted_weight){
@@ -447,7 +452,7 @@ export class DataSyncProvider implements OnModuleInit{
 									ballot_idx: [ballot_id],
 									choice_idx: [choice_idx],
 									weight: counted_weight?[counted_weight]:[],
-									proposals: [parseInt(p)]
+									proposals: [proposal_id]
 		
 								}
 							}
@@ -514,7 +519,7 @@ export class DataSyncProvider implements OnModuleInit{
 								if (user_entity){
 									let lp_value = []
 									for (let p of user_entity.proposals){
-										let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
+										let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: parseInt(p)}});
 										if (proposal_entity){
 											let lp_weight = proposal_entity.lp_weight;
 											lp_value.push(getNumberFromFixed(dexLp.con_rswp_lst001[vk]) * lp_weight)	
@@ -555,7 +560,7 @@ export class DataSyncProvider implements OnModuleInit{
 						if (user_entity){
 							let staked_lp_value = []
 							for (let p of user_entity.proposals){
-								let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: p}});
+								let proposal_entity = await ProposalEntity.findOne({where: { proposal_id: parseInt(p)}});
 								if (proposal_entity){
 									let lp_weight = proposal_entity.lp_weight;
 									staked_lp_value.push(getNumberFromFixed(lpStaking[vk])*lp_weight)	
@@ -579,7 +584,7 @@ export class DataSyncProvider implements OnModuleInit{
 	//blockservice data structure
 
 	/* *
-	con_lite_dao_test
+	con_lite_dao_test3
 
 		Ballots
 
