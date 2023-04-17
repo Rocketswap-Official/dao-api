@@ -9,9 +9,12 @@
 
     export let data
 
-    const spitDateObj = (proposalArray: I_Proposal): Date => {
-        const dateArray: Tuple7<number> = proposalArray.date_decision.__time__
-        return new Date(...dateArray)
+    const getComputedDate = (proposalArray: I_Proposal): Date => {
+        let dateArray: Tuple7<number> = proposalArray.date_decision.__time__
+        //decrement month to display correctly
+        dateArray[1] -= 1 
+        const utcDate = new Date(Date.UTC(...dateArray))
+        return utcDate
     }
   
 </script>
@@ -23,7 +26,7 @@
     {#if Object.keys(data.proposals).length > 0}
         {#each data.proposals as proposal}
             
-            <ProposalCard {proposal} endDate = {spitDateObj(proposal)}> 
+            <ProposalCard {proposal} endDate = {getComputedDate(proposal)}> 
                 
                 <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
 
