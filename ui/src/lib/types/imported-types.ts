@@ -33,15 +33,15 @@ export interface I_Choice {
 
 export interface I_User {
 	vk: string;
-	ballot_idx: number[];
-	choice_idx: number[];
-	weight: number[];
-	proposals: number[];
+	ballot_idx: string[];
+	choice_idx: string[];
+	weight: string[];
+	proposals: string[];
 	rswp_balance: number;
 	rocket_fuel: number;
 	staked_rswp: number;
-	staked_lp_value: number[];
-	lp_value: number[];
+	staked_lp_value: string[];
+	lp_value: string[];
 }
 
 //########## Modal Types ##############################
@@ -59,11 +59,17 @@ export interface I_ProposalInfo {
 	date_decision: string;
 	choices: I_ChoicesObj[];
 }
+
 export interface I_ChoicesObj {
 	id: number;
 	text: string;
 }
+
 export interface I_CountObj {
+	proposal_idx: number;
+}
+
+export interface I_VerifyObj {
 	proposal_idx: number;
 }
 export interface I_TransactionObj {
