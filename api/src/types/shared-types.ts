@@ -7,8 +7,8 @@ export interface I_Proposal {
     choices: I_Choice[];
     state: string;
     ballot_count: number;
-    counted: string;
-    verified: string;
+    counted: boolean;
+    verified: boolean;
     lp_weight: number;
     results: {};
 }
@@ -26,7 +26,7 @@ export interface I_User {
     ballot_idx?: number[];
     choice_idx?: number[]
     weight?: number[]
-    proposals?: number[]
+    proposals?: string[]
     rswp_balance: number;
     rocket_fuel: number;
     staked_rswp: number;
