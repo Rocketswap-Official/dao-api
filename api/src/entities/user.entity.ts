@@ -15,16 +15,16 @@ export class UserEntity extends BaseEntity{
     vk: string;
 
     @Column({type: "simple-array", nullable: true})
-    ballot_idx: number[];
+    ballot_idx: string[];
 
     @Column({type: "simple-array", nullable: true})
-    choice_idx: number[]
+    choice_idx: string[]
 
     @Column({type: "simple-array", nullable: true })
-    weight: number[]
+    weight: string[]
 
     @Column({type: "simple-array", nullable: true })
-    proposals: number[]
+    proposals: string[]
 
     @Column({ default: 0 })
     rswp_balance: number;
@@ -36,8 +36,8 @@ export class UserEntity extends BaseEntity{
     staked_rswp: number;
 
     @Column({type: "simple-array", nullable: true })
-    staked_lp_value: number[];
+    staked_lp_value: string[];
 
     @Column({type: "simple-array", nullable: true })
-    lp_value: number[];
+    lp_value: string[];
 }
