@@ -2,13 +2,14 @@
 	import ChoiceSelectorPieChart from '$lib/components/choiceSelectorPieChart.svelte';
 	import ProposalCard from '$lib/components/proposalCard.svelte';
 	import Button from '$lib/components/button/button.svelte';
+	import type { I_Proposal, I_Choice,Tuple7, I_User } from '../../lib/types/imported-types'
 	import { handle_modal_open_details } from '../../events';
 	import { users_store, wallet_store } from '$lib/store';
 
     export let data;
 
 	let votedProposals: number[] = [];
-
+	
 	for (let u of $users_store) {
 		if (u?.vk === $wallet_store) {
 			for (let id of u.proposals) {
@@ -16,6 +17,14 @@
 			}
 		}
 	}
+
+	const getComputedDate = (proposalArray: I_Proposal): Date => {
+        let dateArray: Tuple7<number> = proposalArray.date_decision.__time__
+        //decrement month to display correctly
+        dateArray[1] -= 1 
+        const utcDate = new Date(Date.UTC(...dateArray))
+        return utcDate
+    }
 </script>
 
 <div
@@ -26,7 +35,8 @@
 	{#if Object.keys(data.proposals).length > 0}
 		{#each data.proposals as proposal}
 			{#if votedProposals.includes(proposal.proposal_id)}
-				<ProposalCard {proposal}>
+				<ProposalCard {proposal} endDate = {getComputedDate(proposal)}>
+
 					<ChoiceSelectorPieChart choices={data.choiceArray[proposal.proposal_id - 1]} />
 
 					<div class="flex row j-end" style="margin-top: 3vw;">
