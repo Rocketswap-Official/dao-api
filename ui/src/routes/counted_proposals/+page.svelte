@@ -28,37 +28,57 @@
 
 </script>
 
-<div style="display: grid; 
-    grid-template-columns:repeat(auto-fit, minmax(500px, 1fr)); 
-    grid-gap: 20px">
+{#if data === undefined}
+    <div class="loader">
+        <img style="width: 55px" src="Rolling-1s-200px.gif" alt="spinner"/>
+    </div>
     
-    {#if Object.keys(data.proposals).length > 0 && isAnyProposalCounted(data.proposals)}
-        {#each data.proposals as proposal}
-            
-            <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
-                
-                <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
+{:else}
 
-                <div class="flex row j-end" style="margin-top: 3vw;">
-                    <div class="mr-1em">
-                        <Button id={proposal.proposal_id}  act = {()=>submitVerifyTxn(proposal.proposal_id)} style="">
-                            Verify
+    <div style="display: grid; 
+        grid-template-columns:repeat(auto-fit, minmax(500px, 1fr)); 
+        grid-gap: 20px">
+        
+        {#if Object.keys(data.proposals).length > 0 && isAnyProposalCounted(data.proposals)}
+            {#each data.proposals as proposal}
+                
+                <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
+                    
+                    <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
+
+                    <div class="flex row j-end" style="margin-top: 3vw;">
+                        <div class="mr-1em">
+                            <Button id={proposal.proposal_id}  act = {()=>submitVerifyTxn(proposal.proposal_id)} style="">
+                                Verify
+                            </Button>
+                        </div>
+                        
+                        <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
+                            Details
+                            
                         </Button>
                     </div>
                     
-                    <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
-                        Details
-                        
-                    </Button>
-                </div>
+                </ProposalCard>
                 
-            </ProposalCard>
-            
-        {/each}
+            {/each}
 
-    {:else}
-            <p style="color: red; font-size: 11px;">No counted proposals at the moment</p>
-    {/if}
-</div>
+        {:else}
+                <p style="color: red; font-size: 11px;">No counted proposals at the moment</p>
+        {/if}
+    </div>
 
+{/if}
 
+<style>
+    .loader{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
+    img{
+        position: relative;
+        left: 40%;
+        top: 40%;
+    }
+</style>
