@@ -27,6 +27,12 @@
     }
 </script>
 
+{#if data === undefined}
+    <div class="loader">
+        <img style="width: 55px" src="Rolling-1s-200px.gif" alt="spinner"/>
+    </div>
+{/if}
+
 <div
 	style="display: grid; 
     grid-template-columns:repeat(auto-fit, minmax(500px, 1fr)); 
@@ -51,3 +57,16 @@
 		<p style="color: red; font-size: 11px;">No proposals to display</p>
 	{/if}
 </div>
+
+<style>
+    .loader{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
+    img{
+        position: relative;
+        left: 40%;
+        top: 40%;
+    }
+</style>
