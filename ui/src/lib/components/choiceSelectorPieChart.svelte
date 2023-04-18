@@ -61,7 +61,7 @@
 
             <div class="flex row a-start">
                 <div>{choice.voteWeight}%</div>
-                <img class="svg2" class:visibility={choice.vk === $wallet_store} src="svg/checked.svg" alt="selected choice"/>
+                <img class="svg2" class:visibility={choice.vk === undefined?null: choice.vk === $wallet_store} src="svg/checked.svg" alt="selected choice"/>
                 
             </div>
                                     
