@@ -117,7 +117,6 @@ export const initSyncDaoData = async () => {
 
 							// LEVEL 0
 							for (let uc of proposalChoices) {
-								console.log(`${uc.choiceIdx} =? ${c}`);
 								if (uc.choiceIdx === parseInt(c)) {
 									uc.voteWeight += cWeight;
 									uc.vk = u.vk;
