@@ -13,6 +13,7 @@
     import { handleTxnInfo } from '$lib/utils/connections.utils';
     import { lwc_store, toast_store} from '$lib/store';
     import { isAnyProposalCounted } from '../../lib/utils/api.utils';
+    import Legend from '../../lib/components/legend.svelte'
 
     export let data
 
@@ -31,6 +32,10 @@
     }
 
 </script>
+
+<div class="flex j-end">
+    <Legend/>
+</div>
 
 {#if data === undefined}
     <div class="loader">
