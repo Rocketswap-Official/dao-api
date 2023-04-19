@@ -5,6 +5,7 @@
 	import type { I_Proposal, I_Choice,Tuple7, I_User } from '../../lib/types/imported-types'
 	import { handle_modal_open_details } from '../../events';
 	import { users_store, wallet_store } from '$lib/store';
+	import Legend from '../../lib/components/legend.svelte'
 
     export let data;
 
@@ -26,6 +27,10 @@
         return utcDate
     }
 </script>
+
+<div class="flex j-end">
+    <Legend/>
+</div>
 
 {#if data === undefined}
     <div class="loader">
