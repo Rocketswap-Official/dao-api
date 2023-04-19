@@ -1,5 +1,9 @@
-<script lang="ts">
+<script context="module" >
+    import { invalidateAll } from '$app/navigation';
+    export const reloadConcludedProposalPage = () => { invalidateAll() }
+</script>
 
+<script lang="ts">
     import ChoiceSelectorPieChart from '$lib/components/choiceSelectorPieChart.svelte';
     import ProposalCard from '$lib/components/proposalCard.svelte';
     import Button from '$lib/components/button/button.svelte'
