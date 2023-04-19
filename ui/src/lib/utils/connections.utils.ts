@@ -2,6 +2,9 @@ import WalletController from '../../lib/walletController';
 import { connectionRequest, toastWalletMessage, walletError } from '../../config';
 import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
+import { reloadOpenProposalPage } from '../../routes/+page.svelte';
+import { reloadCountedProposalPage } from '../../routes/counted_proposals/+page.svelte';
+import { reloadConcludedProposalPage } from '../../routes/concluded_proposals/+page.svelte';
 
 const sendToastMessageError = (title, message) => {
 	toast_store.set({
@@ -71,6 +74,10 @@ export const handleTxnInfo = (txInfo: any) => {
 			const { errors, result, stamps_used } = txBlockResult;
 			if (result === 'None') {
 				sendToastMessageSuccess('Txn Success', `Success! \nstamps used: ${stamps_used}`);
+				// reload data when txn is successful
+				reloadOpenProposalPage();
+				reloadCountedProposalPage();
+				reloadConcludedProposalPage();
 			} else if (errors[0] !== undefined) {
 				sendToastMessageError('Txn Error', `${errors[0]}`);
 			} else if (result.includes('Error')) {
