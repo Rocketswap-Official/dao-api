@@ -10,6 +10,7 @@
     import type { I_Proposal, Tuple7 } from '../../lib/types/imported-types'
     import { handle_modal_open_details } from '../../events'
     //import { proposals_store, choice_array_store} from '$lib/store';
+    import Legend from '../../lib/components/legend.svelte'
 
     export let data
 
@@ -22,6 +23,10 @@
     }
   
 </script>
+
+<div class="flex j-end">
+    <Legend/>
+</div>
 
 {#if data === undefined}
     <div class="loader">
