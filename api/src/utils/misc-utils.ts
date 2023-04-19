@@ -156,7 +156,13 @@ export function writeToFile(data, path) {
 	});
 }
 
-export const getNumberFromFixed = (value: any) => (value.__fixed__ ? Number(value.__fixed__) : Number(value));
+export const getNumberFromFixed = (value: any) => {
+	if(value === null)return 0
+	const { __fixed__ } = value
+	if( __fixed__ !== undefined) return Number(__fixed__)
+	else return Number(value);
+
+}
 
 export const getVkFromKeys = (keys: string[]): string => {
 	const k = keys.find((k) => {
