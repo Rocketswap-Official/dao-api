@@ -2,11 +2,8 @@ import WalletController from '../../lib/walletController';
 import { connectionRequest, toastWalletMessage, walletError } from '../../config';
 import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
-import { reloadOpenProposalPage } from '../../routes/+page.svelte';
-import { reloadCountedProposalPage } from '../../routes/counted_proposals/+page.svelte';
-import { reloadConcludedProposalPage } from '../../routes/concluded_proposals/+page.svelte';
 
-const sendToastMessageError = (title, message) => {
+export const sendToastMessageError = (title, message) => {
 	toast_store.set({
 		show: true,
 		error: true,
@@ -15,7 +12,7 @@ const sendToastMessageError = (title, message) => {
 	});
 };
 
-const sendToastMessageSuccess = (title, message) => {
+export const sendToastMessageSuccess = (title, message) => {
 	toast_store.set({
 		show: true,
 		error: false,
@@ -24,13 +21,14 @@ const sendToastMessageSuccess = (title, message) => {
 	});
 };
 
-const closeToast = () => {
+export const closeToast = () => {
 	toast_store.set({ show: false });
 };
 
 const updateBalances = async (wInfo) => {
 	let vk = wInfo.wallets[0];
 	await Promise.all([await getTauBalance(vk), await getApprovalBalance(vk)]);
+	//store wallet address in store
 	wallet_store.set(wInfo.wallets[0]);
 };
 
@@ -60,34 +58,6 @@ export const handleWalletInfo = async (wInfo) => {
 		return;
 	}
 	await updateBalances(wInfo);
-};
-
-export const handleTxnInfo = (txInfo: any) => {
-	//handle txn results
-	const { data } = txInfo;
-	const { errors, txBlockResult } = data;
-	if (errors) {
-		sendToastMessageError('Txn Error', errors[0]);
-	} else {
-		// const { title, returnResult } = resultInfo;
-		if (txBlockResult && Object.keys(txBlockResult).length > 0) {
-			const { errors, result, stamps_used } = txBlockResult;
-			if (result === 'None') {
-				sendToastMessageSuccess('Txn Success', `Success! \nstamps used: ${stamps_used}`);
-				// reload data when txn is successful
-				reloadOpenProposalPage();
-				reloadCountedProposalPage();
-				reloadConcludedProposalPage();
-			} else if (errors[0] !== undefined) {
-				sendToastMessageError('Txn Error', `${errors[0]}`);
-			} else if (result.includes('Error')) {
-				sendToastMessageError('Txn Error', `${result} \nstamps used: ${stamps_used}`);
-			}
-		}
-	}
-	setTimeout(() => {
-		closeToast();
-	}, 4000);
 };
 
 export const controllerInstance = () => {
