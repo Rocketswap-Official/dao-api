@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-    import { handleTxnInfo } from '../../../utils/connections.utils'
+    import { handleTxnInfo } from './txFunc.voting'
     import { ballotTxnInfo } from '../../../../config'
     import { getCheckBoxGroup } from './content-modal.utils'
     import { 
@@ -124,10 +124,6 @@
     ol {    
         padding-left: 0;
     }
-    .voted {
-        background-color: var(--background-color); 
-        padding: 0.7em 0 0.7em 0; 
-    } 
     .choice {
         padding: 0.7em 0 0.7em 0; 
         border: 3px solid var(--background-color);
