@@ -1,14 +1,11 @@
 <script lang="ts">
-    //import { createProposal } from "$lib/js/contractMethodCalls.js"
     import {  processChoices } from './createProposal.utils';
-    import { handleTxnInfo } from '../../utils/connections.utils'
+    import { handleTxnInfo } from '../../../routes/create_proposal/txnFunc.Create'
     import { handle_modal_open_approve } from '../../../events'
     import type { I_ChoicesObj } from '../../types/imported-types';
     import { proposalTxnInfo } from '../../../config';
     import { lwc_store, toast_store, rswp_approval_store } from '../../store';
     import { encodeDateTime } from '../../utils/encoding'
-    //import { onMount } from "svelte";
-    //import Plus from '$lib/svg/plus.svg';
     
     let i = 0;
     
@@ -141,7 +138,7 @@
                     bind:value={choice.text} 
                     style="width: 100%; margin-right: 0.5em;"
                     maxlength="30" required/>
-                <button class="outlined white" on:click={delChoice(choice.id)}>
+                <button class="outlined white" on:click={()=>delChoice(choice.id)}>
                     <div> - </div>
                 </button>
             </div> 
