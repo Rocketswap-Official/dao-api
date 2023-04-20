@@ -2,7 +2,7 @@
     // import WalletController  from 'lamden_wallet_controller'
     import { lwc_store, wallet_store, toast_store } from '../../../store';
     import { RswpApprovalTxnInfo } from '../../../../config';
-    import { handleTxnInfo } from '../../../utils/connections.utils';
+    import { handleTxnInfo } from './txnFunc.Approval';
     import { contracts } from '../../../../config';
 
     const submitRSWPApproval = ()=>{
