@@ -1,6 +1,7 @@
 <script context="module" >
-    import { invalidateAll } from '$app/navigation';
-    export const reloadCountedProposalPage = () => { invalidateAll() }
+    export const reloadCountedProposalPage = () => { 
+        window.location.reload(true) //should work with firefox and any browser
+     }
 </script>
 
 <script lang="ts">
@@ -10,7 +11,7 @@
     import type { I_Proposal, Tuple7 } from '../../lib/types/imported-types';
     import { handle_modal_open_voting, handle_modal_open_details } from '../../events';
     import { verifyTxnInfo } from '../../config';
-    import { handleTxnInfo } from '$lib/utils/connections.utils';
+    import { handleTxnInfo } from '../../routes/counted_proposals/txnFunc.Counted';
     import { lwc_store, toast_store} from '$lib/store';
     import { isAnyProposalCounted } from '../../lib/utils/api.utils';
     import Legend from '../../lib/components/legend.svelte'
