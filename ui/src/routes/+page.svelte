@@ -1,6 +1,7 @@
 <script context="module" >
-    import { invalidateAll } from '$app/navigation';
-    export const reloadOpenProposalPage = () => { invalidateAll() }
+    export const reloadOpenProposalPage = () => { 
+        window.location.reload(true) //should work with firefox and any browser
+    }
 </script>
 
 <script lang="ts">
@@ -10,8 +11,8 @@
     import Button from '$lib/components/button/button.svelte'
     import type { I_Proposal, I_Choice,Tuple7 } from '../lib/types/imported-types'
     import { handle_modal_open_voting, handle_modal_open_details } from '../events'
-    import { countTxnInfo, verifyTxnInfo } from '../config';
-    import { handleTxnInfo } from '$lib/utils/connections.utils';
+    import { countTxnInfo } from '../config';
+    import { handleTxnInfo } from './txnFunc';
     import { lwc_store, toast_store, wallet_store} from '$lib/store';
     import { isAnyProposalCounted } from '../lib/utils/api.utils';
     import Legend from '../lib/components/legend.svelte'
@@ -52,12 +53,8 @@
         return false
     }
 
-    
-
-
-    
-
 </script>
+
 
 <div class="flex j-end">
     <Legend/>
