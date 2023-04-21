@@ -56,14 +56,14 @@
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$balances_store.TAU} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
 		{/if}
 
 		<div class="corner right flex row align-center mobile">
-			<img src={menu_burger} alt="menu" on:click={toggle_menu}/>
+			<img src={menu_burger} alt="menu" on:click={toggle_menu} on:keydown/>
 		</div>
 
 		<div class="corner right flex row align-center">
@@ -85,7 +85,7 @@
 </header>
 
 <header class="mobile flex col" class:connected={$wallet_store}>
-	<div class="flex">
+	<div class="flex space-between">
 		<!--div class="corner left flex row">
 			<a href="https://rocketswap.exchange/" class="desktop max-content">
 				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
@@ -106,9 +106,9 @@
 			</a>
 			<div class="flex col grow">
 				<a href="https://rocketswap.exchange/" class="rocketswap">
-					<img src="svg/logo-dao.svg" alt="Rocketswap" />
+					<img src="svg/logo-dao.svg" alt="Rocketswap Dao" />
 				</a>
-				<span class="subtitle inline-flex align-center ml-1 weight-300 max-content">
+				<span class="subtitle inline-flex align-center  weight-300 max-content">
 					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
 					TAU: $0.066 | RSWP: $0.016
 				</span>
@@ -117,20 +117,20 @@
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$balances_store.TAU} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
 		{/if}
 		<div class="corner right flex row align-center mobile">
-			<img src={menu_burger} alt="menu" on:click={toggle_menu}/>
+			<img src={menu_burger} alt="menu" on:click={toggle_menu} on:keydown/>
 		</div>
 	</div>
 	{#if $wallet_store}
 		<div class="connected-row flex align-center center">
 			<div class="wallet-balance-address  flex align-center">
 				{`${$tau_balance} TAU |`}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
@@ -152,8 +152,10 @@
 		display: flex;
 		justify-content: space-between;
 		background-color: var(--panel-background-color);
-		padding: var(--units-1_2vw) var(--units-2vw) var(--units-1_2vw) var(--units-6vw);
-		height: var(--units-5vw);
+		/* padding: var(--units-1_2vw) var(--units-2vw) var(--units-1_2vw) var(--units-6vw); */
+		padding: 2vh 5vw;
+		/* height: var(--units-5vw); */
+		height: unset;
 		min-height: 38.5px;
 
         box-shadow: var(--panel-box-shadow-high);
@@ -176,9 +178,9 @@
 		width: var(--units-2_3vw);
 	}
 
-	.corner.left{
+	/* .corner.left{
 		width: 40vw;
-	}
+	} */
 
 	.corner img {
 		width: 100%;
@@ -210,8 +212,10 @@
 		box-shadow: var(--panel-box-shadow-high);
 
 		height: 100%;
-		padding: 0 var(--units-2vw);
-		margin-right: calc(-1 * 12vw);
+		/* padding: 0 var(--units-2vw); */
+		padding: 1vh 2vh;
+		/* margin-right: calc(-1 * 12vw); */
+		margin-right: 2vw;
 		width: fit-content;
 
 		font-size: var(--units-1_15vw);
@@ -220,14 +224,26 @@
 	.wallet-balance-address > a{
 		margin-left: var(--units-03vw);
 	}
+	.connected-row{
+		margin-top: 2vh;
+	}
 	
 	@media (max-width: 768px) {
         header{
-			font-size: var(--units-1vw);
+			padding: 2vh 5vw;
+			height: unset;
         }
-		.corner.left{
-			width: 307.594px;
+		.connected-row{
+			margin-top: 3vh;
 		}
+		.wallet-balance-address{
+			margin-right: 4vw;
+			padding: 1vh 2vh;
+			font-size: var(--units-1vw);
+		}
+		/* .corner.left{
+			width: 307.594px;
+		} */
     }
 
 	@media (max-width: 480px) {
@@ -255,10 +271,10 @@
 		.corner img{
 			height: unset;
 		}
-		.corner.left{
+		/* .corner.left{
 			width: 100%;
 			font-size: var(--units-1vw);
-		}
+		} */
 		.mobile .rocketswap{
 			width: 55vw;
 		}
