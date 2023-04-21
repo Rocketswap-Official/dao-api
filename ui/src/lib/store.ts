@@ -6,9 +6,9 @@ export const proposals_store: Writable<I_Proposal[]> = writable([]);
 export const users_store: Writable<I_User[]> = writable([]);
 
 export const wallet_store: Writable<string> = writable(
-	(browser && localStorage.getItem('vk')) || ''
+	(browser && sessionStorage.getItem('vk')) || ''
 );
-wallet_store.subscribe((value) => browser && (localStorage.vk = value));
+wallet_store.subscribe((value) => browser && (sessionStorage.vk = value));
 
 // export const balances_store: Writable<any> = writable({TAU: 0, RSWP: 0})
 export const balances_store: Writable<any> = writable({ TAU: 0 });
@@ -28,4 +28,8 @@ export const choice_array_store: Writable<I_Choice[]> = writable([]);
 export const lwc_store: Writable<any> = writable(null);
 
 //RSWP approval
+// export const rswp_approval_store: Writable<number> = writable(
+// 	(browser && sessionStorage.getItem('rswp')) || 0
+// );
+// rswp_approval_store.subscribe((value) => browser && (sessionStorage.rswp = value));
 export const rswp_approval_store: Writable<number> = writable(0);
