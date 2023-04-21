@@ -48,18 +48,25 @@
         
         background-color: var(--panel-background-color);
         width: 100%;
+
+        /* flex-direction: row; */
+        /* font-size: 2.5vh; */
+        /* font-weight: 600; */
     }
 
     button img{
         width: 38%;
         margin-bottom: var(--units-03vw);
+
+        /* margin-right: 5vw;
+        width: 5vh; */
     }
 
     button:hover{
         background-color: var(--panel-background-highlight);
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         button{
             flex-direction: row;
             font-size: 2.5vh;
@@ -78,4 +85,5 @@
             width: 5vh;
         }
     }
+
 </style>
