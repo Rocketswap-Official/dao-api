@@ -13,6 +13,7 @@
 		controllerInstance,
 		handleWalletInfo,
 	} from '$lib/utils/connections.utils';
+	import MobileMenu from '$lib/mobile-menu/MobileMenu.svelte';
 
 	onMount(() => {
 		const lwc = controllerInstance();
@@ -21,13 +22,13 @@
 		lwc.events.on('newInfo', handleWalletInfo);
 	});
 
-	// import MobileMenu from '$lib/mobile-menu/MobileMenu.svelte';
+	
 
 </script>
 
 <Header />
 <LeftMenu />
-<!--MobileMenu /-->
+<MobileMenu/>
 <Modal />
 
 <Toast toast_data={$toast_store} />
