@@ -108,6 +108,7 @@
         .modal-wrapper{
             padding-top: 3vh;
             padding-bottom: 10vh;
+            height: unset;
         }
         .modal > button{
             position: absolute;
