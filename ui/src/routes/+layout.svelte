@@ -22,11 +22,9 @@
 		lwc.events.on('newInfo', handleWalletInfo);
 	});
 
-	
-
 </script>
 
-<Header />
+<Header/>
 <LeftMenu />
 <MobileMenu/>
 <Modal />
@@ -44,7 +42,7 @@
 <!--svelte:window on:resize={close_menu} /-->
 <style>
 	main {
-		padding: 7vmax 5vw 15vw 10vw;
+		padding: 10vmax 5vw 15vw 10vw;
 		width: 100%;
 		margin: 0 auto;
 		box-sizing: border-box;
@@ -52,13 +50,16 @@
 
 	@media (max-width: 768px) {
 		main {
-			padding: 10vw 3vw 15vw 10vw;
+			padding: 14vw 3vw 15vw 10vw;
 		}
 	}
 
 	@media (max-width: 480px) {
 		main {
-			padding: 20vh 5vw 15vw;
+			padding: 16vh 5vw 15vw;
+			padding-top: 118.6px;
+			width: 100%;
+			margin: 0 auto;
 		}
 		/* main.connected{
 			padding: 27vh 5vw 15vw;
