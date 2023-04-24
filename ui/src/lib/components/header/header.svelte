@@ -1,4 +1,4 @@
-<script>
+<script lang="ts" >
 	
 	import menu_burger from './menu-burger.svg';
 	import icon_notification from './icon-notification.svg';
@@ -11,7 +11,6 @@
 
 	import { wallet_store, balances_store } from '../../store';
 	import { format_wallet_address, tauhq_addresses } from './header'
-
 
 </script>
 
