@@ -4,7 +4,12 @@
 .mb-1 {
 	margin-bottom: 1vw;
 }
-
+.mb-5 {
+	margin-bottom: 5vw;
+}
+.mt-2 {
+	margin-top: 2em;
+}
 .mr-1em {
 	margin-right: 1em;
 }
