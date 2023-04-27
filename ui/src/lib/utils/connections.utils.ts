@@ -45,7 +45,7 @@ export const handleWalletInfo = async (wInfo) => {
 				sendToastMessageError('Wallet Error', toastWalletMessage.existError);
 				setTimeout(() => {
 					closeToast();
-				}, 2500);
+				}, 2000);
 
 				return;
 			}
@@ -53,7 +53,7 @@ export const handleWalletInfo = async (wInfo) => {
 		}
 		setTimeout(() => {
 			closeToast();
-		}, 2500);
+		}, 2000);
 
 		return;
 	}
