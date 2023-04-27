@@ -79,17 +79,19 @@ export const initSyncDaoData = async () => {
 		// LEVEL 4
 		for (let proposal of proposals) {
 			let choices: string[] = proposal.choices;
+
 			let total = 0;
+			let choiceIndex = 0;
 			// LEVEL 3
 			for (let s of choices) {
-				let i = choices.indexOf(s);
 				proposalChoices.push({
 					proposalId: proposal.proposal_id,
-					choiceIdx: i,
+					choiceIdx: choiceIndex,
 					choice: s,
 					voteWeight: 0,
 					total: total
 				});
+				choiceIndex += 1;
 			}
 
 			if (Object.keys(users).length > 0) {
