@@ -20,7 +20,7 @@ export const handleTxnInfo = async (txInfo: any) => {
 				// reload data when txn is successful
 				setTimeout(() => {
 					reloadCountedProposalPage();
-				}, 2000);
+				}, 1000);
 			} else if (errors[0] !== undefined) {
 				sendToastMessageError('Txn Error', `${errors[0]}`);
 			} else if (result.includes('Error')) {
@@ -30,5 +30,5 @@ export const handleTxnInfo = async (txInfo: any) => {
 	}
 	setTimeout(() => {
 		closeToast();
-	}, 2500);
+	}, 2000);
 };
