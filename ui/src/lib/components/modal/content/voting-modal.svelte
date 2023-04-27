@@ -13,9 +13,13 @@
     let choices: any = $choice_array_store[idx]
     let group: any = []
     let selectOne: any;
-    let changeBackgroundColor: any;
+    let bgId = "0";
 
     group = getCheckBoxGroup(choices, group);
+
+    const calcIndex = (cId: string)=>{
+        return (Number(cId) + 1).toString()
+    }
 
     const submitSelectedChoice = async(e: any)=>{
         if(!ballotTxnInfo.kwargs.proposal_idx || ballotTxnInfo.kwargs.choice_idx === ""){
@@ -35,40 +39,19 @@
         selectOne = (e: any)=>{
             const box = e.target;
             const group: any = document.getElementsByClassName("checkbox")
+            
             if(box.checked){
                 for (let ele of group){
 
                     ele.checked = false;
                 }
                 box.checked = true;
-                
-              
-            }else{
-                box.checked = false;
             }
 
             box.checked?ballotTxnInfo.kwargs.choice_idx = parseInt(box.value):ballotTxnInfo.kwargs.choice_idx = "";
             ballotTxnInfo.kwargs.proposal_idx = parseInt(box.name)
         }
 
-        changeBackgroundColor = (e: any)=>{
-
-            const box = e.target;
-            const currentBackgrd = e.currentTarget
-            const backgrds: any = document.getElementsByClassName("background")
-            if(box.checked){
-                for (let bgs of backgrds){
-
-                    bgs.classList.remove("voted");
-                }
-                currentBackgrd.classList.add("voted");
-                
-              
-            }else{
-                currentBackgrd.classList.remove("voted");
-            }
-        }
-        
     })
 
 </script>
@@ -81,19 +64,24 @@
             
         <!--TODO: leave a little space between list bullet and border-->
     
-            <div class="choice mb-1 background" on:click={changeBackgroundColor} on:keyup={changeBackgroundColor}>  
+            <div id={calcIndex(choice.choiceIdx)} 
+                class="choice mb-1" class:selected={calcIndex(choice.choiceIdx) === bgId}>  
                 
                 <li >
                     
                     <div class="flex row space-between">
                         <label for="choice">{choice.choice}</label>
                         <input 
+                            id = {calcIndex(choice.choiceIdx)}
                             type="checkbox" 
                             class="checkbox"
                             bind:group={group} 
                             name={choice.proposalId}
                             value={choice.choiceIdx} 
-                            on:click={selectOne}/>
+                            on:click={selectOne}
+                            on:click={(e)=>{
+                                e.target.checked? bgId = e.target.id : bgId = "0";
+                            }}/>
                             
                     </div>
                     
@@ -132,6 +120,9 @@
     input[type=checkbox] {
         width: 20px;
         height: 20px;
+    }
+    .selected {
+        background-color: var(--background-color);
     }
     
 </style>
