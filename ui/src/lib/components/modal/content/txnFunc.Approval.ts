@@ -30,5 +30,5 @@ export const handleTxnInfo = async (txInfo: any) => {
 	}
 	setTimeout(() => {
 		closeToast();
-	}, 3000);
+	}, 2000);
 };
