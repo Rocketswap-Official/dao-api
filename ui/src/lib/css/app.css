@@ -116,6 +116,8 @@
 	--checkbox-the-checkmark: var(--primary-color);
     --checkbox-border: var(--primary-gradient);
     --checkbox-bg: transparent;
+
+	--text-size-xlarge: 1.5em;
 }
 
 html{
@@ -142,6 +144,20 @@ body {
 	font-size: var(--units-08vw);
 
 	-webkit-overflow-scrolling: touch;
+}
+
+.text-small {
+    font-size: 0.9em;
+}
+
+/* for help page */
+.panel-container {
+    position: relative;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 15px;
+    background: transparent;
+    width: 100%;
 }
 
 .height-inherit{
