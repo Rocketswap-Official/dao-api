@@ -1,7 +1,7 @@
 <script>
     // Components
     import FAQList from '$lib/components/onboarding/faq-items.svelte';
-    // import GuideItems from '$lib/components/onboarding/guide-items.svelte';
+    import GuideItems from '$lib/components/onboarding/guide-items.svelte';
 
 </script>
 
@@ -22,7 +22,7 @@
 
 <div class="page-container">
     <FAQList />
-    <!--GuideItems /-->
+    <GuideItems />
 </div>
 
 
