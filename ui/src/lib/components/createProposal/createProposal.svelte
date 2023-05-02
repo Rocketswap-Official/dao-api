@@ -147,11 +147,14 @@
     </div>
 
     <div class="flex col center">
-        <button
-            class="outlined"
-            style="width: 50%; padding: 5px 0 5px 0; margin:auto; margin-top: 2em"
-            on:click={submitNewProposal}
-        >{buttonText} </button>
+        <button 
+            class="outlined white" 
+            style="width: 50%; margin:auto;" 
+            on:click={submitNewProposal}>
+
+            <div>{buttonText}</div>
+
+        </button>
     </div>
     
     
@@ -161,6 +164,7 @@
     .form{
         width: 50%;
         margin:auto;
+        margin-top: 5vw;
         padding: 2.5vw;
         box-shadow: var(--panel-box-shadow-higher);
         
@@ -204,6 +208,13 @@
     }
     button > div {
 		padding: var(--units-02vw) var(--units-1_14vw);	
+	}
+
+    @media (max-width: 480px) {
+		button {
+			font-size: var(--units-09vw);
+		}
+		
 	}
     
     
