@@ -1,7 +1,7 @@
 <script>
     export let width = "24px";
     export let margin = "0";
-    export let color = "var(--color-primary)"
+    export let color = "var(--primary-color)"
 </script>
 
 <svg {width} viewBox="0 0 59 59" fill="none" xmlns="http://www.w3.org/2000/svg" style={`margin: ${margin};`}>

@@ -1,7 +1,7 @@
 <script>
     export let width = "24px";
     export let margin = "0";
-    export let color = "var(--color-primary)"
+    export let color = "var(--primary-color)"
 </script>
 
 
