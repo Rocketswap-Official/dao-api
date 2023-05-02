@@ -1,12 +1,20 @@
-<script>
+<script lang="ts">
 
-    export let guideItem
+    export let guideItem: any
 
 </script>
 
+<a href={guideItem.link} rel="noopener noreferrer" target="_blank" class="container flex col align-center">
+    <div class="icon">
+        <svelte:component this={guideItem.icon} width="100%" />
+    </div>
+    <p>{guideItem.title}</p>
+</a>
+
 <style>
     .container{
-        background: var(--faq-item-background);
+        /* background: var(--faq-item-background); */
+        background-color: var(--panel-background-highlight);
         justify-content: space-evenly;
         border-radius: 8px;
         width: 110px;
@@ -15,6 +23,10 @@
         box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3);
 		-webkit-box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3);
 		-moz-box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3);
+
+        /* box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3);
+		-webkit-box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: -1px 10px 15px 0px rgba(0, 0, 0, 0.3); */
     }
     .icon{
         width: 35px;
@@ -73,10 +85,3 @@
         }
 	}
 </style>
-
-<a href={guideItem.link} rel="noopener noreferrer" target="_blank" class="container flex-col flex-align-center">
-    <div class="icon">
-        <svelte:component this={guideItem.icon} width="100%" />
-    </div>
-    <p>{guideItem.title}</p>
-</a>
