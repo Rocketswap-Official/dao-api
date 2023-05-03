@@ -15,7 +15,4 @@
         width: 120px;
         /* border: solid 2px red ; */
     }
-    .margin-l-0{
-        margin-left: 0;
-    }
 </style>
