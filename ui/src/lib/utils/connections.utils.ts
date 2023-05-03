@@ -3,21 +3,23 @@ import { connectionRequest, toastWalletMessage, walletError } from '../../config
 import { wallet_store, toast_store } from '../store';
 import { getTauBalance, getApprovalBalance } from './api.utils';
 
-export const sendToastMessageError = (title, message) => {
+export const sendToastMessageError = (title, message, link) => {
 	toast_store.set({
 		show: true,
 		error: true,
 		title: title,
-		message: message
+		message: message,
+		tauhqLink: link
 	});
 };
 
-export const sendToastMessageSuccess = (title, message) => {
+export const sendToastMessageSuccess = (title, message, link) => {
 	toast_store.set({
 		show: true,
 		error: false,
 		title: title,
-		message: message
+		message: message,
+		tauhqLink: link
 	});
 };
 
@@ -42,14 +44,14 @@ export const handleWalletInfo = async (wInfo) => {
 				// put setTimeout here too?
 				return;
 			} else if (err === walletError.existError) {
-				sendToastMessageError('Wallet Error', toastWalletMessage.existError);
+				sendToastMessageError('Wallet Error', toastWalletMessage.existError, '');
 				setTimeout(() => {
 					closeToast();
 				}, 2000);
 
 				return;
 			}
-			sendToastMessageError('Wallet Error', err);
+			sendToastMessageError('Wallet Error', err, '');
 		}
 		setTimeout(() => {
 			closeToast();
@@ -66,14 +68,14 @@ export const controllerInstance = () => {
 
 export const isWalletInstalled = (lwc) => {
 	if (lwc === null) {
-		sendToastMessageError('Wallet Error', toastWalletMessage.initialiseError);
+		sendToastMessageError('Wallet Error', toastWalletMessage.initialiseError, '');
 		return;
 	}
 
 	lwc.sendConnection(connectionRequest);
 	setTimeout(() => {
 		if (response === undefined) {
-			sendToastMessageError('Wallet Error', toastWalletMessage.installError);
+			sendToastMessageError('Wallet Error', toastWalletMessage.installError, '');
 		}
 	}, 1000);
 };
