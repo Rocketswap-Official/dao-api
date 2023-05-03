@@ -22,6 +22,9 @@
             {toast_data.message}
             
         </div>
+        {#if toast_data?.tauhqLink}
+            <div><a href={toast_data.tauhqLink}> view transaction on explorer</a></div>
+        {/if}
         
     </div>
         
@@ -60,5 +63,9 @@
     }
     .gif {
         width: 30px;
+    }
+    a{
+        color: #643e9e;
+        text-decoration: underline;
     }
 </style>
