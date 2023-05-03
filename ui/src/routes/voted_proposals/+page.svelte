@@ -28,7 +28,7 @@
     }
 </script>
 
-<div class="flex j-end">
+<div class="flex j-end mb-5">
     <Legend/>
 </div>
 
