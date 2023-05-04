@@ -182,10 +182,8 @@ export const filterProposals = async (state: string) => {
 	}
 };
 
-export const isAnyProposalCounted = (proposals): boolean => {
-	for (let p of proposals) {
-		if (p.state === 'open' && p.counted === false) return false;
-	}
+export const isAnyProposalCounted = (proposal): boolean => {
+	if (proposal.state === 'open' && proposal.counted === false) return false;
 	return true;
 };
 
