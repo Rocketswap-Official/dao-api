@@ -20,6 +20,9 @@
 
     export let data
 
+
+    // console.log(data.choiceArray[1])
+
     const getComputedDate = (proposalArray: I_Proposal): Date => {
         let dateArray: Tuple7<number> = proposalArray.date_decision.__time__
         //decrement month to display correctly
@@ -52,6 +55,12 @@
         }
         return false
     }
+    let n = 0
+    const increment = ()=>{
+        let n0 = n
+        n += 1
+        return n0
+    }
 
 </script>
 
@@ -71,41 +80,41 @@
         grid-template-columns:repeat(auto-fit, minmax(500px, 1fr)); 
         grid-gap: 20px">
         
-        {#if Object.keys(data.proposals).length > 0 && !isAnyProposalCounted(data.proposals)}
+        {#if Object.keys(data.proposals).length > 0 }
             {#each data.proposals as proposal}
-            
-                <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
-                    
-                    <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
+                {#if !isAnyProposalCounted(proposal)}
+                    <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
+                        
+                        <ChoiceSelectorPieChart choices ={data.choiceArray[increment()]}/>
 
-                    <div class="flex row j-end" style="margin-top: 3vw;">
+                        <div class="flex row j-end" style="margin-top: 3vw;">
 
-                        {#if getCurrentDate() > getActualDate(proposal)}
-                            <div class="mr-1em">
-                                <Button id={proposal.proposal_id}  act = {()=>submitCountTxn(proposal.proposal_id)} style="">
-                                Count
-                                </Button>
-                            </div>
-                        {:else}
-
-                            {#if !hasUserVoted(data.choiceArray[proposal.proposal_id - 1])}
+                            {#if getCurrentDate() > getActualDate(proposal)}
                                 <div class="mr-1em">
-                                    <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
-                                    Vote
+                                    <Button id={proposal.proposal_id}  act = {()=>submitCountTxn(proposal.proposal_id)} style="">
+                                        Count
                                     </Button>
                                 </div>
+                            {:else}
+
+                                {#if !hasUserVoted(data.choiceArray[proposal.proposal_id - 1])}
+                                    <div class="mr-1em">
+                                        <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
+                                        Vote
+                                        </Button>
+                                    </div>
+                                {/if}
+                                
                             {/if}
                             
-                        {/if}
+                            <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
+                                Details
+                                
+                            </Button>
+                        </div>
                         
-                        <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
-                            Details
-                            
-                        </Button>
-                    </div>
-                    
-                </ProposalCard>
-        
+                    </ProposalCard>
+                {/if}
             {/each}
 
         {:else}
