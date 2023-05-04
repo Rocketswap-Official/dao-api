@@ -9,7 +9,7 @@ import type {
 
 export const contracts = {
 	rswp: 'con_rswp_lst001',
-	dao: 'con_lite_dao_test4'
+	dao: 'con_lite_dao_test20'
 };
 
 export const blockserviceUrls = {
@@ -113,3 +113,4 @@ export const toastWalletMessage = {
 	initialiseError: 'Connection request not initialised!',
 	installError: 'Install Wallet'
 };
+export const explorer = 'https://arko.tauhq.com/transactions/';
