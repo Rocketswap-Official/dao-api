@@ -31,13 +31,7 @@
         toast_store.set({show: true, title:"Transacton State", pending:true, message:"Pending"})
         $lwc_store.sendTransaction(verifyTxnInfo, handleTxnInfo)
     }
-
-    let n = 0
-    const increment = ()=>{
-        let n0 = n
-        n += 1
-        return n0
-    }
+    
 
 </script>
 
@@ -57,11 +51,11 @@
         grid-gap: 20px">
         
         {#if Object.keys(data.proposals).length > 0}
-            {#each data.proposals as proposal}
+            {#each data.proposals as proposal, i}
                 {#if isAnyProposalCounted(proposal)}
                     <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
                         
-                        <ChoiceSelectorPieChart choices ={data.choiceArray[increment()]}/>
+                        <ChoiceSelectorPieChart choices ={data.choiceArray[i]}/>
 
                         <div class="flex row j-end" style="margin-top: 3vw;">
                             <div class="mr-1em">

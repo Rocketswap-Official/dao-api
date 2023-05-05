@@ -55,12 +55,6 @@
         }
         return false
     }
-    let n = 0
-    const increment = ()=>{
-        let n0 = n
-        n += 1
-        return n0
-    }
 
 </script>
 
@@ -81,11 +75,11 @@
         grid-gap: 20px">
         
         {#if Object.keys(data.proposals).length > 0 }
-            {#each data.proposals as proposal}
+            {#each data.proposals as proposal, i}
                 {#if !isAnyProposalCounted(proposal)}
                     <ProposalCard {proposal}  endDate = {getComputedDate(proposal)}> 
                         
-                        <ChoiceSelectorPieChart choices ={data.choiceArray[increment()]}/>
+                        <ChoiceSelectorPieChart choices ={data.choiceArray[i]}/>
 
                         <div class="flex row j-end" style="margin-top: 3vw;">
 
@@ -97,7 +91,7 @@
                                 </div>
                             {:else}
 
-                                {#if !hasUserVoted(data.choiceArray[proposal.proposal_id - 1])}
+                                {#if !hasUserVoted(data.choiceArray[i])}
                                     <div class="mr-1em">
                                         <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
                                         Vote

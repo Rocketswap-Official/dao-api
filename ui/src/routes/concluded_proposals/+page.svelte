@@ -35,11 +35,11 @@
         grid-gap: 20px">
         
         {#if Object.keys(data.proposals).length > 0}
-            {#each data.proposals as proposal}
+            {#each data.proposals as proposal, i}
                 
                 <ProposalCard {proposal} endDate = {getComputedDate(proposal)}> 
                     
-                    <ChoiceSelectorPieChart choices ={data.choiceArray[proposal.proposal_id - 1]}/>
+                    <ChoiceSelectorPieChart choices ={data.choiceArray[i]}/>
 
                     <div class="flex row j-end" style="margin-top: 3vw;">
                         <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
