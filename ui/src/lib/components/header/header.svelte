@@ -71,10 +71,10 @@
 					<img src="{icon_notification}" alt="notification">
 				</button>
 			{/if}
-			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
+			<a href="https://t.me/rocketswap/190130" class="ml-1">
 				<img src="svg/logo-telegram.svg" alt="Telegram" />
 			</a>
-			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
+			<a href="https://rswp-io.medium.com/" class="ml-1">
 				<img class="logo_medium" src="svg/logo-medium.svg" alt="Medium" />
 			</a>
 			<a href="https://twitter.com/RSwapOfficial" class="ml-1">

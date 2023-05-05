@@ -39,10 +39,10 @@
             <ConnectButton />
         </ul>
         <div class="socials flex align-center space-between">
-            <a href="https://t.me/rocketswap" >
+            <a href="https://t.me/rocketswap/190130" >
                 <img src="svg/logo-telegram.svg" alt="Telegram" />
             </a>
-            <a href="https://medium.com/rswp-io">
+            <a href="https://rswp-io.medium.com/">
                 <img class="logo_medium" src="svg/logo-medium.svg" alt="Medium" />
             </a>
             <a href="https://twitter.com/RSwapOfficial">
