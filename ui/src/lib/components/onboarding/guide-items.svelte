@@ -44,8 +44,8 @@
 		margin-left: 15px;
     }
 	div{
-		/* justify-content: space-around; */
-        width: 100%;
+		justify-content: space-around;
+      	width: 100%;
 	}
 
 	@media screen and (min-width: 490px) {
@@ -60,7 +60,7 @@
 
 	@media screen and (min-width: 2560px) {
         h2{
-            font-size: 2em;
+          font-size: 2em;
         }
 	}
 </style>
