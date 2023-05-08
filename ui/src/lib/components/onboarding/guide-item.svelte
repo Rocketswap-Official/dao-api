@@ -13,7 +13,6 @@
 
 <style>
     .container{
-        /* background: var(--faq-item-background); */
         background-color: var(--panel-background-highlight);
         justify-content: space-evenly;
         border-radius: 8px;
@@ -54,7 +53,6 @@
 
     @media screen and (min-width: 490px) {
         .container{
-            background: var(--faq-item-background);
             border-radius: 8px;
             width: 160px;
             height: 130px;
@@ -71,7 +69,6 @@
 
     @media screen and (min-width: 2560px) {
         .container{
-            background: var(--faq-item-background);
             border-radius: 14px;
             width: 300px;
             height: 230px;
