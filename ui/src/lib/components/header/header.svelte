@@ -42,7 +42,7 @@
 					<a href="https://rocketswap.exchange/">
 						<img src="svg/logo-dao.svg" alt="Rocketswap" />
 					</a>
-					TAU: $0.066 | RSWP: $0.016
+					<!-- TAU: $0.066 | RSWP: $0.016 -->
 				</div>
 	
 				<span class="inline-flex align-center ml-1 weight-300 max-content">
@@ -109,7 +109,7 @@
 				</a>
 				<span class="subtitle inline-flex align-center  weight-300 max-content">
 					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
-					TAU: $0.066 | RSWP: $0.016
+					<!-- TAU: $0.066 | RSWP: $0.016 -->
 				</span>
 			</div>
 		</div>
