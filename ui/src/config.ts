@@ -9,7 +9,7 @@ import type {
 
 export const contracts = {
 	rswp: 'con_rswp_lst001',
-	dao: 'con_lite_dao_test20'
+	dao: 'con_lite_dao_beta'
 };
 
 export const blockserviceUrls = {

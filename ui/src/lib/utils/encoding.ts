@@ -6,8 +6,10 @@ export const encodeDateTime = (val) => {
 			val.getUTCFullYear(),
 			val.getUTCMonth() + 1,
 			val.getUTCDate(),
-			val.getUTCHours(),
-			val.getUTCMinutes(),
+			// val.getUTCHours(),
+			20,
+			// val.getUTCMinutes(),
+			20,
 			val.getUTCSeconds(),
 			val.getUTCMilliseconds()
 		]

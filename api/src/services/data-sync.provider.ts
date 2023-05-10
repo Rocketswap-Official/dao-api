@@ -321,15 +321,15 @@ export class DataSyncProvider implements OnModuleInit{
 			
 			if(Object.keys(daoMeta).length > 0){
 				//Proposals
-				const proposals = daoMeta.con_lite_dao_test20.Proposals
+				const proposals = daoMeta.con_lite_dao_beta.Proposals
 				//LPWeight
-				const lpWeight = daoMeta.con_lite_dao_test20.LPWeight
+				const lpWeight = daoMeta.con_lite_dao_beta.LPWeight
 				//BallotCount
-				const ballotCount = daoMeta.con_lite_dao_test20.BallotCount
+				const ballotCount = daoMeta.con_lite_dao_beta.BallotCount
 				//Ballots
-				const ballots = daoMeta.con_lite_dao_test20.Ballots
+				const ballots = daoMeta.con_lite_dao_beta.Ballots
 				//ProcessedBallots
-				const processedBallots = daoMeta.con_lite_dao_test20.ProcessedBallots
+				const processedBallots = daoMeta.con_lite_dao_beta.ProcessedBallots
 
 				let proposalArray = []
 				let userArray = []
@@ -584,7 +584,7 @@ export class DataSyncProvider implements OnModuleInit{
 	//blockservice data structure
 
 	/* *
-	con_lite_dao_test20
+	con_lite_dao_beta
 
 		Ballots
 

@@ -10,7 +10,7 @@ export interface I_Proposal {
     counted: boolean;
     verified: boolean;
     lp_weight: number;
-    results: {};
+    results?: {};
 }
 
 export interface I_Choice { 
