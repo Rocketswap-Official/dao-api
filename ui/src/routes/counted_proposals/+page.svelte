@@ -12,7 +12,7 @@
     import { handle_modal_open_voting, handle_modal_open_details } from '../../events';
     import { verifyTxnInfo } from '../../config';
     import { handleTxnInfo } from '../../routes/counted_proposals/txnFunc.Counted';
-    import { lwc_store, toast_store} from '$lib/store';
+    import { lwc_store, toast_store, wallet_store} from '$lib/store';
     import { isAnyProposalCounted } from '../../lib/utils/api.utils';
     import Legend from '../../lib/components/legend.svelte'
 
@@ -58,11 +58,15 @@
                         <ChoiceSelectorPieChart choices ={data.choiceArray[i]}/>
 
                         <div class="flex row j-end" style="margin-top: 3vw;">
+                          {#if $wallet_store.length > 0}
+
                             <div class="mr-1em">
                                 <Button id={proposal.proposal_id}  act = {()=>submitVerifyTxn(proposal.proposal_id)} style="">
                                     Verify
                                 </Button>
                             </div>
+
+                          {/if}
                             
                             <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
                                 Details

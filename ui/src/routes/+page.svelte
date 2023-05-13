@@ -82,23 +82,24 @@
                         <ChoiceSelectorPieChart choices ={data.choiceArray[i]}/>
 
                         <div class="flex row j-end" style="margin-top: 3vw;">
-
-                            {#if getCurrentDate() > getActualDate(proposal)}
-                                <div class="mr-1em">
-                                    <Button id={proposal.proposal_id}  act = {()=>submitCountTxn(proposal.proposal_id)} style="">
-                                        Count
-                                    </Button>
-                                </div>
-                            {:else}
-
-                                {#if !hasUserVoted(data.choiceArray[i])}
+                            {#if $wallet_store.length > 0}
+                                {#if getCurrentDate() > getActualDate(proposal)}
                                     <div class="mr-1em">
-                                        <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
-                                        Vote
+                                        <Button id={proposal.proposal_id}  act = {()=>submitCountTxn(proposal.proposal_id)} style="">
+                                            Count
                                         </Button>
                                     </div>
+                                {:else}
+
+                                    {#if !hasUserVoted(data.choiceArray[i])}
+                                        <div class="mr-1em">
+                                            <Button id={proposal.proposal_id}  act = {handle_modal_open_voting} style="">
+                                            Vote
+                                            </Button>
+                                        </div>
+                                    {/if}
+                                    
                                 {/if}
-                                
                             {/if}
                             
                             <Button id={proposal.proposal_id} act = {handle_modal_open_details} style="">
