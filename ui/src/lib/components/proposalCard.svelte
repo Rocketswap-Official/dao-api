@@ -6,6 +6,10 @@
 
     export let proposal: I_Proposal;
     export let endDate: Date;
+    
+    const getCurrentDate = (): Date => {
+            return new Date()
+    }
 
     
 </script>
@@ -14,7 +18,13 @@
 <div class="container">
     <div class="proposal-title">#{proposal.proposal_id} - {proposal.title}</div>
     <div class="metadata-container">
-        <div>Status: <span class="{proposal.state === 'concluded'?'text-secondary':'text-green'}" >{proposal.state}</span></div>
+        {#if getCurrentDate() > endDate}
+          <div>Status: <span class="text-secondary">ended</span></div>
+
+        {:else}
+            <div>Status: <span class="{proposal.state === 'concluded'?'text-secondary':'text-green'}" >{proposal.state}</span></div>
+        {/if}
+
         <div>Voting Ends: {endDate}</div>
     </div>
 
