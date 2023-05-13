@@ -1,28 +1,28 @@
 
 [
     {
-        "name": "Open",
+        "name": "Open Proposals",
         "logo": "icon_open",
         "path" : "/"
     },
     {
-        "name": "Counted",
+        "name": "Counted Proposals",
         "logo": "icon_counted",
         "path" : "/counted_proposals"
     },
     {
-        "name": "Concluded",
+        "name": "Concluded Proposals",
         "logo": "icon_concluded",
         "path" : "/concluded_proposals"
     },
     
     {
-        "name": "Create",
+        "name": "Create Proposal",
         "logo": "icon_create",
         "path" : "/create_proposal"
     },
     {
-        "name": "Voted",
+        "name": "Voted Proposals",
         "logo": "icon_voted",
         "path" : "/voted_proposals"
     },
