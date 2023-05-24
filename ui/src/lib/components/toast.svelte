@@ -23,7 +23,7 @@
             
         </div>
         {#if toast_data?.tauhqLink}
-            <div><a href={toast_data.tauhqLink}> view transaction on explorer</a></div>
+            <div><a href={toast_data.tauhqLink} target="_blank" rel="noopener noreferrer"> view transaction on explorer</a></div>
         {/if}
         
     </div>

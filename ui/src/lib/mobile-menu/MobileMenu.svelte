@@ -39,13 +39,13 @@
             <ConnectButton />
         </ul>
         <div class="socials flex align-center space-between">
-            <a href="https://t.me/rocketswap/190130" >
+            <a href="https://t.me/rocketswap/190130" target="_blank" rel="noopener noreferrer">
                 <img src="svg/logo-telegram.svg" alt="Telegram" />
             </a>
-            <a href="https://rswp-io.medium.com/">
+            <a href="https://rswp-io.medium.com/" target="_blank" rel="noopener noreferrer">
                 <img class="logo_medium" src="svg/logo-medium.svg" alt="Medium" />
             </a>
-            <a href="https://twitter.com/RSwapOfficial">
+            <a href="https://twitter.com/RSwapOfficial" target="_blank" rel="noopener noreferrer">
                 <img src="svg/logo-twitter.svg" alt="Twitter" />
             </a>
         </div>

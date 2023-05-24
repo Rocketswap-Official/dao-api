@@ -34,19 +34,19 @@
 		</div-->
 
 		<div class="flex row">
-			<a href="https://rocketswap.exchange/" class="desktop max-content">
+			<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer" class="desktop max-content">
 				<img src="svg/logo-rocket.svg" alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="desktop flex row max-content">
 				<div class="flex col justify-center ml-1 dao">
-					<a href="https://rocketswap.exchange/">
+					<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer">
 						<img src="svg/logo-dao.svg" alt="Rocketswap" />
 					</a>
 					<!-- TAU: $0.066 | RSWP: $0.016 -->
 				</div>
 	
 				<span class="inline-flex align-center ml-1 weight-300 max-content">
-					Powered by <a href="https://www.lamden.io" class="link-primary">Lamden</a>
+					Powered by <a href="https://www.lamden.io" target="_blank" rel="noopener noreferrer" class="link-primary">Lamden</a>
 				</span>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$balances_store.TAU} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noopener noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
@@ -71,13 +71,13 @@
 					<img src="{icon_notification}" alt="notification">
 				</button>
 			{/if}
-			<a href="https://t.me/rocketswap/190130" class="ml-1">
+			<a href="https://t.me/rocketswap/190130" target="_blank" rel="noopener noreferrer" class="ml-1">
 				<img src="svg/logo-telegram.svg" alt="Telegram" />
 			</a>
-			<a href="https://rswp-io.medium.com/" class="ml-1">
+			<a href="https://rswp-io.medium.com/" target="_blank" rel="noopener noreferrer" class="ml-1">
 				<img class="logo_medium" src="svg/logo-medium.svg" alt="Medium" />
 			</a>
-			<a href="https://twitter.com/RSwapOfficial" class="ml-1">
+			<a href="https://twitter.com/RSwapOfficial" target="_blank" rel="noopener noreferrer" class="ml-1">
 				<img src="svg/logo-twitter.svg" alt="Twitter" />
 			</a>
 		</div>
@@ -86,29 +86,29 @@
 <header class="mobile flex col" class:connected={$wallet_store}>
 	<div class="flex space-between">
 		<!--div class="corner left flex row">
-			<a href="https://rocketswap.exchange/" class="desktop max-content">
+			<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer" class="desktop max-content">
 				<img src={logo_rocket} alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="flex col grow">
-				<a href="https://rocketswap.exchange/" class="rocketswap">
+				<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer" class="rocketswap">
 					<img src={logo_dao} alt="Rocketswap" />
 				</a>
 				<span class="subtitle inline-flex align-center ml-1 weight-300 max-content">
-					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
+					Powered by <a href="https://www.lamden.io" target="_blank" rel="noopener noreferrer" class="link-primary  ml-1 mr-1em">Lamden</a>
 					TAU: $0.066 | RSWP: $0.016
 				</span>
 			</div>
 		</div-->
 		<div class="flex row">
-			<a href="https://rocketswap.exchange/" class="desktop max-content">
+			<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer" class="desktop max-content">
 				<img src="svg/logo-rocket.svg" alt="Rocketswap" class="rocketship-icon" />
 			</a>
 			<div class="flex col grow">
-				<a href="https://rocketswap.exchange/" class="rocketswap">
+				<a href="https://rocketswap.exchange/" target="_blank" rel="noopener noreferrer" class="rocketswap">
 					<img src="svg/logo-dao.svg" alt="Rocketswap Dao" />
 				</a>
 				<span class="subtitle inline-flex align-center  weight-300 max-content">
-					Powered by <a href="https://www.lamden.io" class="link-primary  ml-1 mr-1em">Lamden</a>
+					Powered by <a href="https://www.lamden.io" target="_blank" rel="noopener noreferrer" class="link-primary  ml-1 mr-1em">Lamden</a>
 					<!-- TAU: $0.066 | RSWP: $0.016 -->
 				</span>
 			</div>
@@ -116,7 +116,7 @@
 		{#if $wallet_store}
 			<div class="wallet-balance-address desktop flex align-center">
 				{`${$balances_store.TAU} TAU | `}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noopener noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
@@ -129,7 +129,7 @@
 		<div class="connected-row flex align-center center">
 			<div class="wallet-balance-address  flex align-center">
 				{`${$tau_balance} TAU |`}
-				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noreferrer">
+				<a class="primary-link" href="{`${tauhq_addresses($wallet_store)}`}" target="_blank" rel="noopener noreferrer">
 					{format_wallet_address($wallet_store)}
 				</a>
 			</div>
